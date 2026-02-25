@@ -32,11 +32,27 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${storeName}`
     },
     description: storeDescription,
-    manifest: '/manifest.json?v=5',
+    manifest: '/manifest.json?v=6',
     appleWebApp: {
       capable: true,
       title: storeName,
       statusBarStyle: 'default',
+    },
+    icons: {
+      icon: [
+        { url: '/favicon.ico?v=6', type: 'image/x-icon' },
+        { url: '/icon-512-v2.png?v=6', sizes: '512x512', type: 'image/png' },
+      ],
+      shortcut: ['/favicon.ico'],
+      apple: [
+        { url: '/apple-touch-icon.png?v=6', sizes: '180x180', type: 'image/png' },
+      ],
+      other: [
+        {
+          rel: 'apple-touch-icon-precomposed',
+          url: '/apple-touch-icon-precomposed.png?v=6',
+        },
+      ],
     },
     keywords: ["loja online", "roupas", "moda feminina", "acessórios", "catálogo virtual"],
     openGraph: {
