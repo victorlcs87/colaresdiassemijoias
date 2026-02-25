@@ -38,10 +38,6 @@ export async function generateMetadata(): Promise<Metadata> {
       title: storeName,
       statusBarStyle: 'default',
     },
-    icons: {
-      icon: '/icon-512-v2.png',
-      apple: '/apple-icon-v2.png',
-    },
     keywords: ["loja online", "roupas", "moda feminina", "acessórios", "catálogo virtual"],
     openGraph: {
       title: storeName,
