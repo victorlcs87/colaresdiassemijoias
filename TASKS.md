@@ -62,3 +62,12 @@ Status atual: **Fase 6 - QA e Finalização**
 - [x] Executar bateria de testes automatizados E2E (Playwright) para todas as novas funções.
 - [ ] Validar responsividade Mobile.
 - [ ] Deploy final na Vercel.
+
+### Fase 7: Condição do Produto (Novo/Seminovo)
+- [x] Criar script SQL para adicionar campo `condition` à tabela `products`.
+- [x] Atualizar tipagens TypeScript em `src/lib/types.ts`.
+- [x] Modificar controllers/actions em `src/actions/product.ts` para capturar a condição do form.
+- [x] Adicionar campo ao formulário de cadastro em `src/app/admin/products/new/page.tsx`.
+- [x] Adicionar campo ao formulário de edição em `src/app/admin/products/edit/[id]/page.tsx`.
+- [x] Melhorar UI do `ProductCard.tsx` para apresentar a condição.
+- [x] Mostrar a condição no `ProductDetailClient.tsx` (informação visível para o comprador).

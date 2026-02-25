@@ -149,7 +149,14 @@ export default function ProductDetailClient({
 
                     {/* Name + Favorite */}
                     <div className="flex justify-between items-start mb-2">
-                        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">{product.name}</h1>
+                        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center flex-wrap gap-3">
+                            {product.name}
+                            {product.condition === 'seminovo' && (
+                                <span className="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 font-bold text-xs uppercase tracking-wider border border-amber-200 dark:border-amber-800 mt-1">
+                                    Seminovo
+                                </span>
+                            )}
+                        </h1>
                         <button className="flex-shrink-0 ml-4 h-10 w-10 rounded-full border border-slate-200 dark:border-[#2a4538] flex items-center justify-center hover:text-primary hover:border-primary transition-colors">
                             <Heart className="h-5 w-5" />
                         </button>

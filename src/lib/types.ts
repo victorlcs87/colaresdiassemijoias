@@ -18,4 +18,5 @@ export interface Product {
     color?: string | null;
     cost_price?: number | null;
     promotional_price?: number | null;
+    condition?: 'novo' | 'seminovo';
 }

@@ -25,6 +25,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
     const [sizeOptions, setSizeOptions] = useState<string[]>([]);
     const [sizeInput, setSizeInput] = useState("");
     const [category, setCategory] = useState("");
+    const [condition, setCondition] = useState<"novo" | "seminovo">("novo");
     const [color, setColor] = useState("");
 
     // Sales Modal State
@@ -55,6 +56,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                 setStatusActive(data.is_available);
                 setImageGallery(data.image_gallery || (data.image_url ? [data.image_url] : []));
                 setCategory(data.category || "");
+                setCondition(data.condition || "novo");
                 setColor(data.color || "");
                 if (data.sizes) {
                     setSizesEnabled(true);
@@ -76,6 +78,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
         formData.append("is_available", statusActive.toString());
         formData.append("image_gallery", JSON.stringify(imageGallery));
         formData.append("category", category);
+        formData.append("condition", condition);
         if (sizesEnabled && sizeOptions.length > 0) {
             formData.append("sizes", JSON.stringify({ label: sizeLabel, options: sizeOptions }));
         }
@@ -285,19 +288,37 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                 </div>
                             </div>
 
-                            {/* Categoria */}
-                            <div className="bg-white dark:bg-[#152a20] p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] shadow-sm">
-                                <h3 className="text-base font-bold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
-                                    <Tag className="w-4 h-4 text-primary" />
-                                    Categoria
-                                </h3>
-                                <input
-                                    type="text"
-                                    value={category}
-                                    onChange={(e) => setCategory(e.target.value)}
-                                    className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
-                                    placeholder="Ex: Vestidos, Acessórios, Bebidas..."
-                                />
+                            {/* Categoria e Condição */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="bg-white dark:bg-[#152a20] p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] shadow-sm">
+                                    <h3 className="text-base font-bold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
+                                        <Tag className="w-4 h-4 text-primary" />
+                                        Categoria
+                                    </h3>
+                                    <input
+                                        type="text"
+                                        value={category}
+                                        onChange={(e) => setCategory(e.target.value)}
+                                        className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
+                                        placeholder="Ex: Vestidos, Acessórios, Bebidas..."
+                                    />
+                                </div>
+
+                                <div className="bg-white dark:bg-[#152a20] p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] shadow-sm">
+                                    <h3 className="text-base font-bold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
+                                        <Tag className="w-4 h-4 text-primary" />
+                                        Condição
+                                    </h3>
+                                    <select
+                                        name="condition"
+                                        value={condition}
+                                        onChange={(e) => setCondition(e.target.value as "novo" | "seminovo")}
+                                        className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white"
+                                    >
+                                        <option value="novo">Novo</option>
+                                        <option value="seminovo">Seminovo</option>
+                                    </select>
+                                </div>
                             </div>
 
                             {/* Cor do Produto */}

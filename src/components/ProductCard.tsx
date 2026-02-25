@@ -84,7 +84,14 @@ export function ProductCard({ product }: ProductCardProps) {
 
             <div className="p-5 flex flex-col flex-grow">
                 <div className="mb-2">
-                    <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">{product.category || "Novidade"}</p>
+                    <div className="flex items-center gap-2 mb-1">
+                        <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{product.category || "Novidade"}</p>
+                        {product.condition === 'seminovo' && (
+                            <span className="px-1.5 py-0.5 rounded-md bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 font-bold text-[10px] uppercase tracking-wider border border-amber-200 dark:border-amber-800">
+                                Seminovo
+                            </span>
+                        )}
+                    </div>
                     <h4 className="font-bold text-lg text-slate-900 dark:text-white leading-tight">
                         {product.name}
                     </h4>

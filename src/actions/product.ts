@@ -37,6 +37,7 @@ export async function createProduct(formData: FormData) {
     const cost_price = cost_price_str ? parseFloat(cost_price_str) : null;
     const promotional_price_str = formData.get("promotional_price") as string;
     const promotional_price = promotional_price_str ? parseFloat(promotional_price_str) : null;
+    const condition = (formData.get("condition") as 'novo' | 'seminovo') || 'novo';
     const category = (formData.get("category") as string) || null;
     const sizes_str = formData.get("sizes") as string;
     let sizes = null;
@@ -65,6 +66,7 @@ export async function createProduct(formData: FormData) {
         color,
         cost_price,
         promotional_price,
+        condition,
         stock_quantity,
     });
 
@@ -135,6 +137,7 @@ export async function updateProduct(id: string, formData: FormData) {
     const cost_price = cost_price_str ? parseFloat(cost_price_str) : null;
     const promotional_price_str = formData.get("promotional_price") as string;
     const promotional_price = promotional_price_str ? parseFloat(promotional_price_str) : null;
+    const condition = (formData.get("condition") as 'novo' | 'seminovo') || 'novo';
     const category = (formData.get("category") as string) || null;
     const sizes_str = formData.get("sizes") as string;
     let sizes = null;
@@ -163,6 +166,7 @@ export async function updateProduct(id: string, formData: FormData) {
         color,
         cost_price,
         promotional_price,
+        condition,
         stock_quantity,
     }).eq("id", id);
 

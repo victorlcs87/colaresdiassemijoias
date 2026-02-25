@@ -188,19 +188,36 @@ export default function AdminAddProductPage() {
                             </div>
                         </div>
 
-                        {/* Categoria */}
-                        <div className="bg-white dark:bg-[#152a20] p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] shadow-sm">
-                            <h3 className="text-base font-bold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
-                                <Tag className="w-4 h-4 text-primary" />
-                                Categoria
-                            </h3>
-                            <input
-                                type="text"
-                                value={category}
-                                onChange={(e) => setCategory(e.target.value)}
-                                className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
-                                placeholder="Ex: Vestidos, Acessórios, Bebidas..."
-                            />
+                        {/* Categoria e Condição */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-white dark:bg-[#152a20] p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] shadow-sm">
+                                <h3 className="text-base font-bold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
+                                    <Tag className="w-4 h-4 text-primary" />
+                                    Categoria
+                                </h3>
+                                <input
+                                    type="text"
+                                    value={category}
+                                    onChange={(e) => setCategory(e.target.value)}
+                                    className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
+                                    placeholder="Ex: Vestidos, Acessórios, Bebidas..."
+                                />
+                            </div>
+
+                            <div className="bg-white dark:bg-[#152a20] p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] shadow-sm">
+                                <h3 className="text-base font-bold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
+                                    <Tag className="w-4 h-4 text-primary" />
+                                    Condição
+                                </h3>
+                                <select
+                                    name="condition"
+                                    defaultValue="novo"
+                                    className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white"
+                                >
+                                    <option value="novo">Novo</option>
+                                    <option value="seminovo">Seminovo</option>
+                                </select>
+                            </div>
                         </div>
 
                         {/* Cor do Produto */}
