@@ -25,6 +25,15 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${storeName}`
     },
     description: storeDescription,
+    manifest: '/manifest.webmanifest',
+    appleWebApp: {
+      capable: true,
+      title: storeName,
+      statusBarStyle: 'default',
+    },
+    icons: {
+      apple: '/apple-icon.png',
+    },
     keywords: ["loja online", "roupas", "moda feminina", "acessórios", "catálogo virtual"],
     openGraph: {
       title: storeName,
