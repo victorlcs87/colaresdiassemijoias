@@ -1,7 +1,8 @@
 "use client";
 
-import { Search, Menu, Flower, X } from 'lucide-react';
+import { Search, Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { CartDrawer } from './CartDrawer';
@@ -53,8 +54,7 @@ export function MobileHeader() {
                         <Menu className="h-6 w-6 text-slate-900 dark:text-slate-100" />
                     </button>
                     <Link className="flex items-center gap-2" href="/">
-                        <Flower className="h-6 w-6 text-primary" />
-                        <h1 className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100">Lojinha da Lari</h1>
+                        <Image src="/logo-transparent.png" alt="Lojinha da Lari Logo" width={110} height={35} className="object-contain" priority />
                     </Link>
                 </div>
                 <div className="flex gap-1 items-center">
@@ -99,8 +99,7 @@ export function MobileHeader() {
                     <div className="absolute top-0 left-0 h-full w-[280px] bg-white dark:bg-[#152a20] shadow-2xl animate-in slide-in-from-left duration-300 flex flex-col">
                         <div className="flex items-center justify-between p-5 border-b border-[#e7f3ed] dark:border-[#2a4538]">
                             <Link href="/" className="flex items-center gap-2" onClick={() => setMenuOpen(false)}>
-                                <Flower className="h-6 w-6 text-primary" />
-                                <span className="font-bold text-lg text-slate-900 dark:text-white">Lojinha da Lari</span>
+                                <Image src="/logo-transparent.png" alt="Lojinha da Lari Logo" width={100} height={32} className="object-contain" />
                             </Link>
                             <button
                                 onClick={() => setMenuOpen(false)}

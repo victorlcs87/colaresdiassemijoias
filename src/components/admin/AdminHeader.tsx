@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Search, Bell, Menu, X, Package, PlusCircle, Settings, Store, Receipt, LogOut } from "lucide-react";
+import { Search, Bell, Menu, X, Package, PlusCircle, Settings, Receipt, LogOut } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { signOut } from "@/actions/auth";
 
@@ -71,11 +72,8 @@ export function AdminHeader() {
                         />
                         <div className="relative w-[280px] h-full bg-white dark:bg-[#152a20] shadow-2xl flex flex-col animate-in slide-in-from-left duration-300">
                             <div className="p-4 flex items-center justify-between border-b border-[#e7f3ed] dark:border-[#2a4538]">
-                                <Link href="/" onClick={() => setMenuOpen(false)} className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-slate-900 shadow-sm shrink-0">
-                                        <Store className="w-5 h-5" />
-                                    </div>
-                                    <h1 className="font-bold tracking-tight text-slate-900 dark:text-white">Loja Lari</h1>
+                                <Link href="/" onClick={() => setMenuOpen(false)} className="flex items-center gap-2">
+                                    <Image src="/logo-transparent.png" alt="Lojinha da Lari Logo" width={100} height={32} className="object-contain" />
                                 </Link>
                                 <button
                                     onClick={() => setMenuOpen(false)}
