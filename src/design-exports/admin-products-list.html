@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Products List CMS - Lojinha da Lari</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec80",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102219",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-slate-900">
+<span class="material-symbols-outlined font-bold">storefront</span>
+</div>
+<h1 class="font-bold text-lg tracking-tight">Lojinha da Lari</h1>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary font-semibold" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">add_box</span>
+<span>Add Product</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-100 dark:border-slate-800">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-background-light dark:bg-background-dark">
+<!-- Top Bar -->
+<header class="h-16 flex items-center justify-between px-8 bg-white dark:bg-background-dark border-b border-slate-200 dark:border-slate-800 shrink-0">
+<div class="max-w-md w-full relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-2 focus:ring-2 focus:ring-primary/50 text-sm" placeholder="Search products, orders, categories..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 relative">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-background-dark"></span>
+</button>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-semibold">Lari Oliveira</p>
+<p class="text-[10px] text-slate-500">Administrator</p>
+</div>
+<img class="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700" data-alt="Admin profile photo of Lari Oliveira" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw8rmGdNFGMBPKyM72-2II13qTmJSwDUCrdMcC0ouQhNfok1LzrjIlD4ZjKEQrqGO1lFNvSFKxKrd-eOqDw0Lvl2IW5Co6DGbj7Iiug-0sDH6a87JeTiDOsZHDOQ2VTlYfTbkuEv_rmOOL86EuESu_4P0PeKRivLb80-xB9LZH9skdFrgiI3NY76y2By7vjMAALtg1u83GgGLnIiPCEtLpTNznIIQcbNdoevVWGMrZwIt6O1P_x23XC0reUAE6BuwPjth87HNzImA_"/>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex-1 overflow-y-auto p-8">
+<!-- Content Header -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+<div>
+<h2 class="text-3xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Products</h2>
+<p class="text-slate-500 mt-1">Manage your shop catalog and inventory</p>
+</div>
+<button class="inline-flex items-center justify-center gap-2 bg-primary text-slate-900 font-bold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity shadow-sm">
+<span class="material-symbols-outlined">add</span>
+<span>Add New Product</span>
+</button>
+</div>
+<!-- Tabs/Filters -->
+<div class="mb-6 border-b border-slate-200 dark:border-slate-800">
+<div class="flex gap-8">
+<button class="border-b-2 border-primary pb-4 text-sm font-bold text-slate-900 dark:text-white">All Products (48)</button>
+<button class="border-b-2 border-transparent pb-4 text-sm font-medium text-slate-500 hover:text-slate-700">Active (42)</button>
+<button class="border-b-2 border-transparent pb-4 text-sm font-medium text-slate-500 hover:text-slate-700">Drafts (6)</button>
+<button class="border-b-2 border-transparent pb-4 text-sm font-medium text-slate-500 hover:text-slate-700">Archived</button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Image</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Product Name</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Category</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Price</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Status</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-800 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Handmade ceramic vase product thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9i4hCKOQZI7f6DGxuwh4vdV2fvJDggxvGXUfBK9seS6gH6AsDa63DmSzKU5SqH7GF09MY-T6mbCghP_CpJ0NmtHE432z-8_m2pqriXCuEisTYfdH55ozCN5fCfNwyXZN62Qo3FJI6_Iuop3vVXU4cLCXNhmP1yE-QdX2In9AUk1JsEjBj_XuGvhaK_zCYKWAgi8DcxSHgt7DdHUOhAWAjYkib3X_V0cjMNaTYmd9z22QwvbyJxBzfJMCFuWvJJmjTTyxrpHiQ03M4"/>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="font-semibold text-slate-900 dark:text-slate-100">Handmade Vase</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-slate-500">Home Decor</span>
+</td>
+<td class="px-6 py-4">
+<span class="font-medium text-slate-900 dark:text-slate-100">$45.00</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary/20 text-emerald-600 dark:text-primary">
+                                        Active
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-800 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Cotton tote bag product thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWoESFmNk7HN9VcmN4hqG3f58mc62xbSKbLf2WVCUkUQQK9yWn9Rzzt_2JzKG-nheU3T5sgHuagJc8a1Q89DHU2KSR8t50bSTDlsB5fRVkGHrKGgbWjXkDluKh014oebIlJE1UEz6pA5fZp7YhNL3u4zOhn-yQX0-iABeuoc8S5QY7kxinTlykulmAvF0RF43sfUwzfbAY1qxjA6IRRoP1NGFyRStueGBI6akOLup8_QZ4SemuEdSh35uCgmGqS0J8F9re0DRtyBvQ"/>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="font-semibold text-slate-900 dark:text-slate-100">Cotton Tote</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-slate-500">Accessories</span>
+</td>
+<td class="px-6 py-4">
+<span class="font-medium text-slate-900 dark:text-slate-100">$25.00</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+                                        Draft
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-800 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Ceramic plate product thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZAjqe5QeqBbUqTW-TbqGTeDSrcCTpDRLBj9Bnx0rDnZKoQJlkBtXg3nocp6YO83L_PowSFgx_7JVwO1ZooKnt7HPP6s-8vhdUGarNVbJpaNvOFDMl2_R_Scv5wQpv0mZL7afJcL88YuAeq6mKgWw3Exd7N7ZXsRyREDPvYsZq_d_gCvVt0t4SWpBQn8hAS0KlY7bKbhUYlI346m444UfWFgNGefS-r3FuYk4_opFFtenCF3ZbvpnMkB1MIC4ERrPY4W6iLuVlCQbQ"/>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="font-semibold text-slate-900 dark:text-slate-100">Ceramic Plate</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-slate-500">Kitchenware</span>
+</td>
+<td class="px-6 py-4">
+<span class="font-medium text-slate-900 dark:text-slate-100">$30.00</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary/20 text-emerald-600 dark:text-primary">
+                                        Active
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-800 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Wool scarf product thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9dqIsdkw2dvw31P2xM1Jkyr0mj13BKibmiB1GVLmSuzZX6zGeInKojFnY2PkNDy-532oq73g7T8RvRw4Xh_UQePFXFrCwRIKNlHbAUzFsCmbNB9tMqCIWY-7BVXJxYC8bS8iH1F7oGv2OuaI8HXtrBohWj_zrAw63Kh4-LKxFAwliWnL5VbYCi89VIOfcURtG9VPeCh7iQbYEr0wQbJL6WzS43DJakUCzRAkmCQIth_YT4SgtTLoC2uS8cJNIpLirNhHwvOnfNdz0"/>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="font-semibold text-slate-900 dark:text-slate-100">Wool Scarf</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-slate-500">Apparel</span>
+</td>
+<td class="px-6 py-4">
+<span class="font-medium text-slate-900 dark:text-slate-100">$55.00</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary/20 text-emerald-600 dark:text-primary">
+                                        Active
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<p class="text-xs text-slate-500">Showing <span class="font-bold text-slate-900 dark:text-slate-100">1</span> to <span class="font-bold text-slate-900 dark:text-slate-100">10</span> of <span class="font-bold text-slate-900 dark:text-slate-100">48</span> results</p>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-primary text-slate-900 font-bold text-xs">1</button>
+<button class="w-8 h-8 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs">2</button>
+<button class="w-8 h-8 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs">3</button>
+<span class="text-slate-400 mx-1">...</span>
+<button class="w-8 h-8 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs">5</button>
+<button class="p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

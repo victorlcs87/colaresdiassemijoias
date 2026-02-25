@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-primary: #13ec80;
+  --color-primary-dark: #0cc46a;
+  --color-whatsapp: #25D366;
+  --color-whatsapp-dark: #128C7E;
+  --color-background-light: #f6f8f7;
+  --color-background-dark: #102219;
+  
+  --font-display: var(--font-plus-jakarta);
+
+  --animate-fade-in-up: fade-in-up 0.6s ease-out both;
+  --animate-slide-in: slide-in 0.5s ease-out both;
+  --animate-fade-in: fade-in 0.4s ease-out both;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@layer base {
+  body {
+    font-family: var(--font-plus-jakarta), sans-serif;
+  }
+}

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mobile Listing Page</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec6d",
+                        "primary-dark": "#0fb854",
+                        "background-light": "#f8fcfa",
+                        "background-dark": "#102218",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a3324",
+                        "text-main": "#0d1b13",
+                        "text-secondary": "#4c9a6c",
+                        "border-light": "#e7f3ec",
+                        "border-dark": "#2a4a36",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Hide scrollbar for clean mobile look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex items-center justify-center font-display p-4">
+<!-- Mobile Container (iPhone 14 Pro Max approx width) -->
+<div class="w-full max-w-[430px] h-[932px] bg-background-light dark:bg-background-dark shadow-2xl rounded-[40px] overflow-hidden flex flex-col relative border-[8px] border-gray-900 dark:border-gray-800">
+<!-- Status Bar Placeholder -->
+<div class="h-12 w-full bg-background-light dark:bg-background-dark flex items-end justify-between px-6 pb-2 shrink-0 z-20">
+<span class="text-xs font-bold text-text-main dark:text-white">9:41</span>
+<div class="flex gap-1.5">
+<span class="w-4 h-4 rounded-full bg-text-main dark:bg-white opacity-20"></span>
+<span class="w-4 h-4 rounded-full bg-text-main dark:bg-white opacity-20"></span>
+<span class="w-4 h-4 rounded-full bg-text-main dark:bg-white opacity-100"></span>
+</div>
+</div>
+<!-- Sticky Header -->
+<header class="sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-border-light dark:border-border-dark px-5 py-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<button class="p-2 -ml-2 rounded-full hover:bg-border-light dark:hover:bg-border-dark transition-colors text-text-main dark:text-white">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold text-text-main dark:text-white tracking-tight">New Arrivals</h1>
+</div>
+<div class="flex items-center gap-3">
+<button class="relative p-2 rounded-full hover:bg-border-light dark:hover:bg-border-dark transition-colors text-text-main dark:text-white">
+<span class="material-symbols-outlined text-[24px]">search</span>
+</button>
+<button class="relative p-2 rounded-full hover:bg-border-light dark:hover:bg-border-dark transition-colors text-text-main dark:text-white">
+<span class="material-symbols-outlined text-[24px]">shopping_cart</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto no-scrollbar scroll-smooth pb-24">
+<!-- Filters & Sort Bar -->
+<div class="px-5 py-4 flex gap-3 overflow-x-auto no-scrollbar sticky top-0 z-0 bg-background-light dark:bg-background-dark">
+<button class="flex items-center gap-2 bg-text-main dark:bg-white text-white dark:text-text-main px-4 py-2.5 rounded-xl text-sm font-bold shadow-md active:scale-95 transition-transform shrink-0">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+                    Filters
+                </button>
+<button class="flex items-center gap-2 bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-main dark:text-white px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap active:bg-border-light dark:active:bg-border-dark transition-colors shrink-0">
+                    Sort by: Popular
+                    <span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+</button>
+<button class="flex items-center gap-2 bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-main dark:text-white px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap active:bg-border-light dark:active:bg-border-dark transition-colors shrink-0">
+                    Category
+                </button>
+</div>
+<!-- Product Grid -->
+<div class="px-5 grid grid-cols-2 gap-4">
+<!-- Product Card 1 -->
+<div class="group flex flex-col gap-3">
+<div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+<img alt="Linen Shirt" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Modern beige linen shirt on hanger" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPOap2AaF8Snu9Xj5bwmQ8zdVJhxOZ4rbXoTi4CCTvjtQ5np7YT6vt3hsuP0l03ghvVjdut8H-yUHbnrjtdylPBj2x15u804Qghh510_7qV2I3HblrJFwPYvCZl2PMqt5BzaicQ5NJMP072IjUb8cO1CLjISMigsJGXodslkGKKzZ0x78327kX6pJztv-jtD6iGwAUgj494zwj9oyAZSF_49JA9xU65TwfRICxna2D5rPQpsDSqdwFkK0KIYPzcgFGSROJqaJUPSBr"/>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 dark:bg-black/50 backdrop-blur-sm flex items-center justify-center text-text-main dark:text-white hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<div class="absolute bottom-3 left-3 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-2 py-1 rounded-lg text-xs font-bold text-text-main dark:text-white shadow-sm">
+                            New
+                        </div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-text-main dark:text-white font-bold text-base leading-tight truncate">Classic Linen Shirt</h3>
+<p class="text-text-secondary text-sm">Summer Collection</p>
+<div class="flex items-center justify-between mt-1">
+<span class="text-lg font-bold text-text-main dark:text-white">$45.00</span>
+<button class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-text-main hover:bg-primary-dark transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px] font-bold">chat</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group flex flex-col gap-3">
+<div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+<img alt="Urban Backpack" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Green minimal backpack isolated" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5ZvkFrSXCPxcah55osq6v50DhH7Af1tEqslOeboFw7sxznCA7u3dwbJ01UdIZlMf7SENgr9aO04aSf0fdUO7h5GlZMGo9dJhju3Icy0RP4__WGju8BUdUFEtnmRvP2bJb2r08vCm6asHstwM9E7zqHAz5aC-WqusUUhwQySW4jJw8PQP_kGSkqiu375RtfgE314VPCgDyT2uzvNwgqle22v3FRMQAbWe4ZdnuBoCKE4aKlSywLcMsPqRhf-VirKAshr_BpJLO2qd0"/>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 dark:bg-black/50 backdrop-blur-sm flex items-center justify-center text-text-main dark:text-white hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-text-main dark:text-white font-bold text-base leading-tight truncate">Urban Daypack</h3>
+<p class="text-text-secondary text-sm">Accessories</p>
+<div class="flex items-center justify-between mt-1">
+<span class="text-lg font-bold text-text-main dark:text-white">$89.00</span>
+<button class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-text-main hover:bg-primary-dark transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px] font-bold">chat</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group flex flex-col gap-3">
+<div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+<img alt="Sport Runner" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Red sport sneakers on white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFWx9Yj-s1bDzcmv7NC5JIxJX2qe-GkMwuRmErT7UXGpUk3FaiiMhMYUt1T7Aq1yGYfJGP8hXz00OgLZJhtbN6xYBefXSXDySuBpu3tap02c00Jf27TiWLKSRX5zXp8WCMBuEDe0aEbAOC3HiqTali_pAbUKP_Evbqx8iKmvPnDkzCcSxwIiWSRU1hmReSxQzKxRT4cXtzUp8nPas0xitOKDbCRrSbo3ZZAKnmJwxC2JZ84Ny7zAaTZmg5UGsP3POOZ1QY2kmorJmD"/>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 dark:bg-black/50 backdrop-blur-sm flex items-center justify-center text-text-main dark:text-white hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<div class="absolute bottom-3 left-3 bg-red-500 px-2 py-1 rounded-lg text-xs font-bold text-white shadow-sm">
+                            -20%
+                        </div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-text-main dark:text-white font-bold text-base leading-tight truncate">Pro Sport Runner</h3>
+<p class="text-text-secondary text-sm">Footwear</p>
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center gap-2">
+<span class="text-lg font-bold text-text-main dark:text-white">$95</span>
+<span class="text-sm text-text-secondary line-through">$120</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-text-main hover:bg-primary-dark transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px] font-bold">chat</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group flex flex-col gap-3">
+<div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+<img alt="Essential Tee" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="White cotton t-shirt flat lay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqZ3_oDvvonTOYPZy1TnUJaF_2d5yoEYc2zrKgIxdthJKsM9NgrEMm6JvOJ-1Ddb2llf75KektQzchzbqRZ_BiQCqFrpzXfzXbEU7Ieevcxo4q2L4EsCuM37GNzGZRNxaQwmBBh__AUdO26Nsts3kpSU8ld4IkD0gKN9rlUbRV9xjxpICoW8zg2lzaOiGThrvyV8Shyz74t_VOLDKxsPnsFYr5RYkw5G2nJCHZao-UHuxkbLlivjfSP_JoVlZo2uE3_A5xWsTZP0Du"/>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 dark:bg-black/50 backdrop-blur-sm flex items-center justify-center text-text-main dark:text-white hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-text-main dark:text-white font-bold text-base leading-tight truncate">Essential Cotton Tee</h3>
+<p class="text-text-secondary text-sm">Basics</p>
+<div class="flex items-center justify-between mt-1">
+<span class="text-lg font-bold text-text-main dark:text-white">$25.00</span>
+<button class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-text-main hover:bg-primary-dark transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px] font-bold">chat</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group flex flex-col gap-3">
+<div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+<img alt="Wool Sweater" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Knitted winter sweater texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUNGBweb8V0PaMd3VsrYnLAACEkI43GeCaG5Pp6biywLSraKx8-pFCx53AYlEmpuD3PtyvaBkzlggGKlwxpmMiY7dXrLCAJfHqO_fltbKlWs7QOVa4JgylKk9ZAhahmghKM6s9XS2F_04NyA_AANxU59QUQ3J0PWpnOy3UsqfF4R6i8eBqgzCSDSNHsMm-Xz1GESjDO7M0TYWT0TAjgUFUe0BdMQ54MMWikIV5UrfSEOYVsRaTdbjGsXv6TjyOnNzQ8aUlrzPL75bT"/>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 dark:bg-black/50 backdrop-blur-sm flex items-center justify-center text-text-main dark:text-white hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-text-main dark:text-white font-bold text-base leading-tight truncate">Merino Wool Sweater</h3>
+<p class="text-text-secondary text-sm">Winter Wear</p>
+<div class="flex items-center justify-between mt-1">
+<span class="text-lg font-bold text-text-main dark:text-white">$120.00</span>
+<button class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-text-main hover:bg-primary-dark transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px] font-bold">chat</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group flex flex-col gap-3">
+<div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+<img alt="Joggers" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Grey cotton joggers folded" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAD__T1LSBSjuMRj-SQWKs95OvIixorUbIN4Vwtf3SfQxJKjyvBddD5csGDhReaWVC0ZDci-XmdVqmZqchj4uKePNvHLbXTJiZa-FytQTNy0KyTtUcCux3amNalO-uVkAle8gemSraaEdeq-G51pYWc7UNgw68SCgkc4nHGO9eJYvSsh02mZcS6t8Ti3oimwEiaD_lMvs6hPV8R5WP_jo0m3Y0YtVLHI5oX5dq4ZHkj7ujprPbPrNTm2xFncMMxcGhM7gVNSQXfLUVt"/>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 dark:bg-black/50 backdrop-blur-sm flex items-center justify-center text-text-main dark:text-white hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-text-main dark:text-white font-bold text-base leading-tight truncate">Everyday Joggers</h3>
+<p class="text-text-secondary text-sm">Activewear</p>
+<div class="flex items-center justify-between mt-1">
+<span class="text-lg font-bold text-text-main dark:text-white">$55.00</span>
+<button class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-text-main hover:bg-primary-dark transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px] font-bold">chat</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More -->
+<div class="p-5 mt-2 flex justify-center">
+<button class="text-sm font-bold text-text-secondary hover:text-primary transition-colors flex items-center gap-1">
+                    Load More Products
+                    <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+<!-- Bottom Space for Navigation -->
+<div class="h-8"></div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="h-[84px] bg-white dark:bg-surface-dark border-t border-border-light dark:border-border-dark flex items-start justify-around px-2 pt-3 pb-6 shrink-0 z-20">
+<a class="flex flex-col items-center gap-1 w-16 text-text-secondary hover:text-text-main dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 w-16 text-text-main dark:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] text-primary group-hover:scale-110 transition-transform font-variation-settings-FILL">grid_view</span>
+<span class="text-[10px] font-bold">Catalog</span>
+</a>
+<div class="w-16 relative flex justify-center -mt-8">
+<button class="w-14 h-14 rounded-full bg-text-main dark:bg-white text-white dark:text-text-main shadow-lg flex items-center justify-center hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[28px]">search</span>
+</button>
+</div>
+<a class="flex flex-col items-center gap-1 w-16 text-text-secondary hover:text-text-main dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">favorite</span>
+<span class="text-[10px] font-medium">Saved</span>
+</a>
+<a class="flex flex-col items-center gap-1 w-16 text-text-secondary hover:text-text-main dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</a>
+</nav>
+<!-- Home Indicator -->
+<div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-gray-300 dark:bg-gray-600 rounded-full z-30"></div>
+</div>
+</body></html>

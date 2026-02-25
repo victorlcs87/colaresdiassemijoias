@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-commerce Home - Digital Catalog</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec80",
+                        "primary-dark": "#0ea65a",
+                        "background-light": "#f8fcfa",
+                        "background-dark": "#102219",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a3326",
+                        "text-main": "#0d1b14",
+                        "text-muted": "#4c9a73",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-100 font-display min-h-screen flex flex-col">
+<header class="sticky top-0 z-50 w-full border-b border-[#e7f3ed] dark:border-surface-dark bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm">
+<div class="max-w-[1440px] mx-auto px-6 py-4 flex items-center justify-between gap-6">
+<div class="flex items-center gap-3">
+<div class="size-8 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8261 30.5736C16.7203 29.8826 20.2244 29.4783 24 29.4783C27.7756 29.4783 31.2797 29.8826 34.1739 30.5736C36.9144 31.2278 39.9967 32.7669 41.3563 33.8352L24.8486 7.36089C24.4571 6.73303 23.5429 6.73303 23.1514 7.36089L6.64374 33.8352C8.00331 32.7669 11.0856 31.2278 13.8261 30.5736Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M39.998 35.764C39.9944 35.7463 39.9875 35.7155 39.9748 35.6706C39.9436 35.5601 39.8949 35.4259 39.8346 35.2825C39.8168 35.2403 39.7989 35.1993 39.7813 35.1602C38.5103 34.2887 35.9788 33.0607 33.7095 32.5189C30.9875 31.8691 27.6413 31.4783 24 31.4783C20.3587 31.4783 17.0125 31.8691 14.2905 32.5189C12.0012 33.0654 9.44505 34.3104 8.18538 35.1832C8.17384 35.2075 8.16216 35.233 8.15052 35.2592C8.09919 35.3751 8.05721 35.4886 8.02977 35.589C8.00356 35.6848 8.00039 35.7333 8.00004 35.7388C8.00004 35.739 8 35.7393 8.00004 35.7388C8.00004 35.7641 8.0104 36.0767 8.68485 36.6314C9.34546 37.1746 10.4222 37.7531 11.9291 38.2772C14.9242 39.319 19.1919 40 24 40C28.8081 40 33.0758 39.319 36.0709 38.2772C37.5778 37.7531 38.6545 37.1746 39.3151 36.6314C39.9006 36.1499 39.9857 35.8511 39.998 35.764ZM4.95178 32.7688L21.4543 6.30267C22.6288 4.4191 25.3712 4.41909 26.5457 6.30267L43.0534 32.777C43.0709 32.8052 43.0878 32.8338 43.104 32.8629L41.3563 33.8352C43.104 32.8629 43.1038 32.8626 43.104 32.8629L43.1051 32.865L43.1065 32.8675L43.1101 32.8739L43.1199 32.8918C43.1276 32.906 43.1377 32.9246 43.1497 32.9473C43.1738 32.9925 43.2062 33.0545 43.244 33.1299C43.319 33.2792 43.4196 33.489 43.5217 33.7317C43.6901 34.1321 44 34.9311 44 35.7391C44 37.4427 43.003 38.7775 41.8558 39.7209C40.6947 40.6757 39.1354 41.4464 37.385 42.0552C33.8654 43.2794 29.133 44 24 44C18.867 44 14.1346 43.2794 10.615 42.0552C8.86463 41.4464 7.30529 40.6757 6.14419 39.7209C4.99695 38.7775 3.99999 37.4427 3.99999 35.7391C3.99999 34.8725 4.29264 34.0922 4.49321 33.6393C4.60375 33.3898 4.71348 33.1804 4.79687 33.0311C4.83898 32.9556 4.87547 32.8935 4.9035 32.8471C4.91754 32.8238 4.92954 32.8043 4.93916 32.7889L4.94662 32.777L4.95178 32.7688ZM35.9868 29.004L24 9.77997L12.0131 29.004C12.4661 28.8609 12.9179 28.7342 13.3617 28.6282C16.4281 27.8961 20.0901 27.4783 24 27.4783C27.9099 27.4783 31.5719 27.8961 34.6383 28.6282C35.082 28.7342 35.5339 28.8609 35.9868 29.004Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-text-main dark:text-white text-xl font-bold tracking-tight">Catalog Shop</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-text-main dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Home</a>
+<a class="text-text-main dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Collections</a>
+<a class="text-text-main dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">About Us</a>
+<a class="text-text-main dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-4 flex-1 justify-end max-w-md">
+<div class="hidden sm:flex flex-1 items-center bg-[#e7f3ed] dark:bg-surface-dark rounded-full h-10 px-4 transition-all focus-within:ring-2 focus-within:ring-primary/50">
+<span class="material-symbols-outlined text-text-muted text-[20px]">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-sm px-2 text-text-main dark:text-gray-200 placeholder-text-muted" placeholder="Search products..." type="text"/>
+</div>
+<button class="bg-primary hover:bg-primary-dark text-text-main font-bold py-2 px-5 rounded-full text-sm transition-colors shadow-lg shadow-primary/20 whitespace-nowrap">
+                    Shop Now
+                </button>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-6 py-8 flex flex-col gap-12">
+<section class="relative w-full rounded-2xl overflow-hidden min-h-[500px] flex items-center justify-start px-6 md:px-16" data-alt="Woman shopping carrying bags in city street" style="background-image: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuAE3j2tceHGQVUHgL7RiqJUBqX58aJWLeIOhP2vgYUOpr7jcydKvvXlKwoM8taooSZ8okQAhxymidd2XzlyHuMP5p2VhD1Ln3vxizMqXFwZXtSOEACeCKOliMSgHZhckHXKUVihgeAM1JULFAErutFw0nc6NXvIQPcByRAsF2qMJIyimeQAEgvTDcRpBXlqF9iaZQhF4FowR5dBNJcOu4_TvprA3mv8OtISZ_-I-QPazU-Nfi7bh-EC4hnesu2EGqaN5Hj3l5sUt-Mf'); background-size: cover; background-position: center;">
+<div class="relative z-10 max-w-xl flex flex-col gap-6 animate-fade-in-up">
+<span class="inline-block px-3 py-1 bg-primary/20 backdrop-blur-md border border-primary/30 rounded-full text-primary font-bold text-xs uppercase tracking-wider w-fit">
+                    Spring / Summer 2024
+                </span>
+<h1 class="text-white text-5xl md:text-6xl font-black leading-[1.1] tracking-tight">
+                    New Collection <br/> <span class="text-primary">Arrivals</span>
+</h1>
+<p class="text-gray-200 text-lg font-medium leading-relaxed max-w-md">
+                    Discover the latest trends directly from our digital catalog. Handpicked styles just a message away.
+                </p>
+<button class="flex items-center gap-2 w-fit bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3.5 px-8 rounded-full text-base transition-all transform hover:scale-105 shadow-xl">
+<span class="material-symbols-outlined">chat</span>
+                    Shop via WhatsApp
+                </button>
+</div>
+</section>
+<section>
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-text-main dark:text-white text-2xl md:text-3xl font-bold tracking-tight">Featured Categories</h2>
+<a class="text-primary font-bold text-sm hover:underline flex items-center gap-1" href="#">View All <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="group relative aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-xl cursor-pointer">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Elegant beige dress on hanger" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBQTHXNMTK90lfuQgPG6tOv_WuHSeWDPkhWCLuAd_sz19faVgQYX0c5fAbTwslmel0-pQ5AaVBqp2rgfDGo9Bkf7xdwNTfBSEPRJnUzgo4u212qAn7pVzGFCNH6TN0-BdZATyKzLVKugdbBpsFBkVZWgQH6hCvgM3zfJysLZxjKEhiA3JJMtUiTmurq2IMq8g1DMCkkOuzzQ-bAJfjPxh1QAuXT4XQfhssVv2gQeCaCVXu6xJuzANftf4VQBfSHfOwj6X1TDvHLlzTw');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90"></div>
+<div class="absolute bottom-0 left-0 p-6 w-full">
+<p class="text-primary text-sm font-bold uppercase mb-1">Latest Styles</p>
+<h3 class="text-white text-2xl font-bold">Dresses</h3>
+</div>
+</div>
+<div class="group relative aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-xl cursor-pointer">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Golden jewelry accessories arrangement" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBhJqa1M71ks7PP_WuoRYW6P698lyk3qelUResi5VnWWfaWa3WOwj77KeR3S4izlfLZuxUumYqPqzgZC8qmgk7BUYO4Y_DW0z_30edBlX64jtpMKeZuFRCfk2Z7cX9cUYYqjtP5pTzlW5sgKYUJ8JZs8nrB_ThB0JZNpgD0YS880sAire8mpTtbhsZxMoE8AQhdEuM4tTaad5EfrmEq9he0DQ-ygAMB71rR1dzlMCiS8PU1VlmUZYSuj-1Iky8Cl3ypSwL9fAlK3UEe');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90"></div>
+<div class="absolute bottom-0 left-0 p-6 w-full">
+<p class="text-primary text-sm font-bold uppercase mb-1">Complete your look</p>
+<h3 class="text-white text-2xl font-bold">Accessories</h3>
+</div>
+</div>
+<div class="group relative aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-xl cursor-pointer">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Woman holding shopping bags walking" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCwyEuz25q4In2yRJs0KrVkM0k7f4TKMKHkwR2YI4rjK8YZnveHUFryP0IrJzN7aphPCsO9HDFeQSbjctGyuPf3HfGwo0IT2kIR-5YOF4XoNgjV_D5p7tTb4M29j-T1ZdbcEkUSeS6Dhsr9C5SWESxHCurKzW_0y3MyML_VhLRpCUm6wcJ58QNTG0vqJuF4Rca18GiA149qNYsumLAe9561QnsrlNba3PLmGccTGBKB3UDrTsQZ3Ra8bpvQdxgTyr353D6wZAUTkHSN');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90"></div>
+<div class="absolute bottom-0 left-0 p-6 w-full">
+<p class="text-primary text-sm font-bold uppercase mb-1">Up to 50% Off</p>
+<h3 class="text-white text-2xl font-bold">Sale</h3>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-text-main dark:text-white text-2xl md:text-3xl font-bold tracking-tight">Top Picks For You</h2>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div class="group flex flex-col gap-3">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg bg-gray-100 dark:bg-surface-dark">
+<img alt="Black velvet dress elegant pose" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Black velvet dress elegant pose" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvkmkHGHWqLJ777jEyCK9eJVL6ULiNoUhcqchn530TEBXiR50E_aOqS-NiFipjDcFqz09r4j-A0cD-SNmqoQqcQiTDaH-84pKq5g1ohbiSlJUfT4F-cmTvRT4dcA54yPDMuZPs8j1L_o8nvIBmQTRXFKzy8v_Xy4JHqBIKgZumHSxL7TBaSweb_2fuHv7VTHyzdPoabrC8KFwGEfaSFmIwFvmNt5AswS4BIUhexow6XA5xd0Lbw6GsYcKvcceoKu-2nwzeyMjWcpJw"/>
+<button class="absolute bottom-3 right-3 bg-white dark:bg-surface-dark p-2 rounded-full shadow-md text-[#25D366] hover:text-white hover:bg-[#25D366] transition-colors">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+</button>
+</div>
+<div>
+<div class="flex justify-between items-start">
+<h3 class="text-text-main dark:text-white font-semibold text-lg">Velvet Evening Gown</h3>
+<p class="text-text-main dark:text-white font-bold">$129.00</p>
+</div>
+<p class="text-text-muted text-sm mt-1">Evening Wear</p>
+</div>
+</div>
+<div class="group flex flex-col gap-3">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg bg-gray-100 dark:bg-surface-dark">
+<img alt="Summer floral casual dress" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Summer floral casual dress" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmaEyD8XxQ8nW0X3ztmFL1O5bQFDpZ_uTynfe51eSpHvB8rHN6VviTjljcDANYS0UsNOAkTvvCBlvC-AHtey9kgN1Pp32JI8uFRJQM2zecKpt-1uSflrDYeOxSzMB-HFXAY-I3xqgPSStrbV9QhGzPjxZFlSuZA1augZE0kbsy9MVREhxLYH0X1QIuFPvX0NO-NcdQUDQdN8g4oV-l4rZ-enzXWcCmgUsyP9B-wO_rEMSCbaxCN0I5qR-VWgWyC1PHzMSG-XqadRpQ"/>
+<button class="absolute bottom-3 right-3 bg-white dark:bg-surface-dark p-2 rounded-full shadow-md text-[#25D366] hover:text-white hover:bg-[#25D366] transition-colors">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+</button>
+</div>
+<div>
+<div class="flex justify-between items-start">
+<h3 class="text-text-main dark:text-white font-semibold text-lg">Floral Summer Dress</h3>
+<p class="text-text-main dark:text-white font-bold">$89.00</p>
+</div>
+<p class="text-text-muted text-sm mt-1">Casual</p>
+</div>
+</div>
+<div class="group flex flex-col gap-3">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg bg-gray-100 dark:bg-surface-dark">
+<img alt="Blue denim jacket outfit" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Blue denim jacket outfit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9O489ileDAiZUwPWlTDXfYA55v4urn_LI0tr8LZZ5q8bHFvdN7YhkBVO9P3WHbrBNMcT0ELTTh5KakRDBOoxXxeDNFUGaDwBLg_4eUPGRLgv5e3tn6WUIULw-fXyQJbjK3wBiFjU9SaBTfjOzuedyztLK3symGDqKwP7YV9Mq_srq4CgswVCufo4qcRIq1uBH26owiQ6D5thmC1Izi_ba3El2Ei_4aSSx4XVZ7k5R5Aep3ljZJmVIx57xbQH8QMJqey0VuPPTYCMl"/>
+<button class="absolute bottom-3 right-3 bg-white dark:bg-surface-dark p-2 rounded-full shadow-md text-[#25D366] hover:text-white hover:bg-[#25D366] transition-colors">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+</button>
+</div>
+<div>
+<div class="flex justify-between items-start">
+<h3 class="text-text-main dark:text-white font-semibold text-lg">Classic Denim Jacket</h3>
+<p class="text-text-main dark:text-white font-bold">$75.00</p>
+</div>
+<p class="text-text-muted text-sm mt-1">Outerwear</p>
+</div>
+</div>
+<div class="group flex flex-col gap-3">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg bg-gray-100 dark:bg-surface-dark">
+<img alt="White minimalist blouse" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="White minimalist blouse" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvJPfjoFMMAmA-IcID9x2tN5dLemeFSADKcb-YtHtYouyyDbjiBn19OBB49pZuuUcr-k67NFJoV0e2K_Lrl6oxTugCUqABCstFDrLduPIBAv0qWtHCuCMUARdsqt73ibwVlZ7UmfHLnY5pNQW_H635NVwKx6iI3Ax4_JWkLjNPl-wpDjxlvz9tH-Vo73jhOKhy0ePmXuu7mYiU9LURdsTUb806gLuhnawohgNjUpc5xrQgHwFULVDNHcabqa1tABtV0Ke3ZWkZ_apV"/>
+<button class="absolute bottom-3 right-3 bg-white dark:bg-surface-dark p-2 rounded-full shadow-md text-[#25D366] hover:text-white hover:bg-[#25D366] transition-colors">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+</button>
+</div>
+<div>
+<div class="flex justify-between items-start">
+<h3 class="text-text-main dark:text-white font-semibold text-lg">Silk Blouse</h3>
+<p class="text-text-main dark:text-white font-bold">$110.00</p>
+</div>
+<p class="text-text-muted text-sm mt-1">Workwear</p>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-surface-light dark:bg-surface-dark rounded-2xl p-8 md:p-12 text-center">
+<h2 class="text-text-main dark:text-white text-3xl font-bold mb-2">How It Works</h2>
+<p class="text-text-muted mb-10 max-w-xl mx-auto">Seamless shopping experience directly through your favorite messaging app.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="flex flex-col items-center gap-4">
+<div class="size-16 rounded-full bg-[#e7f3ed] dark:bg-background-dark flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">favorite</span>
+</div>
+<h3 class="text-xl font-bold text-text-main dark:text-white">1. Choose your favorites</h3>
+<p class="text-text-muted dark:text-gray-400 text-sm max-w-xs">Browse our latest collection and find the styles that speak to you.</p>
+</div>
+<div class="flex flex-col items-center gap-4 relative">
+<div class="hidden md:block absolute top-8 -left-1/2 w-full h-[2px] bg-[#e7f3ed] dark:bg-background-dark -z-10"></div>
+<div class="size-16 rounded-full bg-[#e7f3ed] dark:bg-background-dark flex items-center justify-center text-primary relative z-10">
+<span class="material-symbols-outlined text-3xl">chat</span>
+</div>
+<h3 class="text-xl font-bold text-text-main dark:text-white">2. Chat on WhatsApp</h3>
+<p class="text-text-muted dark:text-gray-400 text-sm max-w-xs">Click the chat button on any product to inquire about size and availability.</p>
+</div>
+<div class="flex flex-col items-center gap-4 relative">
+<div class="hidden md:block absolute top-8 -left-1/2 w-full h-[2px] bg-[#e7f3ed] dark:bg-background-dark -z-10"></div>
+<div class="size-16 rounded-full bg-[#e7f3ed] dark:bg-background-dark flex items-center justify-center text-primary relative z-10">
+<span class="material-symbols-outlined text-3xl">local_shipping</span>
+</div>
+<h3 class="text-xl font-bold text-text-main dark:text-white">3. Receive at home</h3>
+<p class="text-text-muted dark:text-gray-400 text-sm max-w-xs">Confirm your order securely and get your fashion delivered to your door.</p>
+</div>
+</div>
+</section>
+<section class="bg-[#f0f9f5] dark:bg-surface-dark/50 rounded-2xl p-8 md:p-12">
+<div class="text-center mb-10">
+<h2 class="text-text-main dark:text-white text-3xl font-bold tracking-tight">What our customers are saying</h2>
+<p class="text-text-muted mt-2">Real feedback from our happy fashion lovers</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-sm border border-transparent hover:border-primary/20 transition-all">
+<div class="flex gap-1 text-yellow-400 mb-4">
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+</div>
+<p class="text-text-main dark:text-gray-200 text-sm leading-relaxed mb-6">
+                        "I was skeptical about buying clothes through a catalog, but the process was so simple! The WhatsApp team helped me pick the right size, and the dress fits perfectly."
+                    </p>
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-gray-200 overflow-hidden">
+<img alt="Customer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATBgtNhgkEWyK-fyWLA8HnkKdAmP-BzAg5eSjItp9Zsie2aIcjRqGnJdNo7DPKW5aw0a7y1G2ufICi5GR5XIpll79T5RNgb3Tc3sbpnMEO4ViHrzHi1RUEamfGAlkn0cnkIWs4kQSoXgE8m4pfPYrz1nfa-wTuDxOHgyxv1vJ3n1yktyN-VhkfjkK-NTcilcVGCLUO7PA291IveVPfCRRL3CrFiIMDhWtjLmS0hjViDdtl-b2AtFdXKjPgu5FXQ440EwS-0aWGUuwG"/>
+</div>
+<div>
+<p class="font-bold text-sm text-text-main dark:text-white">Sarah Jenkins</p>
+<p class="text-xs text-text-muted">Verified Buyer</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-sm border border-transparent hover:border-primary/20 transition-all">
+<div class="flex gap-1 text-yellow-400 mb-4">
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+</div>
+<p class="text-text-main dark:text-gray-200 text-sm leading-relaxed mb-6">
+                        "The quality of the silk blouse exceeded my expectations. Delivery was fast, and the packaging was beautiful. Will definitely be ordering again!"
+                    </p>
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-gray-200 overflow-hidden">
+<img alt="Customer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2on0em6NKX-9GE5l08LcpjJbUs0HoEMR9DR0Esik3mYTYU8YxH2Fd-uBJ8NkfML7Z7ddaK_AvGsnhWj11ajy92QYO5ia2fouFd3WTXgOUTZHMR0UexCIfaPNaRrNdFtbgp4CQUrFuSBPwYwc8Ys6Mgn63ruSVd8TPi8MyFy4uYpBE-hYJ3gxDtX-_BOkrGJ51R72IUIq_GXr8ONO4LIed-c3v2K7p7CvdFfxz8DQlRxLNxtxVOOA8V2WsSLR4D7gzPyDsfnH0_uJY"/>
+</div>
+<div>
+<p class="font-bold text-sm text-text-main dark:text-white">Elena Rodriguez</p>
+<p class="text-xs text-text-muted">Verified Buyer</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-sm border border-transparent hover:border-primary/20 transition-all">
+<div class="flex gap-1 text-yellow-400 mb-4">
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+<span class="material-symbols-outlined text-[20px] fill-current">star</span>
+</div>
+<p class="text-text-main dark:text-gray-200 text-sm leading-relaxed mb-6">
+                        "Love the personal touch of chatting with a real person. They recommended some accessories that matched perfectly with my new outfit."
+                    </p>
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-gray-200 overflow-hidden">
+<img alt="Customer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTs5cWdBQXA-D4Q94LjP8gAnrDdXdC4JE9-zMcjd0_kjMhX9Y2ksC27JI42ovCymABhxU4FEdrzXaF5c4J1oHUJgxP_YB_yZHjVuHFsnJ6WjCDe6Iayr0LZufJRe3HP0Q7SDVVFOQaFFNQUFEeakbIJxRYi5NJFhZRZdTYLbX0Wsklyj5GfnkrgTHMyEB5kWdM3pXv8YPo393XQRhZt5-2Cpdc9aJgR_zLaeRguBpmhUYskEV5ZQYyH97Z9riJQzsy9r_0fWwAv_St"/>
+</div>
+<div>
+<p class="font-bold text-sm text-text-main dark:text-white">Michael Chang</p>
+<p class="text-xs text-text-muted">Verified Buyer</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-surface-light dark:bg-surface-dark border-t border-[#e7f3ed] dark:border-background-dark mt-auto relative pt-12">
+<div class="max-w-[1440px] mx-auto px-6">
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12 pb-12">
+<div class="col-span-1 lg:col-span-1 flex flex-col gap-6">
+<div class="flex items-center gap-2 text-text-main dark:text-white">
+<div class="size-8 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8261 30.5736C16.7203 29.8826 20.2244 29.4783 24 29.4783C27.7756 29.4783 31.2797 29.8826 34.1739 30.5736C36.9144 31.2278 39.9967 32.7669 41.3563 33.8352L24.8486 7.36089C24.4571 6.73303 23.5429 6.73303 23.1514 7.36089L6.64374 33.8352C8.00331 32.7669 11.0856 31.2278 13.8261 30.5736Z" fill="currentColor"></path>
+</svg>
+</div>
+<span class="text-xl font-bold tracking-tight">Catalog Shop</span>
+</div>
+<p class="text-sm text-text-muted dark:text-gray-400 leading-relaxed">
+                        Modern fashion, simplified shopping. Connecting you directly to the latest trends via WhatsApp for a personalized experience.
+                    </p>
+<div class="flex gap-3">
+<a class="size-9 rounded-full bg-[#f0f9f5] dark:bg-background-dark text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 shadow-sm" href="#">
+<span class="material-symbols-outlined text-lg">public</span>
+</a>
+<a class="size-9 rounded-full bg-[#f0f9f5] dark:bg-background-dark text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 shadow-sm" href="#">
+<span class="material-symbols-outlined text-lg">thumb_up</span>
+</a>
+<a class="size-9 rounded-full bg-[#f0f9f5] dark:bg-background-dark text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 shadow-sm" href="#">
+<span class="material-symbols-outlined text-lg">camera_alt</span>
+</a>
+</div>
+</div>
+<div class="col-span-1">
+<h4 class="font-bold text-text-main dark:text-white text-lg mb-5">Quick Links</h4>
+<ul class="space-y-3 text-sm text-text-muted dark:text-gray-400">
+<li><a class="hover:text-primary transition-colors hover:translate-x-1 inline-block transform" href="#">About Us</a></li>
+<li><a class="hover:text-primary transition-colors hover:translate-x-1 inline-block transform" href="#">FAQ</a></li>
+<li><a class="hover:text-primary transition-colors hover:translate-x-1 inline-block transform" href="#">How to Buy</a></li>
+<li><a class="hover:text-primary transition-colors hover:translate-x-1 inline-block transform" href="#">New Arrivals</a></li>
+<li><a class="hover:text-primary transition-colors hover:translate-x-1 inline-block transform" href="#">Returns Policy</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h4 class="font-bold text-text-main dark:text-white text-lg mb-5">Contact &amp; Support</h4>
+<div class="flex flex-col gap-4">
+<a class="group flex items-center gap-3 bg-[#25D366]/10 p-3 rounded-lg border border-[#25D366]/20 hover:bg-[#25D366] transition-all duration-300" href="https://wa.me/15551234567">
+<div class="bg-[#25D366] text-white p-2 rounded-full group-hover:bg-white group-hover:text-[#25D366] transition-colors">
+<span class="material-symbols-outlined text-xl block">chat</span>
+</div>
+<div>
+<p class="text-xs text-text-muted dark:text-gray-400 font-medium group-hover:text-white/90">WhatsApp Support</p>
+<p class="text-sm font-bold text-text-main dark:text-white group-hover:text-white">+1 (555) 123-4567</p>
+</div>
+</a>
+<a class="flex items-center gap-3 text-sm text-text-muted dark:text-gray-400 hover:text-primary transition-colors" href="mailto:hello@catalogshop.com">
+<span class="material-symbols-outlined text-lg">mail</span>
+                            hello@catalogshop.com
+                        </a>
+</div>
+</div>
+<div class="col-span-1">
+<h4 class="font-bold text-text-main dark:text-white text-lg mb-5">Our Guarantee</h4>
+<div class="bg-[#f0f9f5] dark:bg-background-dark/50 rounded-xl p-4 flex flex-col gap-4 border border-[#e7f3ed] dark:border-surface-light/5">
+<div class="flex items-center gap-3">
+<div class="bg-surface-light dark:bg-surface-dark p-2 rounded-full text-primary shadow-sm">
+<span class="material-symbols-outlined text-xl">verified_user</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-sm text-text-main dark:text-white">Verified Business</span>
+<span class="text-xs text-text-muted">Officially Registered</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-surface-light dark:bg-surface-dark p-2 rounded-full text-primary shadow-sm">
+<span class="material-symbols-outlined text-xl">lock</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-sm text-text-main dark:text-white">Safe Connection</span>
+<span class="text-xs text-text-muted">SSL Encrypted</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-surface-light dark:bg-surface-dark p-2 rounded-full text-[#25D366] shadow-sm">
+<span class="material-symbols-outlined text-xl">support_agent</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-sm text-text-main dark:text-white">Official Support</span>
+<span class="text-xs text-text-muted">Direct WhatsApp Line</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="border-t border-[#e7f3ed] dark:border-surface-light/10 py-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-text-muted dark:text-gray-500">
+<p>© 2024 Catalog Shop. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-primary" href="#">Privacy Policy</a>
+<a class="hover:text-primary" href="#">Terms of Service</a>
+<a class="hover:text-primary" href="#">Sitemap</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

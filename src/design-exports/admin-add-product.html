@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Add Product - Lojinha da Lari</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec80",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102219",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: #13ec80 !important;
+            box-shadow: 0 0 0 1px #13ec80 !important;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 flex-shrink-0 border-r border-primary/10 bg-white dark:bg-background-dark/50 flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="size-8 bg-primary rounded flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined text-xl font-bold">storefront</span>
+</div>
+<h2 class="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100">Lari Admin</h2>
+</div>
+<nav class="flex-1 px-4 space-y-1 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/20 text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-sm font-semibold">Products</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-sm font-medium">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Customers</span>
+</a>
+<div class="pt-4 pb-2 px-3">
+<p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Settings</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">General Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-primary/10">
+<div class="flex items-center gap-3 px-2 py-3 bg-slate-100 dark:bg-slate-800/50 rounded-xl">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary overflow-hidden">
+<img class="object-cover size-full" data-alt="Admin user profile picture profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCheFvi5-GwLWAMGGUw2mliMHw59a5nxdtOGB1Fe8EZjG0rKWif0Irq6A5np4K4skgdWQWCu_Uu4zPiuwpT8RYcJv0rfJ74ERqvtNLW84i3JXhuCL_4emmonJdhJTArEVFSIlVXAND4umHbwJhBKeGqmb9CoGTFXzOlTdHxxLKgHPdVKPp771uJalXMfAIygMacnUdDunDPU54iWKAyV8OI37U_isoxulc8jVd_-1zcUx57MCjM1ImkSXyFLjC2dgDdouE61xa8ycbh"/>
+</div>
+<div class="overflow-hidden">
+<p class="text-sm font-bold truncate">Larissa Mendes</p>
+<p class="text-xs text-slate-500 truncate">Store Owner</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Top Nav Bar -->
+<header class="h-16 border-b border-primary/10 bg-white dark:bg-background-dark/80 backdrop-blur-md flex items-center justify-between px-8 z-10">
+<div class="flex items-center gap-4 flex-1">
+<label class="relative w-full max-w-md">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+<span class="material-symbols-outlined text-xl">search</span>
+</span>
+<input class="block w-full pl-10 pr-3 py-2 border-none bg-slate-100 dark:bg-slate-800/50 rounded-lg text-sm focus:ring-1 focus:ring-primary placeholder:text-slate-400" placeholder="Search orders, products..." type="text"/>
+</label>
+</div>
+<div class="flex items-center gap-4">
+<button class="size-10 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="size-10 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-6 w-px bg-slate-200 dark:bg-slate-700"></div>
+<button class="flex items-center gap-2 px-3 py-2 bg-primary text-background-dark font-bold text-sm rounded-lg hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-lg">save</span>
+                        Save Product
+                    </button>
+</div>
+</header>
+<!-- Scrollable Area -->
+<div class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark p-8">
+<div class="max-w-5xl mx-auto">
+<!-- Page Header -->
+<div class="mb-8 flex items-center justify-between">
+<div>
+<div class="flex items-center gap-2 text-slate-500 text-sm mb-1">
+<span>Products</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-primary font-medium">Add New</span>
+</div>
+<h1 class="text-3xl font-extrabold text-slate-900 dark:text-slate-100">Add New Product</h1>
+</div>
+<button class="px-4 py-2 text-sm font-semibold border border-primary/30 text-primary rounded-lg hover:bg-primary/5 transition-colors">
+                            Discard Changes
+                        </button>
+</div>
+<div class="grid grid-cols-3 gap-8">
+<!-- Left Column: Primary Details -->
+<div class="col-span-2 space-y-6">
+<!-- Basic Information Card -->
+<div class="bg-white dark:bg-slate-900/40 p-6 rounded-xl border border-primary/5 shadow-sm">
+<h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">info</span>
+                                    Basic Information
+                                </h3>
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Product Name</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-sm focus:outline-none transition-all" placeholder="e.g. Handmade Ceramic Vase" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Description</label>
+<textarea class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-sm focus:outline-none transition-all" placeholder="Describe the materials, size, and unique features..." rows="4"></textarea>
+</div>
+</div>
+</div>
+<!-- Pricing & Inventory -->
+<div class="bg-white dark:bg-slate-900/40 p-6 rounded-xl border border-primary/5 shadow-sm">
+<h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">payments</span>
+                                    Pricing &amp; Inventory
+                                </h3>
+<div class="grid grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Price (R$)</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">R$</span>
+<input class="w-full pl-10 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-sm focus:outline-none transition-all" placeholder="0.00" type="number"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">SKU Code</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-sm focus:outline-none transition-all" placeholder="LARI-001" type="text"/>
+</div>
+</div>
+</div>
+<!-- Media Upload -->
+<div class="bg-white dark:bg-slate-900/40 p-6 rounded-xl border border-primary/5 shadow-sm">
+<h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">image</span>
+                                    Product Images
+                                </h3>
+<div class="border-2 border-dashed border-primary/20 bg-primary/5 rounded-xl p-10 flex flex-col items-center justify-center text-center">
+<div class="size-16 bg-primary/20 rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">upload_file</span>
+</div>
+<h4 class="text-sm font-bold">Drop your images here</h4>
+<p class="text-xs text-slate-500 mt-1 mb-6">Support JPEG, PNG and WEBP. Max size 5MB.</p>
+<button class="px-6 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-bold rounded-lg hover:shadow-md transition-all">
+                                        Browse Files
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Right Column: Meta & Sidebar Details -->
+<div class="col-span-1 space-y-6">
+<!-- Status Card -->
+<div class="bg-white dark:bg-slate-900/40 p-6 rounded-xl border border-primary/5 shadow-sm">
+<h3 class="text-base font-bold mb-4">Product Status</h3>
+<div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700">
+<div class="flex items-center gap-3">
+<div class="size-3 rounded-full bg-primary animate-pulse"></div>
+<span class="text-sm font-semibold">Active</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<p class="text-xs text-slate-500 mt-4 leading-relaxed">
+                                    Inactive products will be hidden from the storefront but remain in your database.
+                                </p>
+</div>
+<!-- Category & Tags Card -->
+<div class="bg-white dark:bg-slate-900/40 p-6 rounded-xl border border-primary/5 shadow-sm">
+<h3 class="text-base font-bold mb-4">Organization</h3>
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Category</label>
+<select class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-sm focus:outline-none transition-all">
+<option>Select category</option>
+<option>Home Decor</option>
+<option>Stationery</option>
+<option>Accessories</option>
+<option>Handmade Crafts</option>
+</select>
+</div>
+<div>
+<label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Collection</label>
+<select class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-sm focus:outline-none transition-all">
+<option>Winter 2024</option>
+<option>Summer Special</option>
+<option>Limited Edition</option>
+</select>
+</div>
+<div>
+<label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Tags</label>
+<div class="flex flex-wrap gap-2 mb-2">
+<span class="bg-primary/10 text-primary px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1">
+                                                New <span class="material-symbols-outlined text-[12px] cursor-pointer">close</span>
+</span>
+<span class="bg-primary/10 text-primary px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1">
+                                                Eco <span class="material-symbols-outlined text-[12px] cursor-pointer">close</span>
+</span>
+</div>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-sm focus:outline-none transition-all" placeholder="Add tag..." type="text"/>
+</div>
+</div>
+</div>
+<!-- SEO Summary Card (Secondary) -->
+<div class="bg-primary/5 p-6 rounded-xl border border-primary/10 shadow-sm overflow-hidden relative">
+<div class="absolute top-0 right-0 p-2 opacity-10">
+<span class="material-symbols-outlined text-6xl">travel_explore</span>
+</div>
+<h3 class="text-base font-bold mb-2">SEO Preview</h3>
+<p class="text-xs text-blue-500 underline mb-1">lojinhadalari.com/product/handmade-vase</p>
+<p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
+                                    Handmade Ceramic Vase - Unique home decor piece crafted with sustainable materials by Lari...
+                                </p>
+<button class="mt-4 text-[10px] font-bold text-primary uppercase tracking-wider flex items-center gap-1">
+                                    Edit SEO Settings
+                                    <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Final Action Bar (Mobile Responsive or Bottom Sticky) -->
+<div class="mt-12 mb-24 pt-8 border-t border-primary/10 flex justify-end gap-4">
+<button class="px-8 py-3 text-sm font-bold border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-100 transition-colors">
+                            Save as Draft
+                        </button>
+<button class="px-12 py-3 bg-primary text-background-dark font-black text-sm rounded-lg hover:brightness-110 shadow-lg shadow-primary/20 transition-all">
+                            Publish Product
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
