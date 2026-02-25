@@ -39,8 +39,14 @@ export async function generateMetadata(): Promise<Metadata> {
       statusBarStyle: 'default',
     },
     icons: {
-      icon: '/icon-512x512.png?v=2',
-      apple: '/apple-icon.png?v=2',
+      icon: [
+        { url: '/icon-192x192.png?v=3', sizes: '192x192', type: 'image/png' },
+        { url: '/icon-512x512.png?v=3', sizes: '512x512', type: 'image/png' }
+      ],
+      shortcut: ['/apple-icon.png?v=3'],
+      apple: [
+        { url: '/apple-icon.png?v=3', sizes: '180x180', type: 'image/png' }
+      ],
     },
     keywords: ["loja online", "roupas", "moda feminina", "acessórios", "catálogo virtual"],
     openGraph: {
