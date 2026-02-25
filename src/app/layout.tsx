@@ -14,6 +14,13 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 import { getStoreSettings } from "@/actions/settings";
 
+export const viewport = {
+  themeColor: '#ffffff',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getStoreSettings();
   const storeName = settings.storeName || "Lojinha da Lari";
@@ -25,14 +32,15 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${storeName}`
     },
     description: storeDescription,
-    manifest: '/manifest.webmanifest',
+    manifest: '/manifest.webmanifest?v=2',
     appleWebApp: {
       capable: true,
       title: storeName,
       statusBarStyle: 'default',
     },
     icons: {
-      apple: '/apple-icon.png',
+      icon: '/icon-512x512.png?v=2',
+      apple: '/apple-icon.png?v=2',
     },
     keywords: ["loja online", "roupas", "moda feminina", "acessórios", "catálogo virtual"],
     openGraph: {
