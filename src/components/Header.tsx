@@ -1,6 +1,7 @@
 "use client";
 
-import { Flower, Search, UserCircle } from "lucide-react";
+import { Search, UserCircle } from "lucide-react";
+import Image from "next/image";
 import { ThemeToggle } from "./ThemeToggle";
 import { CartDrawer } from "./CartDrawer";
 import Link from "next/link";
@@ -43,10 +44,7 @@ export function Header() {
             <div className="px-8 lg:px-12 py-4 flex items-center justify-between gap-6">
                 <div className="flex items-center gap-8">
                     <Link className="flex items-center gap-3 text-slate-900 dark:text-slate-100 group" href="/">
-                        <div className="size-8 text-primary">
-                            <Flower className="h-8 w-8 text-primary" />
-                        </div>
-                        <h2 className="text-xl font-bold tracking-tight">Lojinha da Lari</h2>
+                        <Image src="/logo-transparent.png" alt="Lojinha da Lari Logo" width={140} height={44} className="object-contain" priority />
                     </Link>
                     <nav className="hidden md:flex items-center gap-8 pl-4">
                         <Link className="text-sm font-semibold hover:text-primary transition-colors" href="/catalog">Catálogo</Link>
