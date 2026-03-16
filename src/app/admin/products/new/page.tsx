@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ChevronRight, Info, DollarSign, Image as ImageIcon, Save, Ruler, Tag, X, Plus, Palette } from "lucide-react";
 import { createProduct } from "@/actions/product";
 import { MultipleImageUpload } from "@/components/admin/MultipleImageUpload";
+import { useCategorySuggestions } from "@/hooks/useCategorySuggestions";
 
 export default function AdminAddProductPage() {
     const [statusActive, setStatusActive] = useState(true);
@@ -16,6 +17,7 @@ export default function AdminAddProductPage() {
     const [sizeOptions, setSizeOptions] = useState<string[]>([]);
     const [sizeInput, setSizeInput] = useState("");
     const [category, setCategory] = useState("");
+    const categorySuggestions = useCategorySuggestions();
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -199,9 +201,16 @@ export default function AdminAddProductPage() {
                                     type="text"
                                     value={category}
                                     onChange={(e) => setCategory(e.target.value)}
+                                    list="category-suggestions"
                                     className="w-full bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
-                                    placeholder="Ex: Vestidos, Acessórios, Bebidas..."
+                                    placeholder="Ex: Colares, Anéis, Brincos..."
                                 />
+                                <datalist id="category-suggestions">
+                                    {categorySuggestions.map((suggestion) => (
+                                        <option key={suggestion} value={suggestion} />
+                                    ))}
+                                </datalist>
+                                <p className="text-xs text-slate-400 mt-2">Sugestões automáticas. Se não existir, digite uma nova categoria.</p>
                             </div>
 
                             <div className="bg-white dark:bg-[#2a120d] p-6 rounded-xl border border-[#d9b7a6] dark:border-[#5a3329] shadow-sm">
