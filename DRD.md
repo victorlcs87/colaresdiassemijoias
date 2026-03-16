@@ -106,5 +106,10 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** Foi reportado que, no desktop, a imagem não estava visível e que os textos estavam desproporcionais nas duas versões.
 - **Impacto:** Imagem volta a ter leitura consistente no desktop e a densidade visual da página fica mais equilibrada em todos os breakpoints.
 
+### Decisão 019 - Estabilização de exibição da imagem em desktop maximizado
+- **Decisão:** Aplicar `xl:min-h` no container da mídia principal e usar `object-contain` com padding por breakpoint.
+- **Motivo:** No navegador maximizado a imagem deixava de ficar perceptível, enquanto em janelas menores aparecia normalmente.
+- **Impacto:** A imagem mantém visibilidade consistente em telas largas, com enquadramento previsível.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).
