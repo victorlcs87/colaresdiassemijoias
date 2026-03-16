@@ -165,3 +165,11 @@ Status atual: **Fase 17 - Ajuste Visual da Página de Produto (Referência)**
 - [x] Ajustar acessibilidade básica em carrinho (semântica de diálogo, `Esc`, foco inicial e trap de tab).
 - [x] Validar `lint` e `build` pós-hardening.
 - [ ] Mitigar ou documentar formalmente vulnerabilidade transiente de dependência (`minimatch` via transitive deps).
+
+### Fase 22: Arquitetura e Padrões (Onda 2)
+- [x] Aplicar Repository Pattern para domínios de produto, vendas e configurações.
+- [x] Aplicar Service/Use Case Pattern para ações administrativas de produto, vendas e settings.
+- [x] Aplicar DTO + Validator Pattern para payloads de produto, vendas e configurações.
+- [x] Reorganizar responsabilidade de duplicação para domínio de produto (evitando acoplamento indevido em vendas).
+- [x] Padronizar contrato de retorno de ações administrativas com `ActionResult`.
+- [x] Validar `lint` e `build` após refatoração arquitetural.

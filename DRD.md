@@ -136,5 +136,25 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** Evitar disparo não autorizado do endpoint de cron e remover hardcodes sensíveis espalhados na UI.
 - **Impacto:** Endpoints administrativos ficam mais previsíveis/seguros e dados de contato passam a ser gerenciáveis por configuração.
 
+### Decisão 025 - Repositórios por domínio para acesso Supabase
+- **Decisão:** Consolidar acesso a dados em classes de repositório (`ProductRepository`, `SalesRepository`, `StoreSettingsRepository`) em vez de consultas diretas nas Server Actions.
+- **Motivo:** Reduzir duplicação, melhorar rastreabilidade de consultas e facilitar testes unitários por camada.
+- **Impacto:** A camada de ação passa a orquestrar fluxos; o acesso a banco fica centralizado e reutilizável.
+
+### Decisão 026 - Services como camada de caso de uso
+- **Decisão:** Encapsular regras de negócio em services (`ProductService`, `SalesService`, `StoreSettingsService`) para operações administrativas.
+- **Motivo:** Evitar lógica de domínio acoplada ao transporte (Server Actions), melhorando manutenção e evolução.
+- **Impacto:** Fluxos críticos (criar/editar/excluir/duplicar produto, registrar/desfazer venda, atualizar settings) passam a ter ponto único de regra.
+
+### Decisão 027 - DTO + validação explícita para payloads administrativos
+- **Decisão:** Introduzir validadores de entrada para produto, venda e configurações antes de persistência.
+- **Motivo:** Reduzir inconsistências de dados e impedir gravações inválidas por entradas malformadas.
+- **Impacto:** Erros de entrada retornam contrato consistente (`ActionResult`) e regras de sanitização ficam centralizadas.
+
+### Decisão 028 - Ajuste de fronteira de domínio (duplicação de produto)
+- **Decisão:** Mover o caso de uso de duplicar produto para `ProductService`.
+- **Motivo:** A duplicação pertence ao contexto de catálogo/produto e não ao contexto de vendas.
+- **Impacto:** Redução de acoplamento entre domínios e arquitetura mais coerente para futuras evoluções.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).

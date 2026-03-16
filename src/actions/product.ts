@@ -3,7 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { resolveAdminContext } from "@/lib/auth/admin-guard";
-import { fail, ok, type ActionResult } from "@/lib/contracts/action-result";
+import { fail, type ActionResult } from "@/lib/contracts/action-result";
+import { productService } from "@/lib/services/product.service";
 
 export async function createProduct(formData: FormData) {
     const auth = await resolveAdminContext();
@@ -13,65 +14,15 @@ export async function createProduct(formData: FormData) {
     }
     const { supabase } = auth.data;
 
-    const name = formData.get("name") as string;
-    const description = formData.get("description") as string;
-    const price = parseFloat(formData.get("price") as string);
-    const is_available = formData.get("is_available") === "true";
-    const image_url_form = formData.get("image_url") as string || null;
-    const image_gallery_str = formData.get("image_gallery") as string;
-    let image_gallery: string[] = [];
-    try {
-        if (image_gallery_str) {
-            image_gallery = JSON.parse(image_gallery_str);
-        }
-    } catch { }
-
-    const image_url = image_url_form || (image_gallery.length > 0 ? image_gallery[0] : null);
-
-    const stock_quantity_str = formData.get("stock_quantity") as string;
-    const stock_quantity = stock_quantity_str ? parseInt(stock_quantity_str, 10) : 1;
-
-    const color = (formData.get("color") as string) || null;
-    const cost_price_str = formData.get("cost_price") as string;
-    const cost_price = cost_price_str ? parseFloat(cost_price_str) : null;
-    const promotional_price_str = formData.get("promotional_price") as string;
-    const promotional_price = promotional_price_str ? parseFloat(promotional_price_str) : null;
-    const condition = (formData.get("condition") as 'novo' | 'seminovo') || 'novo';
-    const category = (formData.get("category") as string) || null;
-    const sizes_str = formData.get("sizes") as string;
-    let sizes = null;
-    try {
-        if (sizes_str) {
-            const parsed = JSON.parse(sizes_str);
-            if (parsed && parsed.label && parsed.options && parsed.options.length > 0) {
-                sizes = parsed;
-            }
-        }
-    } catch { }
-
-    if (!name || isNaN(price)) {
-        return fail("VALIDATION_ERROR", "Nome e preço são obrigatórios e preço deve ser um número válido.");
+    const parsed = productService.parseFormData(formData);
+    if (!parsed.success || !parsed.data) {
+        return fail(parsed.code, parsed.message);
     }
 
-    const { error } = await supabase.from("products").insert({
-        name,
-        description,
-        price,
-        is_available,
-        image_url,
-        image_gallery,
-        sizes,
-        category,
-        color,
-        cost_price,
-        promotional_price,
-        condition,
-        stock_quantity,
-    });
-
-    if (error) {
-        console.error("Failed to insert product", error);
-        return fail("PRODUCT_CREATE_ERROR", `Erro ao criar produto: ${error.message} (Code: ${error.code})`);
+    const result = await productService.create(supabase, parsed.data);
+    if (!result.success) {
+        console.error("Failed to insert product", result.error);
+        return fail(result.code, result.message);
     }
 
     revalidatePath("/admin/products");
@@ -88,17 +39,16 @@ export async function deleteProduct(id: string): Promise<ActionResult> {
     }
     const { supabase } = auth.data;
 
-    const { error } = await supabase.from("products").delete().eq("id", id);
-
-    if (error) {
-        console.error("Failed to delete product", error);
-        return fail("PRODUCT_DELETE_ERROR", `Erro ao excluir produto: ${error.message}`);
+    const result = await productService.delete(supabase, id);
+    if (!result.success) {
+        console.error("Failed to delete product", result.error);
+        return fail(result.code, result.message);
     }
 
     revalidatePath("/admin/products");
     revalidatePath("/catalog");
     revalidatePath("/");
-    return ok("Produto excluído com sucesso.");
+    return result;
 }
 
 export async function updateProduct(id: string, formData: FormData) {
@@ -109,65 +59,15 @@ export async function updateProduct(id: string, formData: FormData) {
     }
     const { supabase } = auth.data;
 
-    const name = formData.get("name") as string;
-    const description = formData.get("description") as string;
-    const price = parseFloat(formData.get("price") as string);
-    const is_available = formData.get("is_available") === "true";
-    const image_url_form = formData.get("image_url") as string || null;
-    const image_gallery_str = formData.get("image_gallery") as string;
-    let image_gallery: string[] = [];
-    try {
-        if (image_gallery_str) {
-            image_gallery = JSON.parse(image_gallery_str);
-        }
-    } catch { }
-
-    const image_url = image_url_form || (image_gallery.length > 0 ? image_gallery[0] : null);
-
-    const stock_quantity_str = formData.get("stock_quantity") as string;
-    const stock_quantity = stock_quantity_str ? parseInt(stock_quantity_str, 10) : 1;
-
-    const color = (formData.get("color") as string) || null;
-    const cost_price_str = formData.get("cost_price") as string;
-    const cost_price = cost_price_str ? parseFloat(cost_price_str) : null;
-    const promotional_price_str = formData.get("promotional_price") as string;
-    const promotional_price = promotional_price_str ? parseFloat(promotional_price_str) : null;
-    const condition = (formData.get("condition") as 'novo' | 'seminovo') || 'novo';
-    const category = (formData.get("category") as string) || null;
-    const sizes_str = formData.get("sizes") as string;
-    let sizes = null;
-    try {
-        if (sizes_str) {
-            const parsed = JSON.parse(sizes_str);
-            if (parsed && parsed.label && parsed.options && parsed.options.length > 0) {
-                sizes = parsed;
-            }
-        }
-    } catch { }
-
-    if (!name || isNaN(price)) {
-        return fail("VALIDATION_ERROR", "Nome e preço são obrigatórios.");
+    const parsed = productService.parseFormData(formData);
+    if (!parsed.success || !parsed.data) {
+        return fail(parsed.code, parsed.message);
     }
 
-    const { error } = await supabase.from("products").update({
-        name,
-        description,
-        price,
-        is_available,
-        image_url,
-        image_gallery,
-        sizes,
-        category,
-        color,
-        cost_price,
-        promotional_price,
-        condition,
-        stock_quantity,
-    }).eq("id", id);
-
-    if (error) {
-        console.error("Failed to update product", error);
-        return fail("PRODUCT_UPDATE_ERROR", `Erro ao atualizar produto: ${error.message}`);
+    const result = await productService.update(supabase, id, parsed.data);
+    if (!result.success) {
+        console.error("Failed to update product", result.error);
+        return fail(result.code, result.message);
     }
 
     revalidatePath("/admin/products");
