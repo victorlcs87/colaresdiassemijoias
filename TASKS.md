@@ -1,6 +1,6 @@
 # Plano de Implementação: Colares Dias Semijoias
 
-Status atual: **Fase 10 - Paginação Admin Produtos**
+Status atual: **Fase 17 - Ajuste Visual da Página de Produto (Referência)**
 
 ## Histórico de Tarefas (Progresso Incremental)
 
@@ -132,3 +132,10 @@ Status atual: **Fase 10 - Paginação Admin Produtos**
 - [x] Manter padrão visual da imagem de referência com proporção principal consistente em larguras intermediárias.
 - [x] Ocultar breadcrumb abaixo de `lg` para reduzir ruído visual e liberar espaço útil da coluna de informações.
 - [x] Ajustar escala de tipografia/CTA em `sm` para reduzir quebra e manter legibilidade no layout lado a lado.
+
+### Fase 17: Réplica de Layout da Página de Produto mantendo paleta atual
+- [x] Reestruturar composição para miniaturas verticais + imagem principal ampla + coluna de informações fixa.
+- [x] Ajustar bloco de informações para sequência da referência (breadcrumb, título, preço, cor, ml, quantidade, compra e WhatsApp).
+- [x] Simplificar a página removendo seção inferior de recomendações para manter foco no layout da referência.
+- [x] Preservar o estilo de cores/tokens atual do projeto durante toda a adaptação visual.
+- [x] Validar build/lint após refatoração do `ProductDetailClient`.

@@ -67,7 +67,6 @@ export default function ProductDetailClient({
             : [];
 
     const [activeImage, setActiveImage] = useState(0);
-    const [selectedSize, setSelectedSize] = useState<string | null>(null);
     const [quantity, setQuantity] = useState(1);
     const addItem = useCartStore((state) => state.addItem);
 
@@ -90,24 +89,22 @@ export default function ProductDetailClient({
     };
 
     const defaultImage = "https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=600&auto=format&fit=crop";
+    const sizeOptions = product.sizes?.options ?? [];
+    const sizeLabel = product.sizes?.label ?? "ml";
 
     return (
-        <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-4 md:py-8">
-            {/* Product Main Section */}
-            <div className="flex flex-col sm:flex-row gap-6 sm:gap-5 md:gap-6 lg:gap-10">
-
-                {/* Left: Image Gallery */}
-                <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-3 md:gap-4 w-full sm:w-[80%] lg:w-[60%]">
-                    {/* Thumbnails */}
+        <div className="max-w-[1460px] mx-auto px-4 md:px-6 lg:px-8 py-4 md:py-8">
+            <div className="flex flex-col xl:flex-row gap-6 lg:gap-8">
+                <div className="w-full xl:flex-1 min-w-0 flex gap-3 md:gap-4">
                     {images.length > 1 && (
-                        <div className="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto sm:max-h-[600px] flex-shrink-0 scrollbar-thin">
+                        <div className="hidden sm:flex flex-col gap-2 md:gap-3 w-20 md:w-24 flex-shrink-0">
                             {images.map((img, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => setActiveImage(idx)}
-                                    className={`relative w-16 h-20 sm:w-16 sm:h-20 md:w-20 md:h-24 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all ${activeImage === idx
-                                        ? "border-primary shadow-md"
-                                        : "border-transparent opacity-60 hover:opacity-100"
+                                    className={`relative w-20 h-24 md:w-24 md:h-28 rounded-xl overflow-hidden border-2 transition-all ${activeImage === idx
+                                        ? "border-primary"
+                                        : "border-transparent opacity-80 hover:opacity-100"
                                         }`}
                                 >
                                     <Image
@@ -115,276 +112,154 @@ export default function ProductDetailClient({
                                         alt={`${product.name} - ${idx + 1}`}
                                         fill
                                         className="object-cover"
-                                        sizes="80px"
+                                        sizes="96px"
                                     />
                                 </button>
                             ))}
                         </div>
                     )}
 
-                    {/* Main Image */}
-                    <div className="relative w-full aspect-[3/4] sm:aspect-[4/4.4] lg:aspect-[4/4.7] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
+                    <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden bg-white/70 dark:bg-[#2a120d] border border-[#d9b7a6]/30 dark:border-[#5a3329]">
                         <Image
                             src={images[activeImage] || defaultImage}
                             alt={product.name}
                             fill
-                            className="object-cover"
-                            sizes="(max-width: 768px) 100vw, 58vw"
+                            className="object-contain"
+                            sizes="(max-width: 1280px) 100vw, 58vw"
                             priority
                         />
                     </div>
                 </div>
 
-                {/* Right: Product Info */}
-                <div className="w-full lg:w-[56%] flex-1 min-w-0 flex flex-col sm:pt-1">
-                    {/* Breadcrumb (desktop) */}
-                    <div className="hidden lg:block mb-6">
-                        <div className="relative min-w-0 overflow-hidden rounded-lg">
-                            {/* Fade left */}
-                            <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-10 bg-gradient-to-r from-[#f5efe9] via-[#f5efe9]/90 to-transparent dark:from-[#1a0d09] dark:via-[#1a0d09]/90" />
-
-                            {/* Fade right */}
-                            <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-10 bg-gradient-to-l from-[#f5efe9] via-[#f5efe9]/90 to-transparent dark:from-[#1a0d09] dark:via-[#1a0d09]/90" />
-
-                            <div className="flex items-center gap-2 overflow-x-auto whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 scrollbar-none px-8 py-1">
-                                <Link
-                                    href="/"
-                                    className="shrink-0 hover:text-primary transition-colors"
-                                >
-                                    Início
-                                </Link>
-
-                                <span className="shrink-0 text-slate-300">&gt;</span>
-
-                                <Link
-                                    href="/catalog"
-                                    className="shrink-0 hover:text-primary transition-colors"
-                                >
-                                    Catálogo
-                                </Link>
-
-                                {product.category && (
-                                    <>
-                                        <span className="shrink-0 text-slate-300">&gt;</span>
-                                        <Link
-                                            href={`/catalog?cat=${encodeURIComponent(product.category)}`}
-                                            className="shrink-0 hover:text-primary transition-colors"
-                                        >
-                                            {product.category}
-                                        </Link>
-                                    </>
-                                )}
-
-                                <span className="shrink-0 text-slate-300">&gt;</span>
-
-                                <span className="shrink-0 font-medium text-slate-700 dark:text-slate-300">
-                                    {product.name}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Name + Favorite */}
-                    <div className="mb-3 md:mb-4 min-w-0">
-                        <div className="flex items-start gap-3 min-w-0 flex-wrap">
-                            <h1 className="min-w-0 text-2xl sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight break-words">
-                                {product.name}
-                            </h1>
-
-                            <button className="flex-shrink-0 h-10 w-10 rounded-full border border-slate-200 dark:border-[#5a3329] flex items-center justify-center hover:text-primary hover:border-primary transition-colors mt-0.5">
-                                <Heart className="h-5 w-5" />
-                            </button>
-
-                            {product.condition === 'seminovo' && (
-                                <span className="flex-shrink-0 px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 font-bold text-xs uppercase tracking-wider border border-amber-200 dark:border-amber-800 mt-1">
-                                    Seminovo
-                                </span>
-                            )}
-                        </div>
-                    </div>
-
-                    {/* Price */}
-                    <div className="flex items-baseline gap-3 mb-5 md:mb-7 flex-wrap">
-                        {formattedPromotionalPrice ? (
+                <div className="w-full xl:w-[560px] flex-shrink-0">
+                    <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-4">
+                        <Link href="/" className="hover:text-primary transition-colors">Início</Link>
+                        <span>&gt;</span>
+                        <Link href="/catalog" className="hover:text-primary transition-colors">Catálogo</Link>
+                        {product.category && (
                             <>
-                                <span className="text-3xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-[#8b2e1f]">
-                                    {formattedPromotionalPrice}
-                                </span>
-                                <span className="text-xl font-medium text-slate-400 line-through">
-                                    {formattedPrice}
-                                </span>
-                                <span className="px-2 py-1 bg-[#8b2e1f]/10 text-[#8b2e1f] text-xs font-bold rounded uppercase tracking-wider">
-                                    Oferta
-                                </span>
+                                <span>&gt;</span>
+                                <Link href={`/catalog?cat=${encodeURIComponent(product.category)}`} className="hover:text-primary transition-colors">
+                                    {product.category}
+                                </Link>
                             </>
+                        )}
+                        <span>&gt;</span>
+                        <span className="font-semibold text-slate-800 dark:text-slate-200">{product.name}</span>
+                    </div>
+
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+                            {product.name}
+                        </h1>
+                        <button className="h-12 w-12 rounded-full border border-[#d9b7a6] dark:border-[#5a3329] flex items-center justify-center hover:text-primary hover:border-primary transition-colors">
+                            <Heart className="h-6 w-6" />
+                        </button>
+                    </div>
+
+                    <div className="mb-6">
+                        {formattedPromotionalPrice ? (
+                            <div className="flex items-end gap-3 flex-wrap">
+                                <span className="text-5xl font-black text-primary">{formattedPromotionalPrice}</span>
+                                <span className="text-xl text-slate-400 line-through">{formattedPrice}</span>
+                            </div>
                         ) : (
-                            <span className="text-3xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-primary">
-                                {formattedPrice}
-                            </span>
+                            <span className="text-5xl font-black text-primary">{formattedPrice}</span>
                         )}
                     </div>
 
-                    {/* Color Display (always visible if product has color) */}
-                    {product.color && (
-                        <div className="mb-5 md:mb-7 pt-4 md:pt-5 border-t border-slate-100 dark:border-[#5a3329]">
-                            <div className="flex items-center gap-2 mb-3">
-                                <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Cor:</span>
-                                <span
-                                    className="w-5 h-5 rounded-full border-2 border-slate-200 dark:border-slate-600 shadow-inner flex-shrink-0"
-                                    style={{ backgroundColor: colorNameToHex(product.color) }}
-                                    title={product.color}
-                                />
-                                <span className="text-sm font-bold text-slate-900 dark:text-white">{product.color}</span>
-                            </div>
-
-                            {/* Other color variants */}
-                            {relatedProducts.length > 0 && (
-                                <div>
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">Outras cores disponíveis:</p>
-                                    <div className="flex flex-wrap gap-2 items-center">
-                                        {relatedProducts.map(p => {
-                                            const img = p.image_gallery && p.image_gallery.length > 0 ? p.image_gallery[0] : (p.image_url || defaultImage);
-                                            return (
-                                                <Link
-                                                    key={p.id}
-                                                    href={`/catalog/${p.id}`}
-                                                    title={p.color || "Padrão"}
-                                                    className="flex flex-col items-center gap-1 group"
-                                                >
-                                                    <div className="relative w-10 h-14 rounded overflow-hidden border border-slate-200 dark:border-[#5a3329] group-hover:border-primary opacity-80 group-hover:opacity-100 transition-all">
-                                                        <Image src={img} alt={p.color || p.name} fill className="object-cover" sizes="40px" />
-                                                    </div>
-                                                    {p.color && (
-                                                        <span
-                                                            className="w-4 h-4 rounded-full border border-slate-300 dark:border-slate-600"
-                                                            style={{ backgroundColor: colorNameToHex(p.color) }}
-                                                        />
-                                                    )}
-                                                </Link>
-                                            );
-                                        })}
-                                    </div>
+                    <div className="border-t border-[#d9b7a6]/60 dark:border-[#5a3329] pt-6 space-y-6">
+                        {product.color && (
+                            <div>
+                                <p className="text-[32px] leading-none font-black text-primary sr-only">{product.color}</p>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-3xl text-slate-700 dark:text-slate-300">Cor:</span>
+                                    <span
+                                        className="w-7 h-7 rounded-full border border-slate-200 dark:border-slate-600"
+                                        style={{ backgroundColor: colorNameToHex(product.color) }}
+                                        title={product.color}
+                                    />
+                                    <span className="text-3xl font-bold text-slate-900 dark:text-white">{product.color}</span>
                                 </div>
-                            )}
-                        </div>
-                    )}
 
-                    {/* Sizes (Conditional) */}
-                    {product.sizes && product.sizes.options && product.sizes.options.length > 0 && (
-                        <div className="mb-7 md:mb-8">
-                            <div className="flex justify-between items-center mb-3">
-                                <h3 className="font-bold text-sm text-slate-900 dark:text-white">{product.sizes.label}</h3>
+                                {relatedProducts.length > 0 && (
+                                    <div className="mt-3 flex items-center gap-2">
+                                        {relatedProducts.slice(0, 5).map((p) => (
+                                            <Link
+                                                key={p.id}
+                                                href={`/catalog/${p.id}`}
+                                                className="w-6 h-6 rounded-full border border-slate-300 dark:border-slate-600"
+                                                style={{ backgroundColor: colorNameToHex(p.color || "") }}
+                                                title={p.color || p.name}
+                                            />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
-                            <div className="flex flex-wrap gap-2">
-                                {product.sizes.options.map((opt) => (
-                                    <button
-                                        key={opt}
-                                        onClick={() => setSelectedSize(opt === selectedSize ? null : opt)}
-                                        className={`min-w-[48px] h-11 px-4 rounded-xl border-2 flex items-center justify-center font-bold text-sm transition-all ${selectedSize === opt
-                                            ? "border-primary bg-primary/10 text-primary"
-                                            : "border-slate-200 dark:border-[#5a3329] text-slate-700 dark:text-slate-300 hover:border-primary hover:text-primary"
-                                            }`}
-                                    >
-                                        {opt}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    )}
+                        )}
 
-                    {/* CTA section (Quantity selector + Add to cart) */}
-                    <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-7 md:mb-8 mt-5 md:mt-6">
+                        {sizeOptions.length > 0 && (
+                            <div>
+                                <p className="text-3xl font-semibold text-slate-800 dark:text-slate-100 lowercase">{sizeLabel}</p>
+                                <div className="mt-3">
+                                    <span className="inline-flex items-center justify-center min-w-24 h-12 rounded-2xl border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/60 dark:bg-[#2a120d] px-4 text-2xl font-semibold text-slate-800 dark:text-slate-100">
+                                        {sizeOptions[0]}
+                                    </span>
+                                </div>
+                            </div>
+                        )}
+
                         {product.is_available && (
-                            <>
-                                {/* Quantity stringent selector */}
-                                <div className="flex items-center justify-between border-2 border-slate-200 dark:border-[#5a3329] rounded-xl h-12 md:h-14 w-full sm:w-32 md:w-36 px-2 md:px-3 bg-[#f6ede5] dark:bg-[#341810]">
+                            <div className="flex flex-col md:flex-row gap-3">
+                                <div className="flex items-center justify-between border-2 border-[#d9b7a6] dark:border-[#5a3329] rounded-2xl h-14 w-full md:w-40 px-3 bg-[#f6ede5]/60 dark:bg-[#341810]">
                                     <button
                                         onClick={decreaseQuantity}
                                         disabled={quantity <= 1}
-                                        className="h-8 w-8 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-[#5a3329] text-slate-600 dark:text-slate-300 disabled:opacity-50 transition-colors"
+                                        className="h-9 w-9 flex items-center justify-center rounded-lg text-slate-600 dark:text-slate-300 disabled:opacity-50 hover:bg-[#d9b7a6]/50 dark:hover:bg-[#5a3329] transition-colors"
                                     >
                                         <Minus className="h-4 w-4" />
                                     </button>
-                                    <span className="font-bold text-slate-900 dark:text-white w-8 text-center">{quantity}</span>
+                                    <span className="font-bold text-xl text-slate-900 dark:text-white">{quantity}</span>
                                     <button
                                         onClick={increaseQuantity}
                                         disabled={quantity >= maxQuantity}
-                                        className="h-8 w-8 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-[#5a3329] text-slate-600 dark:text-slate-300 disabled:opacity-50 transition-colors"
+                                        className="h-9 w-9 flex items-center justify-center rounded-lg text-slate-600 dark:text-slate-300 disabled:opacity-50 hover:bg-[#d9b7a6]/50 dark:hover:bg-[#5a3329] transition-colors"
                                     >
                                         <Plus className="h-4 w-4" />
                                     </button>
                                 </div>
 
-                                {/* Add to Cart Action */}
                                 <button
                                     onClick={handleAddToCart}
-                                    className="flex-1 h-12 md:h-14 px-4 md:px-6 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm flex items-center justify-center gap-2.5 hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-all shadow-lg"
+                                    className="flex-1 h-14 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xl flex items-center justify-center gap-2 hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-colors"
                                 >
                                     <ShoppingCart className="h-5 w-5" />
                                     Comprar ({formattedPrice})
                                 </button>
-                            </>
+                            </div>
                         )}
+
+                        <a
+                            href={whatsappUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="h-14 rounded-2xl border-2 border-[#d9b7a6] dark:border-[#5a3329] text-slate-700 dark:text-slate-300 font-bold text-lg flex items-center justify-center gap-2 hover:bg-[#d9b7a6]/40 dark:hover:bg-[#341810] transition-colors"
+                        >
+                            <MessageCircle className="h-5 w-5 text-whatsapp" />
+                            Prefere um toque humano? Compre pelo WhatsApp
+                        </a>
                     </div>
 
-                    {/* WhatsApp CTA */}
-                    <a
-                        href={whatsappUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex min-w-max items-center justify-center gap-2 whitespace-nowrap border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/50 dark:bg-[#2a120d] hover:bg-[#d9b7a6] dark:hover:bg-[#341810] text-slate-700 dark:text-slate-300 font-bold text-sm py-3 px-4 rounded-xl transition-all"
-                    >
-                        <MessageCircle className="h-5 w-5 text-whatsapp flex-shrink-0" />
-                        <span className="whitespace-nowrap">
-                            Prefere um toque humano? Compre pelo WhatsApp
-                        </span>
-                    </a>
-
-                    {/* Single Description Paragraph Details */}
-                    <div className="mt-10 md:mt-12 pt-8 md:pt-10 border-t border-slate-100 dark:border-[#5a3329]">
-                        <h3 className="font-bold text-sm text-slate-900 dark:text-white mb-4 uppercase tracking-wider md:whitespace-nowrap">
+                    <div className="mt-10 pt-8 border-t border-[#d9b7a6]/60 dark:border-[#5a3329]">
+                        <h3 className="text-3xl font-black uppercase tracking-wide text-slate-900 dark:text-white mb-5">
                             Detalhes e Especificações
                         </h3>
-
-                        <div className="max-w-[42ch] text-base text-slate-700 dark:text-slate-400 leading-8 whitespace-normal">
+                        <p className="text-2xl leading-relaxed text-slate-700 dark:text-slate-300">
                             {normalizedDescription}
-                        </div>
+                        </p>
                     </div>
                 </div>
             </div>
-            {relatedProducts.length > 0 && (
-                <section className="mt-16 pb-8">
-                    <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-xl font-bold text-slate-900 dark:text-white">Você Também Pode Gostar</h2>
-                    </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {relatedProducts.map((p) => {
-                            const img = p.image_gallery && p.image_gallery.length > 0
-                                ? p.image_gallery[0]
-                                : p.image_url || defaultImage;
-                            const price = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(p.price);
-                            return (
-                                <Link href={`/catalog/${p.id}`} key={p.id} className="group flex flex-col rounded-xl overflow-hidden bg-white dark:bg-[#3a1c15] ring-1 ring-slate-100 dark:ring-[#5a3329] hover:shadow-md transition-shadow">
-                                    <div className="relative aspect-[3/4] overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
-                                        <Image
-                                            src={img}
-                                            alt={p.name}
-                                            fill
-                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                            sizes="(max-width: 768px) 50vw, 25vw"
-                                        />
-                                    </div>
-                                    <div className="p-3">
-                                        <h4 className="font-semibold text-sm text-slate-900 dark:text-white truncate">{p.name}</h4>
-                                        {p.category && <p className="text-xs text-slate-400">{p.category}</p>}
-                                        <p className="font-bold text-sm text-slate-900 dark:text-white mt-1">{price}</p>
-                                    </div>
-                                </Link>
-                            );
-                        })}
-                    </div>
-                </section>
-            )}
         </div>
     );
 }

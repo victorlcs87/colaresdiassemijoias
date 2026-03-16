@@ -96,5 +96,10 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** Garantir que, mesmo com navegador não maximizado, o conteúdo não desça para baixo da imagem e preserve a estética desejada.
 - **Impacto:** Em larguras desktop intermediárias o detalhe do produto permanece em duas colunas, mantendo aparência próxima da referência e melhor previsibilidade visual.
 
+### Decisão 017 - Réplica estrutural da vitrine de produto da referência mantendo paleta atual
+- **Decisão:** Reestruturar `ProductDetailClient` para espelhar a composição da referência (thumbnails verticais, imagem principal ampla, coluna de compra com divisórias, CTA de compra e WhatsApp), preservando as cores/tokens já adotados no projeto.
+- **Motivo:** Solicitação explícita de alinhamento visual com a imagem de referência sem alterar a identidade cromática atual.
+- **Impacto:** Página de detalhe passa a seguir o mesmo layout-base da referência com melhor hierarquia visual, mantendo consistência de branding existente.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).
