@@ -92,12 +92,12 @@ export default function ProductDetailClient({
     const defaultImage = "https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=600&auto=format&fit=crop";
 
     return (
-        <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-4 md:py-8">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10 py-4 md:py-8">
             {/* Product Main Section */}
-            <div className="flex flex-col sm:flex-row gap-6 sm:gap-5 md:gap-6 lg:gap-10">
+            <div className="flex flex-col sm:flex-row gap-6 sm:gap-5 md:gap-6 lg:gap-0 lg:bg-[#efefef] lg:p-2">
 
                 {/* Left: Image Gallery */}
-                <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-3 md:gap-4 w-full sm:w-[52%] lg:w-[52%]">
+                <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-3 md:gap-4 w-full sm:w-[52%] lg:w-[45%]">
                     {/* Thumbnails */}
                     {images.length > 1 && (
                         <div className="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto sm:max-h-[600px] flex-shrink-0 scrollbar-thin">
@@ -123,7 +123,7 @@ export default function ProductDetailClient({
                     )}
 
                     {/* Main Image */}
-                    <div className="relative w-full aspect-[3/4] sm:aspect-square lg:aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
+                    <div className="relative w-full aspect-[3/4] sm:aspect-square lg:aspect-[4/5] rounded-2xl lg:rounded-none overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
                         <Image
                             src={images[activeImage] || defaultImage}
                             alt={product.name}
@@ -136,7 +136,7 @@ export default function ProductDetailClient({
                 </div>
 
                 {/* Right: Product Info */}
-                <div className="w-full sm:w-[48%] lg:w-[48%] flex flex-col sm:pt-1 min-w-0">
+                <div className="w-full sm:w-[48%] lg:w-[55%] flex flex-col sm:pt-1 min-w-0 lg:bg-[#f2ece6] lg:px-9 lg:py-8">
                     {/* Breadcrumb (desktop) */}
                     <div className="hidden lg:flex items-center gap-2 flex-wrap text-sm text-slate-500 dark:text-slate-400 mb-6">
                         <Link href="/" className="hover:text-primary transition-colors">Início</Link>
@@ -153,8 +153,8 @@ export default function ProductDetailClient({
                     </div>
 
                     {/* Name + Favorite */}
-                    <div className="flex justify-between items-start mb-3 md:mb-4">
-                        <h1 className="text-2xl sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center flex-wrap gap-3 min-w-0">
+                    <div className="flex justify-between items-start mb-3 md:mb-4 lg:mb-5">
+                        <h1 className="text-2xl sm:text-xl md:text-2xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center flex-wrap gap-3 min-w-0 leading-tight">
                             <span className="break-words">{product.name}</span>
                             {product.condition === 'seminovo' && (
                                 <span className="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 font-bold text-xs uppercase tracking-wider border border-amber-200 dark:border-amber-800 mt-1">
@@ -168,10 +168,10 @@ export default function ProductDetailClient({
                     </div>
 
                     {/* Price */}
-                    <div className="flex items-baseline gap-3 mb-5 md:mb-7 flex-wrap">
+                    <div className="flex items-baseline gap-3 mb-5 md:mb-7 lg:mb-8 flex-wrap">
                         {formattedPromotionalPrice ? (
                             <>
-                                <span className="text-3xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-[#8b2e1f]">
+                                <span className="text-3xl sm:text-2xl md:text-3xl lg:text-6xl font-black text-[#8b2e1f]">
                                     {formattedPromotionalPrice}
                                 </span>
                                 <span className="text-xl font-medium text-slate-400 line-through">
@@ -182,7 +182,7 @@ export default function ProductDetailClient({
                                 </span>
                             </>
                         ) : (
-                            <span className="text-3xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-primary">
+                            <span className="text-3xl sm:text-2xl md:text-3xl lg:text-6xl font-black text-primary">
                                 {formattedPrice}
                             </span>
                         )}
@@ -257,11 +257,11 @@ export default function ProductDetailClient({
                     )}
 
                     {/* CTA section (Quantity selector + Add to cart) */}
-                    <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-7 md:mb-8 mt-5 md:mt-6">
+                    <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-7 md:mb-8 mt-5 md:mt-6 lg:mt-3">
                         {product.is_available && (
                             <>
                                 {/* Quantity stringent selector */}
-                                <div className="flex items-center justify-between border-2 border-slate-200 dark:border-[#5a3329] rounded-xl h-12 md:h-14 w-full sm:w-32 md:w-36 px-2 md:px-3 bg-[#f6ede5] dark:bg-[#341810]">
+                                <div className="flex items-center justify-between border-2 border-slate-200 dark:border-[#5a3329] rounded-xl h-12 md:h-14 w-full sm:w-32 md:w-36 lg:w-40 px-2 md:px-3 lg:px-4 bg-[#f6ede5] dark:bg-[#341810]">
                                     <button
                                         onClick={decreaseQuantity}
                                         disabled={quantity <= 1}
@@ -282,7 +282,7 @@ export default function ProductDetailClient({
                                 {/* Add to Cart Action */}
                                 <button
                                     onClick={handleAddToCart}
-                                    className="flex-1 h-12 md:h-14 px-4 md:px-6 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm flex items-center justify-center gap-2.5 hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-all shadow-lg"
+                                    className="flex-1 h-12 md:h-14 px-4 md:px-6 rounded-xl lg:rounded-2xl bg-slate-900 lg:bg-[#081a49] dark:bg-white text-white dark:text-slate-900 font-bold text-sm flex items-center justify-center gap-2.5 hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-all shadow-lg"
                                 >
                                     <ShoppingCart className="h-5 w-5" />
                                     Comprar ({formattedPrice})
@@ -296,16 +296,16 @@ export default function ProductDetailClient({
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/50 dark:bg-[#2a120d] hover:bg-[#d9b7a6] dark:hover:bg-[#341810] text-slate-700 dark:text-slate-300 font-bold text-sm sm:text-xs md:text-sm py-3 md:py-4 px-4 rounded-xl transition-all"
+                        className="w-full flex items-center justify-center gap-2 border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/50 dark:bg-[#2a120d] hover:bg-[#d9b7a6] dark:hover:bg-[#341810] text-slate-700 dark:text-slate-300 font-bold text-sm sm:text-xs md:text-sm py-3 md:py-4 px-4 rounded-xl lg:rounded-2xl transition-all"
                     >
                         <MessageCircle className="h-5 w-5 text-whatsapp flex-shrink-0" />
-                        <span className="text-center sm:whitespace-nowrap">Prefere um toque humano? Compre pelo WhatsApp</span>
+                        <span className="text-center sm:whitespace-nowrap lg:text-lg">Prefere um toque humano? Compre pelo WhatsApp</span>
                     </a>
 
                     {/* Single Description Paragraph Details */}
-                    <div className="mt-10 md:mt-12 pt-8 md:pt-10 border-t border-slate-100 dark:border-[#5a3329]">
-                        <h3 className="font-bold text-sm text-slate-900 dark:text-white mb-4 uppercase tracking-wider md:whitespace-nowrap">Detalhes e Especificações</h3>
-                        <div className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-normal">
+                    <div className="mt-10 md:mt-12 lg:mt-8 pt-8 md:pt-10 lg:pt-8 border-t border-slate-100 dark:border-[#5a3329]">
+                        <h3 className="font-bold text-sm lg:text-3xl text-slate-900 dark:text-white mb-4 uppercase tracking-wider md:whitespace-nowrap">Detalhes e Especificações</h3>
+                        <div className="text-sm lg:text-xl text-slate-600 dark:text-slate-300 leading-relaxed whitespace-normal">
                             {normalizedDescription}
                         </div>
                     </div>
