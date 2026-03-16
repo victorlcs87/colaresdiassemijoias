@@ -72,6 +72,10 @@ export default function ProductDetailClient({
     const addItem = useCartStore((state) => state.addItem);
 
     const maxQuantity = product.stock_quantity ?? 10;
+    const normalizedDescription = (product.description || "Nenhuma descrição detalhada disponível.")
+        .replace(/\s*\n+\s*/g, " ")
+        .replace(/\s{2,}/g, " ")
+        .trim();
 
     const increaseQuantity = () => {
         if (quantity < maxQuantity) setQuantity(q => q + 1);
@@ -134,7 +138,7 @@ export default function ProductDetailClient({
                 {/* Right: Product Info */}
                 <div className="w-full md:w-[45%] flex flex-col md:pt-1">
                     {/* Breadcrumb (desktop) */}
-                    <div className="hidden md:flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-6 whitespace-nowrap overflow-hidden">
+                    <div className="hidden md:flex items-center gap-2 flex-wrap text-sm text-slate-500 dark:text-slate-400 mb-6">
                         <Link href="/" className="hover:text-primary transition-colors">Início</Link>
                         <span className="text-slate-300">&gt;</span>
                         <Link href="/catalog" className="hover:text-primary transition-colors">Catálogo</Link>
@@ -145,13 +149,13 @@ export default function ProductDetailClient({
                             </>
                         )}
                         <span className="text-slate-300">&gt;</span>
-                        <span className="text-slate-700 dark:text-slate-300 font-medium truncate">{product.name}</span>
+                        <span className="text-slate-700 dark:text-slate-300 font-medium break-words">{product.name}</span>
                     </div>
 
                     {/* Name + Favorite */}
                     <div className="flex justify-between items-start mb-3 md:mb-4">
-                        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center flex-wrap md:flex-nowrap gap-3 min-w-0">
-                            <span className="md:whitespace-nowrap md:truncate">{product.name}</span>
+                        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center flex-wrap gap-3 min-w-0">
+                            <span className="break-words">{product.name}</span>
                             {product.condition === 'seminovo' && (
                                 <span className="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 font-bold text-xs uppercase tracking-wider border border-amber-200 dark:border-amber-800 mt-1">
                                     Seminovo
@@ -292,17 +296,17 @@ export default function ProductDetailClient({
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/50 dark:bg-[#2a120d] hover:bg-[#d9b7a6] dark:hover:bg-[#341810] text-slate-700 dark:text-slate-300 font-bold text-sm py-3 md:py-4 rounded-xl transition-all md:whitespace-nowrap"
+                        className="w-full flex items-center justify-center gap-2 border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/50 dark:bg-[#2a120d] hover:bg-[#d9b7a6] dark:hover:bg-[#341810] text-slate-700 dark:text-slate-300 font-bold text-sm py-3 md:py-4 px-4 rounded-xl transition-all"
                     >
-                        <MessageCircle className="h-5 w-5 text-whatsapp" />
-                        Prefere um toque humano? Compre pelo WhatsApp
+                        <MessageCircle className="h-5 w-5 text-whatsapp flex-shrink-0" />
+                        <span className="text-center">Prefere um toque humano? Compre pelo WhatsApp</span>
                     </a>
 
                     {/* Single Description Paragraph Details */}
                     <div className="mt-10 md:mt-12 pt-8 md:pt-10 border-t border-slate-100 dark:border-[#5a3329]">
                         <h3 className="font-bold text-sm text-slate-900 dark:text-white mb-4 uppercase tracking-wider md:whitespace-nowrap">Detalhes e Especificações</h3>
-                        <div className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line md:whitespace-normal">
-                            {product.description || "Nenhuma descrição detalhada disponível."}
+                        <div className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-normal">
+                            {normalizedDescription}
                         </div>
                     </div>
                 </div>
