@@ -119,12 +119,12 @@ export default function ProductDetailClient({
                         </div>
                     )}
 
-                    <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden bg-white/70 dark:bg-[#2a120d] border border-[#d9b7a6]/30 dark:border-[#5a3329]">
+                    <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden bg-slate-100 dark:bg-[#2a120d] border border-[#d9b7a6]/30 dark:border-[#5a3329]">
                         <Image
                             src={images[activeImage] || defaultImage}
                             alt={product.name}
                             fill
-                            className="object-contain"
+                            className="object-cover"
                             sizes="(max-width: 1280px) 100vw, 58vw"
                             priority
                         />
@@ -149,7 +149,7 @@ export default function ProductDetailClient({
                     </div>
 
                     <div className="flex items-start justify-between gap-3 mb-2">
-                        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+                        <h1 className="text-2xl md:text-3xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.15]">
                             {product.name}
                         </h1>
                         <button className="h-12 w-12 rounded-full border border-[#d9b7a6] dark:border-[#5a3329] flex items-center justify-center hover:text-primary hover:border-primary transition-colors">
@@ -160,11 +160,11 @@ export default function ProductDetailClient({
                     <div className="mb-6">
                         {formattedPromotionalPrice ? (
                             <div className="flex items-end gap-3 flex-wrap">
-                                <span className="text-5xl font-black text-primary">{formattedPromotionalPrice}</span>
-                                <span className="text-xl text-slate-400 line-through">{formattedPrice}</span>
+                                <span className="text-3xl md:text-4xl font-black text-primary">{formattedPromotionalPrice}</span>
+                                <span className="text-base text-slate-400 line-through">{formattedPrice}</span>
                             </div>
                         ) : (
-                            <span className="text-5xl font-black text-primary">{formattedPrice}</span>
+                            <span className="text-3xl md:text-4xl font-black text-primary">{formattedPrice}</span>
                         )}
                     </div>
 
@@ -173,13 +173,13 @@ export default function ProductDetailClient({
                             <div>
                                 <p className="text-[32px] leading-none font-black text-primary sr-only">{product.color}</p>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-3xl text-slate-700 dark:text-slate-300">Cor:</span>
+                                    <span className="text-base text-slate-700 dark:text-slate-300">Cor:</span>
                                     <span
                                         className="w-7 h-7 rounded-full border border-slate-200 dark:border-slate-600"
                                         style={{ backgroundColor: colorNameToHex(product.color) }}
                                         title={product.color}
                                     />
-                                    <span className="text-3xl font-bold text-slate-900 dark:text-white">{product.color}</span>
+                                    <span className="text-base font-bold text-slate-900 dark:text-white">{product.color}</span>
                                 </div>
 
                                 {relatedProducts.length > 0 && (
@@ -200,9 +200,9 @@ export default function ProductDetailClient({
 
                         {sizeOptions.length > 0 && (
                             <div>
-                                <p className="text-3xl font-semibold text-slate-800 dark:text-slate-100 lowercase">{sizeLabel}</p>
+                                <p className="text-base font-semibold text-slate-800 dark:text-slate-100 lowercase">{sizeLabel}</p>
                                 <div className="mt-3">
-                                    <span className="inline-flex items-center justify-center min-w-24 h-12 rounded-2xl border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/60 dark:bg-[#2a120d] px-4 text-2xl font-semibold text-slate-800 dark:text-slate-100">
+                                    <span className="inline-flex items-center justify-center min-w-24 h-12 rounded-2xl border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/60 dark:bg-[#2a120d] px-4 text-lg font-semibold text-slate-800 dark:text-slate-100">
                                         {sizeOptions[0]}
                                     </span>
                                 </div>
@@ -219,7 +219,7 @@ export default function ProductDetailClient({
                                     >
                                         <Minus className="h-4 w-4" />
                                     </button>
-                                    <span className="font-bold text-xl text-slate-900 dark:text-white">{quantity}</span>
+                                    <span className="font-bold text-base text-slate-900 dark:text-white">{quantity}</span>
                                     <button
                                         onClick={increaseQuantity}
                                         disabled={quantity >= maxQuantity}
@@ -231,7 +231,7 @@ export default function ProductDetailClient({
 
                                 <button
                                     onClick={handleAddToCart}
-                                    className="flex-1 h-14 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xl flex items-center justify-center gap-2 hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-colors"
+                                    className="flex-1 h-14 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-base flex items-center justify-center gap-2 hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-colors"
                                 >
                                     <ShoppingCart className="h-5 w-5" />
                                     Comprar ({formattedPrice})
@@ -243,7 +243,7 @@ export default function ProductDetailClient({
                             href={whatsappUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="h-14 rounded-2xl border-2 border-[#d9b7a6] dark:border-[#5a3329] text-slate-700 dark:text-slate-300 font-bold text-lg flex items-center justify-center gap-2 hover:bg-[#d9b7a6]/40 dark:hover:bg-[#341810] transition-colors"
+                            className="h-14 rounded-2xl border-2 border-[#d9b7a6] dark:border-[#5a3329] text-slate-700 dark:text-slate-300 font-bold text-sm md:text-base flex items-center justify-center gap-2 hover:bg-[#d9b7a6]/40 dark:hover:bg-[#341810] transition-colors"
                         >
                             <MessageCircle className="h-5 w-5 text-whatsapp" />
                             Prefere um toque humano? Compre pelo WhatsApp
@@ -251,10 +251,10 @@ export default function ProductDetailClient({
                     </div>
 
                     <div className="mt-10 pt-8 border-t border-[#d9b7a6]/60 dark:border-[#5a3329]">
-                        <h3 className="text-3xl font-black uppercase tracking-wide text-slate-900 dark:text-white mb-5">
+                        <h3 className="text-xl font-black uppercase tracking-wide text-slate-900 dark:text-white mb-5">
                             Detalhes e Especificações
                         </h3>
-                        <p className="text-2xl leading-relaxed text-slate-700 dark:text-slate-300">
+                        <p className="text-base leading-7 text-slate-700 dark:text-slate-300">
                             {normalizedDescription}
                         </p>
                     </div>

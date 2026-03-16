@@ -101,5 +101,10 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** Solicitação explícita de alinhamento visual com a imagem de referência sem alterar a identidade cromática atual.
 - **Impacto:** Página de detalhe passa a seguir o mesmo layout-base da referência com melhor hierarquia visual, mantendo consistência de branding existente.
 
+### Decisão 018 - Correção de visibilidade da imagem desktop e redução forte de tipografia
+- **Decisão:** Ajustar renderização da imagem principal para `object-cover` com fundo neutro e reduzir significativamente a escala tipográfica do detalhe do produto em mobile e desktop.
+- **Motivo:** Foi reportado que, no desktop, a imagem não estava visível e que os textos estavam desproporcionais nas duas versões.
+- **Impacto:** Imagem volta a ter leitura consistente no desktop e a densidade visual da página fica mais equilibrada em todos os breakpoints.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).

@@ -139,3 +139,8 @@ Status atual: **Fase 17 - Ajuste Visual da Página de Produto (Referência)**
 - [x] Simplificar a página removendo seção inferior de recomendações para manter foco no layout da referência.
 - [x] Preservar o estilo de cores/tokens atual do projeto durante toda a adaptação visual.
 - [x] Validar build/lint após refatoração do `ProductDetailClient`.
+
+### Fase 18: Correção Pós-Refinamento da Página de Produto
+- [x] Corrigir visibilidade da imagem principal no desktop ajustando modo de encaixe e contraste de fundo.
+- [x] Reduzir significativamente a tipografia de título, preço, variações e descrição em mobile e desktop.
+- [x] Validar build/lint após ajuste de escala tipográfica e renderização da imagem.
