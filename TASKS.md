@@ -1,6 +1,6 @@
 # Plano de Implementação: Colares Dias Semijoias
 
-Status atual: **Fase 9 - Estabilização Técnica e Deploy**
+Status atual: **Fase 10 - Paginação Admin Produtos**
 
 ## Histórico de Tarefas (Progresso Incremental)
 
@@ -88,3 +88,9 @@ Status atual: **Fase 9 - Estabilização Técnica e Deploy**
 - [x] Estabilizar `mobile-test.js` no cenário de fechamento do carrinho antes de abrir menu drawer.
 - [x] Executar nova rodada de testes locais (`lint`, `build`, smoke e mobile suite).
 - [x] Gerar guia completo de configuração Supabase + Vercel em `PASSO_A_PASSO_SUPABASE_VERCEL.md`.
+
+### Fase 10: Paginação na listagem de produtos (Admin)
+- [x] Corrigir limitação de listagem que exibia apenas os primeiros itens.
+- [x] Implementar paginação completa por abas (Todos, Ativos, Rascunhos) com navegação por páginas.
+- [x] Implementar seletor de quantidade por página (10, 50, 100).
+- [x] Mostrar intervalo atual e total de registros exibidos.

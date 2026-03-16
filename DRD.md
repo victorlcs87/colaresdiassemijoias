@@ -61,5 +61,10 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** Reduzir risco operacional de configuração e facilitar handoff.
 - **Impacto:** Processo de deploy e provisionamento reproduzível para novas máquinas/ambientes.
 
+### Decisão 010 - Paginação no Admin de Produtos
+- **Decisão:** Implementar paginação client-side com navegação por número de página e seletor de itens por página (10/50/100) na tela de produtos do painel administrativo.
+- **Motivo:** A tela estava limitada aos primeiros registros, impedindo navegação por todo o catálogo em abas como `Todos` e `Ativos`.
+- **Impacto:** Usuário admin consegue navegar por todo o conjunto de produtos com melhor controle de volume exibido e sem perda de contexto.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).

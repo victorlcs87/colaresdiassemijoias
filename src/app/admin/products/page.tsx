@@ -11,6 +11,8 @@ export default function AdminProductsPage() {
     const [activeTab, setActiveTab] = useState<"all" | "active" | "draft" | "archived">("all");
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState<10 | 50 | 100>(10);
 
     // Sales Modal State
     const [saleModalOpen, setSaleModalOpen] = useState(false);
@@ -20,9 +22,11 @@ export default function AdminProductsPage() {
     const [saleNotes, setSaleNotes] = useState("");
     const [isSubmittingSale, setIsSubmittingSale] = useState(false);
 
-    const supabase = createBrowserClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    const [supabase] = useState(() =>
+        createBrowserClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        )
     );
 
     useEffect(() => {
@@ -44,6 +48,23 @@ export default function AdminProductsPage() {
         return false;
     });
 
+    const totalItems = filteredProducts.length;
+    const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+    const paginatedProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+    const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [activeTab, itemsPerPage]);
+
+    useEffect(() => {
+        if (currentPage > totalPages) {
+            setCurrentPage(totalPages);
+        }
+    }, [currentPage, totalPages]);
+
     return (
         <div className="p-8">
             {/* Content Header */}
@@ -63,34 +84,51 @@ export default function AdminProductsPage() {
 
             {/* Tabs */}
             <div className="mb-6 border-b border-[#d9b7a6] dark:border-[#5a3329]">
-                <div className="flex gap-8">
-                    <button
-                        onClick={() => setActiveTab("all")}
-                        className={`pb-4 text-sm font-bold border-b-2 transition-colors ${activeTab === "all"
-                            ? "border-primary text-slate-900 dark:text-white"
-                            : "border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
-                            }`}
-                    >
-                        Todos ({products.length})
-                    </button>
-                    <button
-                        onClick={() => setActiveTab("active")}
-                        className={`pb-4 text-sm font-medium border-b-2 transition-colors ${activeTab === "active"
-                            ? "border-primary text-slate-900 dark:text-white"
-                            : "border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
-                            }`}
-                    >
-                        Ativos ({products.filter(p => p.is_available).length})
-                    </button>
-                    <button
-                        onClick={() => setActiveTab("draft")}
-                        className={`pb-4 text-sm font-medium border-b-2 transition-colors ${activeTab === "draft"
-                            ? "border-primary text-slate-900 dark:text-white"
-                            : "border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
-                            }`}
-                    >
-                        Rascunhos ({products.filter(p => !p.is_available).length})
-                    </button>
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                    <div className="flex gap-8">
+                        <button
+                            onClick={() => setActiveTab("all")}
+                            className={`pb-4 text-sm font-bold border-b-2 transition-colors ${activeTab === "all"
+                                ? "border-primary text-slate-900 dark:text-white"
+                                : "border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                                }`}
+                        >
+                            Todos ({products.length})
+                        </button>
+                        <button
+                            onClick={() => setActiveTab("active")}
+                            className={`pb-4 text-sm font-medium border-b-2 transition-colors ${activeTab === "active"
+                                ? "border-primary text-slate-900 dark:text-white"
+                                : "border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                                }`}
+                        >
+                            Ativos ({products.filter(p => p.is_available).length})
+                        </button>
+                        <button
+                            onClick={() => setActiveTab("draft")}
+                            className={`pb-4 text-sm font-medium border-b-2 transition-colors ${activeTab === "draft"
+                                ? "border-primary text-slate-900 dark:text-white"
+                                : "border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                                }`}
+                        >
+                            Rascunhos ({products.filter(p => !p.is_available).length})
+                        </button>
+                    </div>
+                    <div className="pb-3 flex items-center gap-3">
+                        <label htmlFor="itemsPerPage" className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                            Exibir
+                        </label>
+                        <select
+                            id="itemsPerPage"
+                            value={itemsPerPage}
+                            onChange={(e) => setItemsPerPage(Number(e.target.value) as 10 | 50 | 100)}
+                            className="h-9 rounded-md border border-[#d9b7a6] dark:border-[#5a3329] bg-white dark:bg-[#341810] px-3 text-sm text-slate-700 dark:text-slate-200"
+                        >
+                            <option value={10}>10</option>
+                            <option value={50}>50</option>
+                            <option value={100}>100</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -122,7 +160,7 @@ export default function AdminProductsPage() {
                                     </td>
                                 </tr>
                             ) : (
-                                filteredProducts.slice(0, 5).map((product) => (
+                                paginatedProducts.map((product) => (
                                     <tr key={product.id} className="hover:bg-[#f6ede5]/50 dark:hover:bg-[#341810]/30 transition-colors group">
                                         <td className="px-6 py-4">
                                             <Link href={`/catalog/${product.id}`} target="_blank">
@@ -232,6 +270,49 @@ export default function AdminProductsPage() {
                 </div>
             </div>
 
+            {!loading && filteredProducts.length > 0 && (
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <p className="text-sm text-slate-500">
+                        Mostrando {startIndex + 1}–{endIndex} de {totalItems} produtos
+                    </p>
+                    <div className="flex items-center gap-1.5">
+                        <button
+                            type="button"
+                            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                            disabled={currentPage === 1}
+                            className="h-9 w-9 inline-flex items-center justify-center rounded-md border border-[#d9b7a6] dark:border-[#5a3329] text-slate-600 dark:text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#f6ede5] dark:hover:bg-[#341810]"
+                            aria-label="Página anterior"
+                        >
+                            <ChevronLeft className="h-4 w-4" />
+                        </button>
+
+                        {pageNumbers.map((page) => (
+                            <button
+                                key={page}
+                                type="button"
+                                onClick={() => setCurrentPage(page)}
+                                className={`h-9 min-w-9 px-2 inline-flex items-center justify-center rounded-md border text-sm font-semibold transition-colors ${page === currentPage
+                                    ? "border-primary bg-primary text-white"
+                                    : "border-[#d9b7a6] dark:border-[#5a3329] text-slate-700 dark:text-slate-200 hover:bg-[#f6ede5] dark:hover:bg-[#341810]"
+                                    }`}
+                            >
+                                {page}
+                            </button>
+                        ))}
+
+                        <button
+                            type="button"
+                            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                            disabled={currentPage === totalPages}
+                            className="h-9 w-9 inline-flex items-center justify-center rounded-md border border-[#d9b7a6] dark:border-[#5a3329] text-slate-600 dark:text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#f6ede5] dark:hover:bg-[#341810]"
+                            aria-label="Próxima página"
+                        >
+                            <ChevronRight className="h-4 w-4" />
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {/* Modal de Venda */}
             {saleModalOpen && selectedSaleProduct && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
@@ -317,7 +398,7 @@ export default function AdminProductsPage() {
                                         } else {
                                             alert("Erro: " + res.error);
                                         }
-                                    } catch (e) {
+                                    } catch {
                                         alert("Erro inesperado ao registrar a venda.");
                                     }
                                     setIsSubmittingSale(false);
