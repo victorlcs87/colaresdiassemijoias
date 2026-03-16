@@ -97,7 +97,7 @@ export default function ProductDetailClient({
             <div className="flex flex-col sm:flex-row gap-6 sm:gap-5 md:gap-6 lg:gap-10">
 
                 {/* Left: Image Gallery */}
-                <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-3 md:gap-4 w-full sm:w-[62%] lg:w-[64%]">
+                <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-3 md:gap-4 w-full sm:w-[62%] lg:w-[80%]">
                     {/* Thumbnails */}
                     {images.length > 1 && (
                         <div className="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto sm:max-h-[600px] flex-shrink-0 scrollbar-thin">
@@ -346,13 +346,12 @@ export default function ProductDetailClient({
                             Detalhes e Especificações
                         </h3>
 
-                        <div className="max-w-[42ch] text-base text-slate-700 dark:text-slate-400 leading-8 whitespace-normal break-words">
+                        <div className="max-w-[42ch] text-base text-slate-700 dark:text-slate-400 leading-8 whitespace-normal">
                             {normalizedDescription}
                         </div>
                     </div>
                 </div>
             </div>
-            {/* Related Products Section */}
             {relatedProducts.length > 0 && (
                 <section className="mt-16 pb-8">
                     <div className="flex items-center justify-between mb-6">
