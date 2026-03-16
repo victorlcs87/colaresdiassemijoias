@@ -101,3 +101,10 @@ Status atual: **Fase 10 - Paginação Admin Produtos**
 - [x] Separar estado de filtros digitados vs filtros aplicados para consistência da exportação.
 - [x] Implementar botão de exportação XLSX respeitando os filtros aplicados.
 - [x] Criar endpoint protegido para geração do arquivo XLSX com abas `Resumo` e `Vendas`.
+
+### Fase 12: Relatório XLS Profissional (Executivo)
+- [x] Migrar geração de XLS de `xlsx` para `ExcelJS` para suportar layout empresarial.
+- [x] Criar aba `Resumo Executivo` com KPIs visuais, período, indicadores complementares e top produtos.
+- [x] Criar aba `Vendas Detalhadas` com cabeçalho estilizado, auto-filtro, zebra rows e formatação monetária/data.
+- [x] Criar aba `Análise por Produto` com agregação de quantidade, receita, custo, lucro e margem.
+- [x] Aplicar identidade visual da marca e inclusão do logo no relatório (quando disponível no ambiente).

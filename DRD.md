@@ -71,5 +71,10 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** Reduzir fricção operacional no fechamento mensal e garantir que o arquivo exportado represente exatamente os dados visualizados no painel.
 - **Impacto:** A tela de vendas abre com visão mensal pronta para uso, inclui botão de exportação e endpoint protegido gerando arquivo com abas `Resumo` e `Vendas`.
 
+### Decisão 012 - Padrão empresarial para exportação de relatório XLSX
+- **Decisão:** Substituir geração simples por planilha corporativa com `ExcelJS`, incluindo abas `Resumo Executivo`, `Vendas Detalhadas` e `Análise por Produto`, com estilo visual e indicadores.
+- **Motivo:** A exportação anterior estava funcional, porém simples demais para uso gerencial e apresentação empresarial.
+- **Impacto:** Relatório exportado passa a ter leitura executiva, melhor visual, formatação financeira/data, agrupamentos e análise de performance por produto.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).
