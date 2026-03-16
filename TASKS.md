@@ -149,3 +149,7 @@ Status atual: **Fase 17 - Ajuste Visual da Página de Produto (Referência)**
 - [x] Aplicar altura mínima em `xl` no container da imagem principal para evitar perda perceptiva em telas largas.
 - [x] Trocar renderização da imagem para `object-contain` com padding responsivo.
 - [x] Validar build/lint após correção de mídia no layout web.
+
+### Fase 20: Remoção de Borda Visual na Imagem Principal
+- [x] Remover padding interno da mídia principal para eliminar moldura aparente.
+- [x] Retornar para renderização `object-cover` mantendo cantos arredondados do container.

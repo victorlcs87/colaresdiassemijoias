@@ -119,12 +119,12 @@ export default function ProductDetailClient({
                         </div>
                     )}
 
-                    <div className="relative w-full aspect-[3/4] xl:min-h-[680px] rounded-3xl overflow-hidden bg-slate-200 dark:bg-[#2a120d] border border-[#d9b7a6]/30 dark:border-[#5a3329]">
+                    <div className="relative w-full aspect-[3/4] xl:min-h-[680px] rounded-3xl overflow-hidden bg-slate-100 dark:bg-[#2a120d] border border-[#d9b7a6]/30 dark:border-[#5a3329]">
                         <Image
                             src={images[activeImage] || defaultImage}
                             alt={product.name}
                             fill
-                            className="object-contain p-4 md:p-6 xl:p-10"
+                            className="object-cover"
                             sizes="(max-width: 1280px) 100vw, 58vw"
                             priority
                         />

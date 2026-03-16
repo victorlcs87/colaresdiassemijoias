@@ -111,5 +111,10 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** No navegador maximizado a imagem deixava de ficar perceptível, enquanto em janelas menores aparecia normalmente.
 - **Impacto:** A imagem mantém visibilidade consistente em telas largas, com enquadramento previsível.
 
+### Decisão 020 - Remoção de moldura visual na mídia principal
+- **Decisão:** Remover padding interno e retornar para renderização `object-cover` na imagem principal, preservando apenas os cantos arredondados do container.
+- **Motivo:** A abordagem com `object-contain` + padding criou uma borda visual indesejada em torno da foto.
+- **Impacto:** A imagem volta ao visual original, ocupando todo o card com acabamento arredondado sem “quadro” interno.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).
