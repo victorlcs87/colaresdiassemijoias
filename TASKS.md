@@ -116,13 +116,6 @@ Status atual: **Fase 10 - Paginação Admin Produtos**
 - [x] Garantir CTA do WhatsApp em linha única no desktop.
 - [x] Garantir título `Detalhes e Especificações` em linha única no desktop e flexibilizar quebra do conteúdo apenas quando necessário.
 
-### Fase 14: Alinhamento Visual com Referência Desktop (Página de Produto)
-- [x] Reestruturar o bloco principal desktop para composição com painel de informações destacado à direita.
-- [x] Ajustar proporção das colunas (imagem x conteúdo) para aproximar o layout da referência.
-- [x] Remover breadcrumb do desktop nessa tela para manter foco visual no produto.
-- [x] Reforçar hierarquia de título e preço no desktop com tipografia maior.
-- [x] Refinar CTAs desktop (quantidade, comprar e WhatsApp) com dimensões/raios/cores alinhados ao mock.
-
 ### Fase 14: Correção de Quebras em Desktop Intermediário (Detalhe do Produto)
 - [x] Ajustar breakpoint da seção principal para manter layout em coluna até `lg`.
 - [x] Redistribuir proporção das colunas para `52%/48%` em telas largas.
