@@ -106,5 +106,10 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** Foi reportado que, no desktop, a imagem não estava visível e que os textos estavam desproporcionais nas duas versões.
 - **Impacto:** Imagem volta a ter leitura consistente no desktop e a densidade visual da página fica mais equilibrada em todos os breakpoints.
 
+### Decisão 019 - Robustez de renderização da mídia principal em desktop
+- **Decisão:** Substituir proporção implícita por altura mínima explícita no container da imagem principal e usar `object-contain` com padding/sombra para reforçar presença visual.
+- **Motivo:** Persistência de relato de “imagem não aparece no desktop”, indicando necessidade de regra de layout mais determinística para a mídia.
+- **Impacto:** A área de imagem passa a ter espaço garantido no desktop e melhor contraste visual do produto, reduzindo risco de “desaparecimento” perceptivo.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).
