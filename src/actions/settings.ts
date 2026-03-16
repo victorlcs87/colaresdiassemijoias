@@ -2,6 +2,8 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import { resolveAdminContext } from "@/lib/auth/admin-guard";
+import { fail, ok, type ActionResult } from "@/lib/contracts/action-result";
 
 export async function getStoreSettings() {
     const supabase = await createClient();
@@ -22,15 +24,13 @@ export async function getStoreSettings() {
     }, {});
 }
 
-export async function updateStoreSettings(settings: Record<string, string>) {
-    const supabase = await createClient();
-
-    // Defense in depth: Check if user is authenticated at the API level
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-        console.error("Unauthorized attempt to update settings");
-        return { error: "Sem autorização para alterar configurações." };
+export async function updateStoreSettings(settings: Record<string, string>): Promise<ActionResult> {
+    const auth = await resolveAdminContext();
+    if (!auth.success || !auth.data) {
+        return fail(auth.code, auth.message);
     }
+
+    const { supabase } = auth.data;
 
     const updates = Object.entries(settings).map(([key, value]) => ({
         key,
@@ -41,12 +41,12 @@ export async function updateStoreSettings(settings: Record<string, string>) {
 
     if (error) {
         console.error("Error updating settings:", error);
-        return { error: error.message };
+        return fail("SETTINGS_UPDATE_ERROR", error.message);
     }
 
     revalidatePath("/admin/settings");
     revalidatePath("/");
     revalidatePath("/catalog", "layout");
 
-    return { success: true };
+    return ok("Configurações atualizadas com sucesso.");
 }

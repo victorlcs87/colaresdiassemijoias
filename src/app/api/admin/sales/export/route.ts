@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import ExcelJS from "exceljs";
-import { createClient } from "@/lib/supabase/server";
+import { resolveAdminContext } from "@/lib/auth/admin-guard";
 
 interface SaleRow {
     product_name: string;
@@ -80,25 +80,12 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: "Filtro de data inválido." }, { status: 400 });
     }
 
-    const supabase = await createClient();
-
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user?.email) {
-        return NextResponse.json({ error: "Não autenticado." }, { status: 401 });
+    const adminAuth = await resolveAdminContext();
+    if (!adminAuth.success || !adminAuth.data) {
+        const status = adminAuth.code === "UNAUTHORIZED" ? 401 : 403;
+        return NextResponse.json({ error: adminAuth.message }, { status });
     }
-
-    const { data: adminProfile } = await supabase
-        .from("admin_profiles")
-        .select("username")
-        .eq("email", user.email)
-        .maybeSingle();
-
-    if (!adminProfile) {
-        return NextResponse.json({ error: "Sem permissão para exportar relatório." }, { status: 403 });
-    }
+    const { supabase } = adminAuth.data;
 
     let query = supabase
         .from("sales")

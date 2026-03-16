@@ -35,5 +35,21 @@ export async function updateSession(request: NextRequest) {
         data: { user },
     } = await supabase.auth.getUser();
 
-    return { user, supabaseResponse };
+    let isAdmin = false;
+
+    if (user?.email) {
+        const { data: adminProfile, error: adminProfileError } = await supabase
+            .from("admin_profiles")
+            .select("id")
+            .eq("email", user.email)
+            .maybeSingle();
+
+        if (adminProfileError && adminProfileError.code !== "PGRST116") {
+            console.warn("Falha ao verificar perfil administrativo no middleware:", adminProfileError.message);
+        }
+
+        isAdmin = Boolean(adminProfile);
+    }
+
+    return { user, isAdmin, supabaseResponse };
 }

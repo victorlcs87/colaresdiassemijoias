@@ -1,18 +1,17 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { resolveAdminContext } from "@/lib/auth/admin-guard";
+import { fail, ok, type ActionResult } from "@/lib/contracts/action-result";
 
 export async function createProduct(formData: FormData) {
-    const supabase = await createClient();
-
-    // Defense in depth: Check if user is authenticated at the API level
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
+    const auth = await resolveAdminContext();
+    if (!auth.success || !auth.data) {
         console.error("Unauthorized attempt to create product");
-        return { error: "Sem autorização para cadastrar produtos." };
+        return fail(auth.code, auth.message);
     }
+    const { supabase } = auth.data;
 
     const name = formData.get("name") as string;
     const description = formData.get("description") as string;
@@ -25,7 +24,7 @@ export async function createProduct(formData: FormData) {
         if (image_gallery_str) {
             image_gallery = JSON.parse(image_gallery_str);
         }
-    } catch (e) { }
+    } catch { }
 
     const image_url = image_url_form || (image_gallery.length > 0 ? image_gallery[0] : null);
 
@@ -48,10 +47,10 @@ export async function createProduct(formData: FormData) {
                 sizes = parsed;
             }
         }
-    } catch (e) { }
+    } catch { }
 
     if (!name || isNaN(price)) {
-        return { error: "Nome e preço são obrigatórios e preço deve ser um número válido." };
+        return fail("VALIDATION_ERROR", "Nome e preço são obrigatórios e preço deve ser um número válido.");
     }
 
     const { error } = await supabase.from("products").insert({
@@ -72,7 +71,7 @@ export async function createProduct(formData: FormData) {
 
     if (error) {
         console.error("Failed to insert product", error);
-        return { error: `Erro ao criar produto: ${error.message} (Code: ${error.code})` };
+        return fail("PRODUCT_CREATE_ERROR", `Erro ao criar produto: ${error.message} (Code: ${error.code})`);
     }
 
     revalidatePath("/admin/products");
@@ -81,38 +80,34 @@ export async function createProduct(formData: FormData) {
     redirect("/admin/products");
 }
 
-export async function deleteProduct(id: string) {
-    const supabase = await createClient();
-
-    // Defense in depth: Check auth at API level
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
+export async function deleteProduct(id: string): Promise<ActionResult> {
+    const auth = await resolveAdminContext();
+    if (!auth.success || !auth.data) {
         console.error("Unauthorized attempt to delete product");
-        return { error: "Sem autorização para excluir produtos." };
+        return fail(auth.code, auth.message);
     }
+    const { supabase } = auth.data;
 
     const { error } = await supabase.from("products").delete().eq("id", id);
 
     if (error) {
         console.error("Failed to delete product", error);
-        return { error: `Erro ao excluir produto: ${error.message}` };
+        return fail("PRODUCT_DELETE_ERROR", `Erro ao excluir produto: ${error.message}`);
     }
 
     revalidatePath("/admin/products");
     revalidatePath("/catalog");
     revalidatePath("/");
-    return { success: true };
+    return ok("Produto excluído com sucesso.");
 }
 
 export async function updateProduct(id: string, formData: FormData) {
-    const supabase = await createClient();
-
-    // Defense in depth: Check auth at API level
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
+    const auth = await resolveAdminContext();
+    if (!auth.success || !auth.data) {
         console.error("Unauthorized attempt to update product");
-        return { error: "Sem autorização para atualizar produtos." };
+        return fail(auth.code, auth.message);
     }
+    const { supabase } = auth.data;
 
     const name = formData.get("name") as string;
     const description = formData.get("description") as string;
@@ -125,7 +120,7 @@ export async function updateProduct(id: string, formData: FormData) {
         if (image_gallery_str) {
             image_gallery = JSON.parse(image_gallery_str);
         }
-    } catch (e) { }
+    } catch { }
 
     const image_url = image_url_form || (image_gallery.length > 0 ? image_gallery[0] : null);
 
@@ -148,10 +143,10 @@ export async function updateProduct(id: string, formData: FormData) {
                 sizes = parsed;
             }
         }
-    } catch (e) { }
+    } catch { }
 
     if (!name || isNaN(price)) {
-        return { error: "Nome e preço são obrigatórios." };
+        return fail("VALIDATION_ERROR", "Nome e preço são obrigatórios.");
     }
 
     const { error } = await supabase.from("products").update({
@@ -172,7 +167,7 @@ export async function updateProduct(id: string, formData: FormData) {
 
     if (error) {
         console.error("Failed to update product", error);
-        return { error: `Erro ao atualizar produto: ${error.message}` };
+        return fail("PRODUCT_UPDATE_ERROR", `Erro ao atualizar produto: ${error.message}`);
     }
 
     revalidatePath("/admin/products");

@@ -1,6 +1,7 @@
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { createClient } from "@/lib/supabase/server";
+import { isCurrentUserAdmin } from "@/lib/auth/admin-guard";
 
 export default async function AdminLayout({
     children,
@@ -9,8 +10,9 @@ export default async function AdminLayout({
 }) {
     const supabase = await createClient();
     const { data: { session } } = await supabase.auth.getSession();
+    const isAdmin = session ? await isCurrentUserAdmin() : false;
 
-    if (!session) {
+    if (!session || !isAdmin) {
         return (
             <div className="flex flex-1 w-full bg-[#f6ede5] dark:bg-[#24100b]">
                 <main className="flex-1 flex flex-col min-w-0 overflow-hidden relative">

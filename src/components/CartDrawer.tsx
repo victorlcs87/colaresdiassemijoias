@@ -3,9 +3,15 @@
 import { ShoppingCart, X, Plus, Minus, Trash2, MessageCircle, AlertCircle } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { createPortal } from "react-dom";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
+import { usePublicStoreSettings } from "@/hooks/usePublicStoreSettings";
 
 export function CartDrawer() {
     const { isOpen, openCart, closeCart, items, removeItem, updateQuantity, getTotalPrice, getTotalItems } = useCartStore();
+    const { whatsappNumber } = usePublicStoreSettings();
+    const closeButtonRef = useRef<HTMLButtonElement>(null);
+    const drawerRef = useRef<HTMLDivElement>(null);
 
     const handleCheckout = () => {
         if (items.length === 0) return;
@@ -34,8 +40,54 @@ export function CartDrawer() {
             analytics("event", "Purchase_Intent_WhatsApp", { total_value: total, total_items: getTotalItems() });
         }
 
-        window.open(`https://wa.me/5561982865191?text=${encodedMessage}`, "_blank");
+        const targetNumber = whatsappNumber.replace(/\D/g, "");
+        window.open(`https://wa.me/${targetNumber}?text=${encodedMessage}`, "_blank", "noopener,noreferrer");
     };
+
+    useEffect(() => {
+        if (!isOpen) return;
+
+        const previousFocus = document.activeElement as HTMLElement | null;
+        const drawerElement = drawerRef.current;
+        const closeButton = closeButtonRef.current;
+
+        closeButton?.focus();
+
+        function onKeyDown(event: KeyboardEvent) {
+            if (event.key === "Escape") {
+                event.preventDefault();
+                closeCart();
+                return;
+            }
+
+            if (event.key !== "Tab" || !drawerElement) return;
+
+            const focusableElements = drawerElement.querySelectorAll<HTMLElement>(
+                'a[href], button:not([disabled]), textarea, input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            );
+
+            if (!focusableElements.length) return;
+
+            const first = focusableElements[0];
+            const last = focusableElements[focusableElements.length - 1];
+            const active = document.activeElement;
+
+            if (event.shiftKey && active === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && active === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        }
+
+        document.addEventListener("keydown", onKeyDown);
+
+        return () => {
+            document.removeEventListener("keydown", onKeyDown);
+            previousFocus?.focus();
+        };
+    }, [isOpen, closeCart]);
 
     return (
         <>
@@ -43,6 +95,7 @@ export function CartDrawer() {
             <button
                 onClick={openCart}
                 className="relative flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-[#3a1c15] hover:bg-slate-100 dark:hover:bg-[#5a3329] transition-colors shadow-sm text-slate-900 dark:text-slate-100 mr-2"
+                aria-label="Abrir carrinho"
             >
                 <ShoppingCart className="h-6 w-6" />
                 {getTotalItems() > 0 && (
@@ -64,7 +117,13 @@ export function CartDrawer() {
                     )}
 
                     {/* Drawer */}
-                    <div className={`fixed top-0 right-0 z-[9991] h-[100dvh] w-full max-w-md bg-white dark:bg-[#2a120d] shadow-2xl transition-transform duration-500 ease-out transform ${isOpen ? "translate-x-0" : "translate-x-full"} flex flex-col`}>
+                    <div
+                        ref={drawerRef}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Carrinho de compras"
+                        className={`fixed top-0 right-0 z-[9991] h-[100dvh] w-full max-w-md bg-white dark:bg-[#2a120d] shadow-2xl transition-transform duration-500 ease-out transform ${isOpen ? "translate-x-0" : "translate-x-full"} flex flex-col`}
+                    >
                         {/* Header */}
                         <div className="p-6 border-b border-slate-100 dark:border-[#5a3329] flex items-center justify-between">
                             <div className="flex items-center gap-3">
@@ -72,8 +131,10 @@ export function CartDrawer() {
                                 <span className="bg-primary/20 text-primary text-xs font-bold px-2 py-0.5 rounded-full">{getTotalItems()} itens</span>
                             </div>
                             <button
+                                ref={closeButtonRef}
                                 onClick={closeCart}
                                 className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-colors"
+                                aria-label="Fechar carrinho"
                             >
                                 <X className="w-6 h-6 text-slate-400" />
                             </button>
@@ -101,9 +162,11 @@ export function CartDrawer() {
                                 items.map((item) => (
                                     <div key={item.id} className="flex gap-4 group">
                                         <div className="w-20 h-20 bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden flex-shrink-0">
-                                            <img
+                                            <Image
                                                 src={item.image_url || "https://images.unsplash.com/photo-1611652022419-a9419f74343d"}
                                                 alt={item.name}
+                                                width={80}
+                                                height={80}
                                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                             />
                                         </div>

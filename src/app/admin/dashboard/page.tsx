@@ -1,21 +1,22 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import AdminDashboardContent from "./AdminDashboardContent";
+import { adminProfileRepository } from "@/lib/repositories/admin-profile.repository";
 
 export default async function AdminDashboard() {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
-    if (!user) {
+    if (!user?.email) {
         redirect("/admin");
     }
 
     // Buscar o perfil do admin para exibir o nome de usuário
-    const { data: profile } = await supabase
-        .from("admin_profiles")
-        .select("username")
-        .eq("email", user.email)
-        .single();
+    const profile = await adminProfileRepository.findByEmail(supabase, user.email);
+
+    if (!profile) {
+        redirect("/admin?error=forbidden");
+    }
 
     // Buscar dados dos produtos para estatísticas
     const { data: products } = await supabase.from("products").select("is_available, price");

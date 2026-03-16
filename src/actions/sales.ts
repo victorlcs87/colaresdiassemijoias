@@ -1,11 +1,15 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { resolveAdminContext } from "@/lib/auth/admin-guard";
+import { fail, ok, type ActionResult } from "@/lib/contracts/action-result";
 
-export async function registerSale(formData: FormData) {
-    const supabase = await createClient();
+export async function registerSale(formData: FormData): Promise<ActionResult> {
+    const auth = await resolveAdminContext();
+    if (!auth.success || !auth.data) {
+        return fail(auth.code, auth.message);
+    }
+    const { supabase } = auth.data;
 
     const product_id = formData.get("product_id") as string;
     const sale_price = parseFloat(formData.get("sale_price") as string);
@@ -13,7 +17,7 @@ export async function registerSale(formData: FormData) {
     const notes = (formData.get("notes") as string) || null;
 
     if (!product_id || isNaN(sale_price)) {
-        return { error: "Produto e preço de venda são obrigatórios." };
+        return fail("VALIDATION_ERROR", "Produto e preço de venda são obrigatórios.");
     }
 
     // Buscar dados do produto
@@ -24,7 +28,7 @@ export async function registerSale(formData: FormData) {
         .single();
 
     if (fetchError || !product) {
-        return { error: "Produto não encontrado." };
+        return fail("PRODUCT_NOT_FOUND", "Produto não encontrado.");
     }
 
     // Inserir venda
@@ -40,7 +44,7 @@ export async function registerSale(formData: FormData) {
     });
 
     if (saleError) {
-        return { error: `Erro ao registrar venda: ${saleError.message}` };
+        return fail("SALE_REGISTER_ERROR", `Erro ao registrar venda: ${saleError.message}`);
     }
 
     // Marcar produto como indisponível
@@ -54,11 +58,15 @@ export async function registerSale(formData: FormData) {
     revalidatePath("/catalog");
     revalidatePath("/");
 
-    return { success: true };
+    return ok("Venda registrada com sucesso.");
 }
 
-export async function undoSale(saleId: string) {
-    const supabase = await createClient();
+export async function undoSale(saleId: string): Promise<ActionResult> {
+    const auth = await resolveAdminContext();
+    if (!auth.success || !auth.data) {
+        return fail(auth.code, auth.message);
+    }
+    const { supabase } = auth.data;
 
     // Buscar a venda para saber o ID do produto
     const { data: sale, error: fetchError } = await supabase
@@ -68,7 +76,7 @@ export async function undoSale(saleId: string) {
         .single();
 
     if (fetchError || !sale) {
-        return { error: "Venda não encontrada." };
+        return fail("SALE_NOT_FOUND", "Venda não encontrada.");
     }
 
     // Deletar a venda
@@ -78,7 +86,7 @@ export async function undoSale(saleId: string) {
         .eq("id", saleId);
 
     if (deleteError) {
-        return { error: `Erro ao desfazer venda: ${deleteError.message}` };
+        return fail("SALE_UNDO_ERROR", `Erro ao desfazer venda: ${deleteError.message}`);
     }
 
     // Se a venda tinha um produto associado, torná-lo disponível novamente
@@ -94,11 +102,15 @@ export async function undoSale(saleId: string) {
     revalidatePath("/catalog");
     revalidatePath("/");
 
-    return { success: true };
+    return ok("Venda desfeita com sucesso.");
 }
 
 export async function getSales(startDate?: string, endDate?: string) {
-    const supabase = await createClient();
+    const auth = await resolveAdminContext();
+    if (!auth.success || !auth.data) {
+        return [];
+    }
+    const { supabase } = auth.data;
 
     let query = supabase
         .from("sales")
@@ -140,7 +152,11 @@ export async function getSalesReport(startDate?: string, endDate?: string) {
 }
 
 export async function duplicateProduct(productId: string) {
-    const supabase = await createClient();
+    const auth = await resolveAdminContext();
+    if (!auth.success || !auth.data) {
+        return fail(auth.code, auth.message);
+    }
+    const { supabase } = auth.data;
 
     const { data: product, error: fetchError } = await supabase
         .from("products")
@@ -149,7 +165,7 @@ export async function duplicateProduct(productId: string) {
         .single();
 
     if (fetchError || !product) {
-        return { error: "Produto original não encontrado." };
+        return fail("PRODUCT_NOT_FOUND", "Produto original não encontrado.");
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -161,12 +177,12 @@ export async function duplicateProduct(productId: string) {
     });
 
     if (insertError) {
-        return { error: `Erro ao duplicar produto: ${insertError.message}` };
+        return fail("PRODUCT_DUPLICATE_ERROR", `Erro ao duplicar produto: ${insertError.message}`);
     }
 
     revalidatePath("/admin/products");
     revalidatePath("/catalog");
     revalidatePath("/");
 
-    return { success: true };
+    return ok("Produto duplicado com sucesso.");
 }

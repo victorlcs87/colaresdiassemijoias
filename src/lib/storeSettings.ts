@@ -21,3 +21,10 @@ export function getStoreWhatsapp(settings: GenericSettings) {
     return getSetting(settings, "whatsapp_number", "whatsappNumber") || "+5561982865191";
 }
 
+export function getStoreContactEmail(settings: GenericSettings) {
+    return getSetting(settings, "contact_email", "contactEmail") || "contato@colaresdias.com.br";
+}
+
+export function getStoreInstagram(settings: GenericSettings) {
+    return getSetting(settings, "instagram_user", "instagramUser") || "colares.dias.semijoias";
+}

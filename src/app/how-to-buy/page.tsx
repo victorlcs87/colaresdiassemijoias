@@ -2,13 +2,19 @@ import { Header } from "@/components/Header";
 import Link from "next/link";
 import { Search, MessageCircle, CreditCard, Truck, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
+import { getStoreSettings } from "@/actions/settings";
+import { getStoreWhatsapp } from "@/lib/storeSettings";
 
 export const metadata: Metadata = {
     title: "Como Comprar",
     description: "Aprenda como comprar na Colares Dias Semijoias em 4 passos simples via WhatsApp. Pix, cartão e entrega rápida.",
 };
 
-export default function HowToBuyPage() {
+export default async function HowToBuyPage() {
+    const settings = await getStoreSettings();
+    const whatsappNumber = getStoreWhatsapp(settings).replace(/\D/g, "");
+    const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+
     const steps = [
         {
             icon: <Search className="size-7" />,
@@ -156,7 +162,7 @@ export default function HowToBuyPage() {
                             <ArrowRight className="size-4" />
                         </Link>
                         <a
-                            href="https://wa.me/5561982865191"
+                            href={whatsappUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="bg-white dark:bg-[#2a120d] border border-[#d9b7a6] dark:border-[#5a3329] hover:bg-gray-50 dark:hover:bg-[#5a3329] px-8 py-3 rounded-xl font-bold text-base transition-all flex items-center justify-center gap-2 min-w-[200px]"

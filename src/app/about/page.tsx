@@ -3,13 +3,19 @@ import Link from "next/link";
 import Image from "next/image";
 import { ShieldCheck, Users, Handshake, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
+import { getStoreSettings } from "@/actions/settings";
+import { getStoreWhatsapp } from "@/lib/storeSettings";
 
 export const metadata: Metadata = {
     title: "Sobre Nós",
     description: "Conheça a história da Colares Dias Semijoias, com curadoria autoral e atendimento humanizado via WhatsApp.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+    const settings = await getStoreSettings();
+    const whatsappNumber = getStoreWhatsapp(settings).replace(/\D/g, "");
+    const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+
     return (
         <div className="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display text-slate-900 dark:text-slate-100 antialiased">
             <Header />
@@ -131,7 +137,7 @@ export default function AboutPage() {
                                 <ArrowRight className="size-4" />
                             </Link>
                             <a
-                                href="https://wa.me/5561982865191"
+                                href={whatsappUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="w-full sm:w-auto px-8 h-12 bg-white dark:bg-[#3a1c15] border border-[#d9b7a6] dark:border-[#5a3329] text-slate-700 dark:text-slate-200 rounded-lg font-bold hover:bg-gray-50 dark:hover:bg-[#5a3329] transition-colors flex items-center justify-center gap-2"

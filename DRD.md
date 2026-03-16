@@ -116,5 +116,25 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** A abordagem com `object-contain` + padding criou uma borda visual indesejada em torno da foto.
 - **Impacto:** A imagem volta ao visual original, ocupando todo o card com acabamento arredondado sem “quadro” interno.
 
+### Decisão 021 - Login admin server-side por username sem exposição de e-mail
+- **Decisão:** Migrar autenticação administrativa para ação server-side com lookup de `username -> email` via Service Role no backend, mantendo login por usuário no frontend.
+- **Motivo:** Eliminar exposição pública da tabela `admin_profiles` e reduzir risco de enumeração de contas administrativas.
+- **Impacto:** O cliente não consulta mais `admin_profiles` diretamente; o backend centraliza validação e emissão de sessão.
+
+### Decisão 022 - Guard administrativo unificado
+- **Decisão:** Criar guard compartilhado de autorização admin para Server Actions e rotas API sensíveis.
+- **Motivo:** Havia inconsistência de checagem de permissão entre fluxos (`products`, `sales`, `settings`, `export`), com risco de bypass.
+- **Impacto:** Todas as operações críticas passam a validar sessão + vínculo administrativo com contrato de erro padronizado.
+
+### Decisão 023 - Hardening de RLS com menor privilégio
+- **Decisão:** Introduzir função `is_admin()` e reescrever políticas para permitir escrita apenas a administradores, mantendo leitura pública somente no que é necessário ao catálogo.
+- **Motivo:** As políticas antigas permitiam escrita para qualquer usuário autenticado e leitura pública indevida em `admin_profiles`.
+- **Impacto:** Redução significativa da superfície de ataque e alinhamento com princípio de menor privilégio.
+
+### Decisão 024 - Segurança operacional em cron e centralização de contatos públicos
+- **Decisão:** Tornar `CRON_SECRET` obrigatório na rota de keep-alive e centralizar contatos (WhatsApp/e-mail/Instagram) por settings.
+- **Motivo:** Evitar disparo não autorizado do endpoint de cron e remover hardcodes sensíveis espalhados na UI.
+- **Impacto:** Endpoints administrativos ficam mais previsíveis/seguros e dados de contato passam a ser gerenciáveis por configuração.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).

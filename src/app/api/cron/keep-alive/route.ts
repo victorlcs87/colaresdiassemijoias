@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 export async function GET(request: Request) {
     try {
         const authHeader = request.headers.get('authorization');
+        const cronSecret = process.env.CRON_SECRET;
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
         const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -14,13 +15,21 @@ export async function GET(request: Request) {
             }, { status: 503 });
         }
 
-        const supabase = createClient(supabaseUrl, supabaseKey);
-
-        // Opcional: Proteger a rota para que apenas o Vercel Cron acesse
-        if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-            // Se configurarmos CRON_SECRET no Vercel no futuro, temos segurança.
-            // Mas no caso mínimo, apenas queremos "acordar" o banco.
+        if (!cronSecret) {
+            return NextResponse.json({
+                success: false,
+                error: 'CRON_SECRET não configurado no ambiente.',
+            }, { status: 503 });
         }
+
+        if (authHeader !== `Bearer ${cronSecret}`) {
+            return NextResponse.json({
+                success: false,
+                error: 'Não autorizado.',
+            }, { status: 401 });
+        }
+
+        const supabase = createClient(supabaseUrl, supabaseKey);
 
         // Ping simples na tabela de produtos
         const { error } = await supabase.from('products').select('id').limit(1);

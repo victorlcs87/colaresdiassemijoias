@@ -2,7 +2,7 @@ import { updateSession } from "@/lib/supabase/middleware";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-    const { user, supabaseResponse } = await updateSession(request);
+    const { user, isAdmin, supabaseResponse } = await updateSession(request);
     const { pathname } = request.nextUrl;
 
     // Rotas protegidas: tudo que começa com /admin EXCETO /admin (login)
@@ -16,8 +16,16 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(url);
     }
 
+    // Sessão sem permissão administrativa não acessa /admin/*
+    if (isProtectedRoute && user && !isAdmin) {
+        const url = request.nextUrl.clone();
+        url.pathname = "/admin";
+        url.searchParams.set("error", "forbidden");
+        return NextResponse.redirect(url);
+    }
+
     // Se está na página de login e já tem sessão → redireciona para dashboard
-    if (isLoginPage && user) {
+    if (isLoginPage && user && isAdmin) {
         const url = request.nextUrl.clone();
         url.pathname = "/admin/dashboard";
         return NextResponse.redirect(url);

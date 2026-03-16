@@ -85,58 +85,98 @@ ALTER TABLE public.store_settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.sales ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.admin_profiles ENABLE ROW LEVEL SECURITY;
 
--- Produtos: leitura pública, escrita autenticada
+-- Helpers de autorização
+CREATE OR REPLACE FUNCTION public.current_user_email()
+RETURNS text
+LANGUAGE sql
+STABLE
+AS $$
+  SELECT COALESCE(auth.jwt() ->> 'email', '');
+$$;
+
+CREATE OR REPLACE FUNCTION public.is_admin()
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT EXISTS (
+    SELECT 1
+    FROM public.admin_profiles ap
+    WHERE lower(ap.email) = lower(public.current_user_email())
+  );
+$$;
+
+REVOKE ALL ON FUNCTION public.is_admin() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.is_admin() TO authenticated;
+
+-- Produtos: leitura pública somente itens disponíveis e escrita/admin somente administradores
 DO $$
 BEGIN
-    CREATE POLICY "products_public_read" ON public.products
+    CREATE POLICY "products_public_read_available" ON public.products
+    FOR SELECT TO public USING (is_available = true);
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+DO $$
+BEGIN
+    CREATE POLICY "products_admin_read_all" ON public.products
+    FOR SELECT TO authenticated USING (public.is_admin());
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+DO $$
+BEGIN
+    CREATE POLICY "products_admin_insert" ON public.products
+    FOR INSERT TO authenticated WITH CHECK (public.is_admin());
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+DO $$
+BEGIN
+    CREATE POLICY "products_admin_update" ON public.products
+    FOR UPDATE TO authenticated USING (public.is_admin()) WITH CHECK (public.is_admin());
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+DO $$
+BEGIN
+    CREATE POLICY "products_admin_delete" ON public.products
+    FOR DELETE TO authenticated USING (public.is_admin());
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+-- Store settings: leitura pública e escrita apenas admin
+DO $$
+BEGIN
+    CREATE POLICY "settings_public_read_all" ON public.store_settings
     FOR SELECT TO public USING (true);
 EXCEPTION WHEN duplicate_object THEN NULL;
 END $$;
 
 DO $$
 BEGIN
-    CREATE POLICY "products_auth_write" ON public.products
-    FOR ALL TO authenticated USING (true) WITH CHECK (true);
+    CREATE POLICY "settings_admin_write" ON public.store_settings
+    FOR ALL TO authenticated USING (public.is_admin()) WITH CHECK (public.is_admin());
 EXCEPTION WHEN duplicate_object THEN NULL;
 END $$;
 
--- Store settings: leitura pública, escrita autenticada
+-- Sales: somente administradores
 DO $$
 BEGIN
-    CREATE POLICY "settings_public_read" ON public.store_settings
-    FOR SELECT TO public USING (true);
-EXCEPTION WHEN duplicate_object THEN NULL;
-END $$;
-
-DO $$
-BEGIN
-    CREATE POLICY "settings_auth_write" ON public.store_settings
-    FOR ALL TO authenticated USING (true) WITH CHECK (true);
-EXCEPTION WHEN duplicate_object THEN NULL;
-END $$;
-
--- Sales: somente autenticados
-DO $$
-BEGIN
-    CREATE POLICY "sales_auth_read_write" ON public.sales
-    FOR ALL TO authenticated USING (true) WITH CHECK (true);
+    CREATE POLICY "sales_admin_read_write" ON public.sales
+    FOR ALL TO authenticated USING (public.is_admin()) WITH CHECK (public.is_admin());
 EXCEPTION WHEN duplicate_object THEN NULL;
 END $$;
 
 -- Admin profiles:
--- SELECT público para permitir login por username na tela inicial.
--- Escrita restrita a autenticados.
+-- sem leitura pública para evitar enumeração de usuários.
+-- leitura autenticada apenas do próprio registro.
 DO $$
 BEGIN
-    CREATE POLICY "admin_profiles_public_read" ON public.admin_profiles
-    FOR SELECT TO public USING (true);
-EXCEPTION WHEN duplicate_object THEN NULL;
-END $$;
-
-DO $$
-BEGIN
-    CREATE POLICY "admin_profiles_auth_write" ON public.admin_profiles
-    FOR ALL TO authenticated USING (true) WITH CHECK (true);
+    CREATE POLICY "admin_profiles_auth_self_read" ON public.admin_profiles
+    FOR SELECT TO authenticated USING (lower(email) = lower(public.current_user_email()));
 EXCEPTION WHEN duplicate_object THEN NULL;
 END $$;
 
@@ -154,22 +194,23 @@ END $$;
 
 DO $$
 BEGIN
-    CREATE POLICY "product_images_auth_insert" ON storage.objects
-    FOR INSERT TO authenticated WITH CHECK (bucket_id = 'product-images');
+    CREATE POLICY "product_images_admin_insert" ON storage.objects
+    FOR INSERT TO authenticated WITH CHECK (bucket_id = 'product-images' AND public.is_admin());
 EXCEPTION WHEN duplicate_object THEN NULL;
 END $$;
 
 DO $$
 BEGIN
-    CREATE POLICY "product_images_auth_update" ON storage.objects
-    FOR UPDATE TO authenticated USING (bucket_id = 'product-images');
+    CREATE POLICY "product_images_admin_update" ON storage.objects
+    FOR UPDATE TO authenticated USING (bucket_id = 'product-images' AND public.is_admin())
+    WITH CHECK (bucket_id = 'product-images' AND public.is_admin());
 EXCEPTION WHEN duplicate_object THEN NULL;
 END $$;
 
 DO $$
 BEGIN
-    CREATE POLICY "product_images_auth_delete" ON storage.objects
-    FOR DELETE TO authenticated USING (bucket_id = 'product-images');
+    CREATE POLICY "product_images_admin_delete" ON storage.objects
+    FOR DELETE TO authenticated USING (bucket_id = 'product-images' AND public.is_admin());
 EXCEPTION WHEN duplicate_object THEN NULL;
 END $$;
 
@@ -188,4 +229,3 @@ ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
 INSERT INTO public.admin_profiles (username, email)
 VALUES ('admin', 'admin@colaresdias.com.br')
 ON CONFLICT (username) DO UPDATE SET email = EXCLUDED.email;
-

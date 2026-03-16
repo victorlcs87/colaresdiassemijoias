@@ -153,3 +153,15 @@ Status atual: **Fase 17 - Ajuste Visual da Página de Produto (Referência)**
 ### Fase 20: Remoção de Borda Visual na Imagem Principal
 - [x] Remover padding interno da mídia principal para eliminar moldura aparente.
 - [x] Retornar para renderização `object-cover` mantendo cantos arredondados do container.
+
+### Fase 21: Hardening de Segurança e Autorização (Onda 1)
+- [x] Implementar autenticação administrativa server-side por `username` sem expor `email` no cliente.
+- [x] Criar guard centralizado de autorização administrativa reutilizável entre Server Actions e rotas API.
+- [x] Aplicar guard administrativo nas ações críticas (`products`, `sales`, `settings`, exportação XLS).
+- [x] Proteger rota `api/cron/keep-alive` com validação obrigatória de `CRON_SECRET`.
+- [x] Criar migration incremental de RLS com princípio de menor privilégio e papel admin explícito.
+- [x] Atualizar `bootstrap_colares_dias.sql` para ambientes novos já nascerem com políticas hardenizadas.
+- [x] Centralizar leitura de contatos públicos via configuração e remover hardcode de WhatsApp em fluxos públicos.
+- [x] Ajustar acessibilidade básica em carrinho (semântica de diálogo, `Esc`, foco inicial e trap de tab).
+- [x] Validar `lint` e `build` pós-hardening.
+- [ ] Mitigar ou documentar formalmente vulnerabilidade transiente de dependência (`minimatch` via transitive deps).
