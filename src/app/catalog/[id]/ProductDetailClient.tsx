@@ -97,7 +97,7 @@ export default function ProductDetailClient({
             <div className="flex flex-col sm:flex-row gap-6 sm:gap-5 md:gap-6 lg:gap-10">
 
                 {/* Left: Image Gallery */}
-                <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-3 md:gap-4 w-full sm:w-[60%] lg:w-[60%]">
+                <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-3 md:gap-4 w-full sm:w-[62%] lg:w-[64%]">
                     {/* Thumbnails */}
                     {images.length > 1 && (
                         <div className="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto sm:max-h-[600px] flex-shrink-0 scrollbar-thin">
@@ -123,29 +123,30 @@ export default function ProductDetailClient({
                     )}
 
                     {/* Main Image */}
-                    <div className="relative w-full aspect-[3/4] sm:aspect-square lg:aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
+                    <div className="relative w-full aspect-[3/4] sm:aspect-[4/4.4] lg:aspect-[4/4.7] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
                         <Image
                             src={images[activeImage] || defaultImage}
                             alt={product.name}
                             fill
                             className="object-cover"
-                            sizes="(max-width: 768px) 100vw, 55vw"
+                            sizes="(max-width: 768px) 100vw, 58vw"
                             priority
                         />
                     </div>
                 </div>
+
                 {/* Right: Product Info */}
-                <div className="w-full lg:w-[60%] flex-1 min-w-0 flex flex-col sm:pt-1">
+                <div className="w-full lg:w-[56%] flex-1 min-w-0 flex flex-col sm:pt-1">
                     {/* Breadcrumb (desktop) */}
                     <div className="hidden lg:block mb-6">
-                        <div className="relative min-w-0">
+                        <div className="relative min-w-0 overflow-hidden rounded-lg">
                             {/* Fade left */}
-                            <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-6 bg-gradient-to-r from-[#f5efe9] to-transparent dark:from-[#1a0d09]" />
+                            <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-10 bg-gradient-to-r from-[#f5efe9] via-[#f5efe9]/90 to-transparent dark:from-[#1a0d09] dark:via-[#1a0d09]/90" />
 
                             {/* Fade right */}
-                            <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-6 bg-gradient-to-l from-[#f5efe9] to-transparent dark:from-[#1a0d09]" />
+                            <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-10 bg-gradient-to-l from-[#f5efe9] via-[#f5efe9]/90 to-transparent dark:from-[#1a0d09] dark:via-[#1a0d09]/90" />
 
-                            <div className="flex items-center gap-2 overflow-x-auto whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 scrollbar-none pr-6 pl-6">
+                            <div className="flex items-center gap-2 overflow-x-auto whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 scrollbar-none px-8 py-1">
                                 <Link
                                     href="/"
                                     className="shrink-0 hover:text-primary transition-colors"
@@ -182,26 +183,26 @@ export default function ProductDetailClient({
                             </div>
                         </div>
                     </div>
+
                     {/* Name + Favorite */}
-                    <div className="flex justify-between items-start gap-3 mb-3 md:mb-4 min-w-0">
-                        <h1 className="flex-1 min-w-0 text-2xl sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
-                            <div className="flex items-center gap-3 min-w-0 flex-nowrap">
-                                <span className="block min-w-0 truncate whitespace-nowrap">
-                                    {product.name}
+                    <div className="mb-3 md:mb-4 min-w-0">
+                        <div className="flex items-start gap-3 min-w-0 flex-wrap">
+                            <h1 className="min-w-0 text-2xl sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight break-words">
+                                {product.name}
+                            </h1>
+
+                            <button className="flex-shrink-0 h-10 w-10 rounded-full border border-slate-200 dark:border-[#5a3329] flex items-center justify-center hover:text-primary hover:border-primary transition-colors mt-0.5">
+                                <Heart className="h-5 w-5" />
+                            </button>
+
+                            {product.condition === 'seminovo' && (
+                                <span className="flex-shrink-0 px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 font-bold text-xs uppercase tracking-wider border border-amber-200 dark:border-amber-800 mt-1">
+                                    Seminovo
                                 </span>
-
-                                {product.condition === 'seminovo' && (
-                                    <span className="flex-shrink-0 px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 font-bold text-xs uppercase tracking-wider border border-amber-200 dark:border-amber-800">
-                                        Seminovo
-                                    </span>
-                                )}
-                            </div>
-                        </h1>
-
-                        <button className="flex-shrink-0 h-10 w-10 rounded-full border border-slate-200 dark:border-[#5a3329] flex items-center justify-center hover:text-primary hover:border-primary transition-colors">
-                            <Heart className="h-5 w-5" />
-                        </button>
+                            )}
+                        </div>
                     </div>
+
                     {/* Price */}
                     <div className="flex items-baseline gap-3 mb-5 md:mb-7 flex-wrap">
                         {formattedPromotionalPrice ? (
@@ -341,48 +342,53 @@ export default function ProductDetailClient({
 
                     {/* Single Description Paragraph Details */}
                     <div className="mt-10 md:mt-12 pt-8 md:pt-10 border-t border-slate-100 dark:border-[#5a3329]">
-                        <h3 className="font-bold text-sm text-slate-900 dark:text-white mb-4 uppercase tracking-wider md:whitespace-nowrap">Detalhes e Especificações</h3>
-                        <div className="text-sm text-slate-600 dark:text-slate-500 leading-relaxed whitespace-normal">
+                        <h3 className="font-bold text-sm text-slate-900 dark:text-white mb-4 uppercase tracking-wider md:whitespace-nowrap">
+                            Detalhes e Especificações
+                        </h3>
+
+                        <div className="max-w-[42ch] text-base text-slate-700 dark:text-slate-400 leading-8 whitespace-normal break-words">
                             {normalizedDescription}
                         </div>
                     </div>
                 </div>
             </div>
-
-            {/* Related Products Section */}
-            {relatedProducts.length > 0 && (
-                <section className="mt-16 pb-8">
-                    <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-xl font-bold text-slate-900 dark:text-white">Você Também Pode Gostar</h2>
-                    </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {relatedProducts.map((p) => {
-                            const img = p.image_gallery && p.image_gallery.length > 0
-                                ? p.image_gallery[0]
-                                : p.image_url || defaultImage;
-                            const price = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(p.price);
-                            return (
-                                <Link href={`/catalog/${p.id}`} key={p.id} className="group flex flex-col rounded-xl overflow-hidden bg-white dark:bg-[#3a1c15] ring-1 ring-slate-100 dark:ring-[#5a3329] hover:shadow-md transition-shadow">
-                                    <div className="relative aspect-[3/4] overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
-                                        <Image
-                                            src={img}
-                                            alt={p.name}
-                                            fill
-                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                            sizes="(max-width: 768px) 50vw, 25vw"
-                                        />
-                                    </div>
-                                    <div className="p-3">
-                                        <h4 className="font-semibold text-sm text-slate-900 dark:text-white truncate">{p.name}</h4>
-                                        {p.category && <p className="text-xs text-slate-400">{p.category}</p>}
-                                        <p className="font-bold text-sm text-slate-900 dark:text-white mt-1">{price}</p>
-                                    </div>
-                                </Link>
-                            );
-                        })}
-                    </div>
-                </section>
-            )}
         </div>
+            {/* Related Products Section */ }
+    {
+        relatedProducts.length > 0 && (
+            <section className="mt-16 pb-8">
+                <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-xl font-bold text-slate-900 dark:text-white">Você Também Pode Gostar</h2>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {relatedProducts.map((p) => {
+                        const img = p.image_gallery && p.image_gallery.length > 0
+                            ? p.image_gallery[0]
+                            : p.image_url || defaultImage;
+                        const price = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(p.price);
+                        return (
+                            <Link href={`/catalog/${p.id}`} key={p.id} className="group flex flex-col rounded-xl overflow-hidden bg-white dark:bg-[#3a1c15] ring-1 ring-slate-100 dark:ring-[#5a3329] hover:shadow-md transition-shadow">
+                                <div className="relative aspect-[3/4] overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
+                                    <Image
+                                        src={img}
+                                        alt={p.name}
+                                        fill
+                                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                        sizes="(max-width: 768px) 50vw, 25vw"
+                                    />
+                                </div>
+                                <div className="p-3">
+                                    <h4 className="font-semibold text-sm text-slate-900 dark:text-white truncate">{p.name}</h4>
+                                    {p.category && <p className="text-xs text-slate-400">{p.category}</p>}
+                                    <p className="font-bold text-sm text-slate-900 dark:text-white mt-1">{price}</p>
+                                </div>
+                            </Link>
+                        );
+                    })}
+                </div>
+            </section>
+        )
+    }
+        </div >
     );
 }
