@@ -25,8 +25,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = await getStoreSettings();
   const storeName = getStoreName(settings);
   const storeDescription = getStoreDescription(settings);
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 
   return {
+    metadataBase: new URL(appUrl),
     title: {
       default: storeName,
       template: `%s | ${storeName}`

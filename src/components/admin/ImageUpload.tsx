@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Upload, X, Loader2 } from "lucide-react";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 
 interface ImageUploadProps {
@@ -62,7 +63,14 @@ export function ImageUpload({ defaultValue, onUploadSuccess }: ImageUploadProps)
             <div className="flex items-center justify-center w-full">
                 {preview ? (
                     <div className="relative w-full aspect-square max-w-[200px] rounded-xl overflow-hidden border-2 border-primary/20 shadow-sm group">
-                        <img src={preview} alt="Preview" className="w-full h-full object-cover" />
+                        <Image
+                            src={preview}
+                            alt="Preview"
+                            fill
+                            sizes="200px"
+                            className="object-cover"
+                            unoptimized
+                        />
                         <button
                             type="button"
                             onClick={removeImage}
