@@ -173,3 +173,13 @@ Status atual: **Fase 17 - Ajuste Visual da Página de Produto (Referência)**
 - [x] Reorganizar responsabilidade de duplicação para domínio de produto (evitando acoplamento indevido em vendas).
 - [x] Padronizar contrato de retorno de ações administrativas com `ActionResult`.
 - [x] Validar `lint` e `build` após refatoração arquitetural.
+
+### Fase 23: UX/UI Moderna e Acessibilidade (Onda 3)
+- [x] Remover fluxos frágeis de `alert/confirm` em páginas administrativas críticas (produtos e vendas).
+- [x] Implementar diálogo de confirmação acessível reutilizável com foco controlado e fechamento por `Esc`.
+- [x] Adicionar feedback de ações administrativas em tela com `aria-live` (sucesso/erro).
+- [x] Corrigir interação inválida no card de produto (botão dentro de link), separando CTA de carrinho.
+- [x] Melhorar detalhe de produto para acessibilidade (labels em controles, miniaturas mobile, estados de quantidade).
+- [x] Melhorar UX mobile do catálogo com chips de filtro por categoria/promoções.
+- [x] Consolidar base global de foco visível e respeito a `prefers-reduced-motion`.
+- [x] Validar `lint` e `build` pós-refino de UX/UI.

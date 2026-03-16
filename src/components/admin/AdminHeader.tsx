@@ -10,6 +10,7 @@ import { signOut } from "@/actions/auth";
 
 export function AdminHeader() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [headerNotice, setHeaderNotice] = useState("");
     const pathname = usePathname();
 
     const isActive = (path: string) => {
@@ -39,8 +40,12 @@ export function AdminHeader() {
                 </div>
                 <div className="flex items-center gap-4">
                     <button
-                        onClick={() => alert("Não há notificações no momento.")}
+                        onClick={() => {
+                            setHeaderNotice("Não há notificações no momento.");
+                            window.setTimeout(() => setHeaderNotice(""), 2500);
+                        }}
                         className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-[#341810] relative text-slate-600 dark:text-slate-400 transition-colors"
+                        aria-label="Ver notificações"
                     >
                         <Bell className="w-5 h-5" />
                     </button>
@@ -61,6 +66,15 @@ export function AdminHeader() {
                     </div>
                 </div>
             </header>
+            {headerNotice && (
+                <div
+                    role="status"
+                    aria-live="polite"
+                    className="px-4 md:px-8 py-2 text-xs font-medium text-amber-700 bg-amber-50 border-b border-amber-200 dark:bg-amber-900/20 dark:text-amber-300 dark:border-amber-900/40"
+                >
+                    {headerNotice}
+                </div>
+            )}
 
             {/* Mobile Drawer */}
             {

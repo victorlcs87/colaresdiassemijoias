@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@/lib/types";
 import { useCartStore } from "@/store/cartStore";
-import { MessageCircle, Heart, ShoppingCart, Minus, Plus } from "lucide-react";
+import { MessageCircle, ShoppingCart, Minus, Plus } from "lucide-react";
 
 interface ProductDetailClientProps {
     product: Product;
@@ -94,7 +94,7 @@ export default function ProductDetailClient({
 
     return (
         <div className="max-w-[1460px] mx-auto px-4 md:px-6 lg:px-8 py-4 md:py-8">
-            <div className="flex flex-col xl:flex-row gap-6 lg:gap-8">
+            <div className="flex flex-col xl:flex-row gap-6 lg:gap-8" aria-label="Detalhe do produto">
                 <div className="w-full xl:flex-1 min-w-0 flex gap-3 md:gap-4">
                     {images.length > 1 && (
                         <div className="hidden sm:flex flex-col gap-2 md:gap-3 w-20 md:w-24 flex-shrink-0">
@@ -102,6 +102,8 @@ export default function ProductDetailClient({
                                 <button
                                     key={idx}
                                     onClick={() => setActiveImage(idx)}
+                                    aria-label={`Visualizar imagem ${idx + 1} de ${images.length}`}
+                                    aria-pressed={activeImage === idx}
                                     className={`relative w-20 h-24 md:w-24 md:h-28 rounded-xl overflow-hidden border-2 transition-all ${activeImage === idx
                                         ? "border-primary"
                                         : "border-transparent opacity-80 hover:opacity-100"
@@ -152,9 +154,12 @@ export default function ProductDetailClient({
                         <h1 className="text-2xl md:text-3xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.15]">
                             {product.name}
                         </h1>
-                        <button className="h-12 w-12 rounded-full border border-[#d9b7a6] dark:border-[#5a3329] flex items-center justify-center hover:text-primary hover:border-primary transition-colors">
-                            <Heart className="h-6 w-6" />
-                        </button>
+                        <span
+                            aria-hidden="true"
+                            className="h-12 w-12 rounded-full border border-[#d9b7a6] dark:border-[#5a3329] flex items-center justify-center text-slate-300 dark:text-slate-500"
+                        >
+                            <span className="text-xl">♡</span>
+                        </span>
                     </div>
 
                     <div className="mb-6">
@@ -190,6 +195,7 @@ export default function ProductDetailClient({
                                                 href={`/catalog/${p.id}`}
                                                 className="w-6 h-6 rounded-full border border-slate-300 dark:border-slate-600"
                                                 style={{ backgroundColor: colorNameToHex(p.color || "") }}
+                                                aria-label={`Ver variação ${p.color || p.name}`}
                                                 title={p.color || p.name}
                                             />
                                         ))}
@@ -215,14 +221,16 @@ export default function ProductDetailClient({
                                     <button
                                         onClick={decreaseQuantity}
                                         disabled={quantity <= 1}
+                                        aria-label="Diminuir quantidade"
                                         className="h-9 w-9 flex items-center justify-center rounded-lg text-slate-600 dark:text-slate-300 disabled:opacity-50 hover:bg-[#d9b7a6]/50 dark:hover:bg-[#5a3329] transition-colors"
                                     >
                                         <Minus className="h-4 w-4" />
                                     </button>
-                                    <span className="font-bold text-base text-slate-900 dark:text-white">{quantity}</span>
+                                    <span aria-live="polite" className="font-bold text-base text-slate-900 dark:text-white">{quantity}</span>
                                     <button
                                         onClick={increaseQuantity}
                                         disabled={quantity >= maxQuantity}
+                                        aria-label="Aumentar quantidade"
                                         className="h-9 w-9 flex items-center justify-center rounded-lg text-slate-600 dark:text-slate-300 disabled:opacity-50 hover:bg-[#d9b7a6]/50 dark:hover:bg-[#5a3329] transition-colors"
                                     >
                                         <Plus className="h-4 w-4" />
@@ -231,6 +239,7 @@ export default function ProductDetailClient({
 
                                 <button
                                     onClick={handleAddToCart}
+                                    aria-label={`Adicionar ${quantity} unidade(s) de ${product.name} ao carrinho`}
                                     className="flex-1 h-14 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-base flex items-center justify-center gap-2 hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-colors"
                                 >
                                     <ShoppingCart className="h-5 w-5" />
@@ -260,6 +269,36 @@ export default function ProductDetailClient({
                     </div>
                 </div>
             </div>
+
+            {images.length > 1 && (
+                <div className="mt-4 sm:hidden">
+                    <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                        Mais fotos
+                    </p>
+                    <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+                        {images.map((img, idx) => (
+                            <button
+                                key={`mobile-image-${idx}`}
+                                onClick={() => setActiveImage(idx)}
+                                aria-label={`Visualizar imagem ${idx + 1} de ${images.length}`}
+                                aria-pressed={activeImage === idx}
+                                className={`relative h-20 w-16 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-colors ${activeImage === idx
+                                    ? "border-primary"
+                                    : "border-transparent"
+                                    }`}
+                            >
+                                <Image
+                                    src={img}
+                                    alt={`${product.name} - miniatura ${idx + 1}`}
+                                    fill
+                                    className="object-cover"
+                                    sizes="64px"
+                                />
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -36,6 +36,8 @@ export default function AdminEditProductPage({ params }: PageProps) {
     const [saleDate, setSaleDate] = useState(() => new Date().toISOString().split("T")[0]);
     const [saleNotes, setSaleNotes] = useState("");
     const [isSubmittingSale, setIsSubmittingSale] = useState(false);
+    const [saleError, setSaleError] = useState("");
+    const [saleSuccess, setSaleSuccess] = useState("");
 
     const supabase = createBrowserClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -91,7 +93,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                 setError(result.error);
                 setLoading(false);
             }
-        } catch (err) {
+        } catch {
             setError("Erro inesperado ao salvar o produto.");
             setLoading(false);
         }
@@ -144,6 +146,8 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                         setSalePrice(product.price?.toString() || "");
                                         setSaleDate(new Date().toISOString().split("T")[0]);
                                         setSaleNotes("");
+                                        setSaleError("");
+                                        setSaleSuccess("");
                                         setSaleModalOpen(true);
                                     }}
                                     className="px-4 py-2 text-sm font-semibold border border-emerald-200 dark:border-emerald-800/50 text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors flex items-center gap-2"
@@ -429,9 +433,14 @@ export default function AdminEditProductPage({ params }: PageProps) {
             {/* Modal de Venda Inline */}
             {saleModalOpen && product && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-                    <div className="bg-white dark:bg-[#2a120d] rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
+                    <div
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="edit-sale-modal-title"
+                        className="bg-white dark:bg-[#2a120d] rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200"
+                    >
                         <div className="flex items-center justify-between p-6 border-b border-[#d9b7a6] dark:border-[#5a3329]">
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <h3 id="edit-sale-modal-title" className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                                 <Receipt className="w-5 h-5 text-emerald-500" />
                                 Registrar Venda
                             </h3>
@@ -448,6 +457,16 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                 <p className="text-sm text-slate-500 mb-1">Produto:</p>
                                 <p className="font-semibold text-slate-900 dark:text-white">{product.name}</p>
                             </div>
+                            {saleError && (
+                                <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-900/40 dark:bg-red-900/20 dark:text-red-300">
+                                    {saleError}
+                                </div>
+                            )}
+                            {saleSuccess && (
+                                <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-900/20 dark:text-emerald-300">
+                                    {saleSuccess}
+                                </div>
+                            )}
                             <div>
                                 <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Preço de Venda (R$) <span className="text-red-500">*</span></label>
                                 <input
@@ -492,8 +511,10 @@ export default function AdminEditProductPage({ params }: PageProps) {
                             <button
                                 type="button"
                                 onClick={async () => {
+                                    setSaleError("");
+                                    setSaleSuccess("");
                                     if (!salePrice || !saleDate) {
-                                        alert("Preço e Data são obrigatórios.");
+                                        setSaleError("Preço e data são obrigatórios.");
                                         return;
                                     }
                                     setIsSubmittingSale(true);
@@ -511,12 +532,12 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                             setProduct({ ...product, is_available: false });
                                             setStatusActive(false);
                                             setSaleModalOpen(false);
-                                            alert("Venda registrada com sucesso!");
+                                            setSaleSuccess("Venda registrada com sucesso!");
                                         } else {
-                                            alert("Erro: " + res.error);
+                                            setSaleError(res.error || "Erro ao registrar venda.");
                                         }
-                                    } catch (e) {
-                                        alert("Erro inesperado ao registrar a venda.");
+                                    } catch {
+                                        setSaleError("Erro inesperado ao registrar a venda.");
                                     }
                                     setIsSubmittingSale(false);
                                 }}

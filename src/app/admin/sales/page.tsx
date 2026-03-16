@@ -13,6 +13,7 @@ import {
     FileSpreadsheet,
 } from "lucide-react";
 import { getSalesReport, undoSale } from "@/actions/sales";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 
 interface Sale {
     id: string;
@@ -66,6 +67,9 @@ export default function AdminSalesPage() {
     const [appliedStartDate, setAppliedStartDate] = useState("");
     const [appliedEndDate, setAppliedEndDate] = useState("");
     const [exporting, setExporting] = useState(false);
+    const [undoingSale, setUndoingSale] = useState(false);
+    const [pendingUndoSaleId, setPendingUndoSaleId] = useState<string | null>(null);
+    const [feedback, setFeedback] = useState<{ type: "error" | "success"; message: string } | null>(null);
 
     async function loadReport(start?: string, end?: string) {
         setLoading(true);
@@ -87,6 +91,7 @@ export default function AdminSalesPage() {
     }, []);
 
     const handleApplyFilters = async () => {
+        setFeedback(null);
         setAppliedStartDate(startDate);
         setAppliedEndDate(endDate);
         await loadReport(startDate, endDate);
@@ -117,24 +122,32 @@ export default function AdminSalesPage() {
             link.click();
             link.remove();
             URL.revokeObjectURL(downloadUrl);
+            setFeedback({ type: "success", message: "Relatório XLS exportado com sucesso." });
         } catch {
-            alert("Erro ao exportar o relatório XLS.");
+            setFeedback({ type: "error", message: "Erro ao exportar o relatório XLS." });
         } finally {
             setExporting(false);
         }
     };
 
     const handleUndoSale = async (saleId: string) => {
-        if (!confirm("Tem certeza que deseja desfazer esta venda? O produto voltará a ficar disponível na loja.")) return;
+        setPendingUndoSaleId(saleId);
+    };
 
+    const confirmUndoSale = async () => {
+        if (!pendingUndoSaleId) return;
+        setUndoingSale(true);
         setLoading(true);
-        const res = await undoSale(saleId);
+        const res = await undoSale(pendingUndoSaleId);
         if (res.success) {
             await loadReport();
+            setFeedback({ type: "success", message: "Venda desfeita com sucesso." });
         } else {
-            alert(res.error || "Erro ao desfazer venda");
+            setFeedback({ type: "error", message: res.error || "Erro ao desfazer venda." });
             setLoading(false);
         }
+        setPendingUndoSaleId(null);
+        setUndoingSale(false);
     };
 
     return (
@@ -146,6 +159,19 @@ export default function AdminSalesPage() {
                     <p className="text-slate-500 mt-1">Acompanhe suas vendas, custos e lucros</p>
                 </div>
             </div>
+
+            {feedback && (
+                <div
+                    role="status"
+                    aria-live="polite"
+                    className={`mb-6 rounded-xl border px-4 py-3 text-sm ${feedback.type === "error"
+                        ? "border-red-200 bg-red-50 text-red-700 dark:border-red-900/40 dark:bg-red-900/20 dark:text-red-300"
+                        : "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-900/20 dark:text-emerald-300"
+                        }`}
+                >
+                    {feedback.message}
+                </div>
+            )}
 
             {/* Filtros */}
             <div className="bg-white dark:bg-[#2a120d] border border-[#d9b7a6] dark:border-[#5a3329] rounded-xl p-4 mb-6 shadow-sm">
@@ -250,7 +276,7 @@ export default function AdminSalesPage() {
                                 <tbody className="divide-y divide-[#d9b7a6] dark:divide-[#5a3329]">
                                     {report.sales.length === 0 ? (
                                         <tr>
-                                            <td colSpan={7} className="px-6 py-12 text-center text-slate-500">
+                                            <td colSpan={8} className="px-6 py-12 text-center text-slate-500">
                                                 Nenhuma venda registrada no período.
                                             </td>
                                         </tr>
@@ -301,6 +327,18 @@ export default function AdminSalesPage() {
                     </div>
                 </>
             ) : null}
+
+            <ConfirmDialog
+                open={Boolean(pendingUndoSaleId)}
+                title="Desfazer venda"
+                description="Tem certeza que deseja desfazer esta venda? O produto voltará a ficar disponível na loja."
+                confirmLabel="Desfazer venda"
+                cancelLabel="Manter"
+                variant="danger"
+                loading={undoingSale}
+                onClose={() => setPendingUndoSaleId(null)}
+                onConfirm={confirmUndoSale}
+            />
         </div>
     );
 }

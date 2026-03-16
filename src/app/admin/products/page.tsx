@@ -1,11 +1,19 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { Plus, Edit, Trash2, ChevronLeft, ChevronRight, Loader2, Receipt, Copy, X } from "lucide-react";
 import { createBrowserClient } from "@supabase/ssr";
+import Image from "next/image";
 import { Product } from "@/lib/types";
+import { registerSale, duplicateProduct } from "@/actions/sales";
+import { deleteProduct } from "@/actions/product";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+
+type PendingAction = {
+    type: "duplicate" | "delete";
+    product: Product;
+} | null;
 
 export default function AdminProductsPage() {
     const [activeTab, setActiveTab] = useState<"all" | "active" | "draft" | "archived">("all");
@@ -21,6 +29,10 @@ export default function AdminProductsPage() {
     const [saleDate, setSaleDate] = useState(() => new Date().toISOString().split("T")[0]);
     const [saleNotes, setSaleNotes] = useState("");
     const [isSubmittingSale, setIsSubmittingSale] = useState(false);
+    const [saleError, setSaleError] = useState("");
+    const [feedback, setFeedback] = useState<{ type: "error" | "success"; message: string } | null>(null);
+    const [pendingAction, setPendingAction] = useState<PendingAction>(null);
+    const [isConfirmingAction, setIsConfirmingAction] = useState(false);
 
     const [supabase] = useState(() =>
         createBrowserClient(
@@ -29,17 +41,48 @@ export default function AdminProductsPage() {
         )
     );
 
-    useEffect(() => {
-        async function fetchProducts() {
-            setLoading(true);
-            const { data, error } = await supabase.from("products").select("*").order("created_at", { ascending: false });
-            if (!error && data) {
-                setProducts(data);
-            }
-            setLoading(false);
+    const fetchProducts = useCallback(async () => {
+        setLoading(true);
+        const { data, error } = await supabase.from("products").select("*").order("created_at", { ascending: false });
+        if (!error && data) {
+            setProducts(data);
         }
-        fetchProducts();
+        setLoading(false);
     }, [supabase]);
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        fetchProducts();
+    }, [fetchProducts]);
+
+    async function confirmPendingAction() {
+        if (!pendingAction) return;
+        setIsConfirmingAction(true);
+        setFeedback(null);
+
+        if (pendingAction.type === "duplicate") {
+            const res = await duplicateProduct(pendingAction.product.id);
+            if (res.success) {
+                await fetchProducts();
+                setFeedback({ type: "success", message: "Produto duplicado com sucesso." });
+            } else {
+                setFeedback({ type: "error", message: res.error || "Erro ao duplicar produto." });
+            }
+        }
+
+        if (pendingAction.type === "delete") {
+            const res = await deleteProduct(pendingAction.product.id);
+            if (res.success) {
+                setProducts((previous) => previous.filter((p) => p.id !== pendingAction.product.id));
+                setFeedback({ type: "success", message: "Produto excluído com sucesso." });
+            } else {
+                setFeedback({ type: "error", message: res.error || "Erro ao excluir produto." });
+            }
+        }
+
+        setPendingAction(null);
+        setIsConfirmingAction(false);
+    }
 
     const filteredProducts = products.filter(p => {
         if (activeTab === "all") return true;
@@ -50,20 +93,11 @@ export default function AdminProductsPage() {
 
     const totalItems = filteredProducts.length;
     const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
-    const startIndex = (currentPage - 1) * itemsPerPage;
+    const normalizedCurrentPage = Math.min(currentPage, totalPages);
+    const startIndex = (normalizedCurrentPage - 1) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
     const paginatedProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
     const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
-
-    useEffect(() => {
-        setCurrentPage(1);
-    }, [activeTab, itemsPerPage]);
-
-    useEffect(() => {
-        if (currentPage > totalPages) {
-            setCurrentPage(totalPages);
-        }
-    }, [currentPage, totalPages]);
 
     return (
         <div className="p-8">
@@ -82,12 +116,28 @@ export default function AdminProductsPage() {
                 </Link>
             </div>
 
+            {feedback && (
+                <div
+                    role="status"
+                    aria-live="polite"
+                    className={`mb-6 rounded-xl border px-4 py-3 text-sm ${feedback.type === "error"
+                        ? "border-red-200 bg-red-50 text-red-700 dark:border-red-900/40 dark:bg-red-900/20 dark:text-red-300"
+                        : "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-900/20 dark:text-emerald-300"
+                        }`}
+                >
+                    {feedback.message}
+                </div>
+            )}
+
             {/* Tabs */}
             <div className="mb-6 border-b border-[#d9b7a6] dark:border-[#5a3329]">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div className="flex gap-8">
                         <button
-                            onClick={() => setActiveTab("all")}
+                            onClick={() => {
+                                setActiveTab("all");
+                                setCurrentPage(1);
+                            }}
                             className={`pb-4 text-sm font-bold border-b-2 transition-colors ${activeTab === "all"
                                 ? "border-primary text-slate-900 dark:text-white"
                                 : "border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
@@ -96,7 +146,10 @@ export default function AdminProductsPage() {
                             Todos ({products.length})
                         </button>
                         <button
-                            onClick={() => setActiveTab("active")}
+                            onClick={() => {
+                                setActiveTab("active");
+                                setCurrentPage(1);
+                            }}
                             className={`pb-4 text-sm font-medium border-b-2 transition-colors ${activeTab === "active"
                                 ? "border-primary text-slate-900 dark:text-white"
                                 : "border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
@@ -105,7 +158,10 @@ export default function AdminProductsPage() {
                             Ativos ({products.filter(p => p.is_available).length})
                         </button>
                         <button
-                            onClick={() => setActiveTab("draft")}
+                            onClick={() => {
+                                setActiveTab("draft");
+                                setCurrentPage(1);
+                            }}
                             className={`pb-4 text-sm font-medium border-b-2 transition-colors ${activeTab === "draft"
                                 ? "border-primary text-slate-900 dark:text-white"
                                 : "border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
@@ -121,7 +177,10 @@ export default function AdminProductsPage() {
                         <select
                             id="itemsPerPage"
                             value={itemsPerPage}
-                            onChange={(e) => setItemsPerPage(Number(e.target.value) as 10 | 50 | 100)}
+                            onChange={(e) => {
+                                setItemsPerPage(Number(e.target.value) as 10 | 50 | 100);
+                                setCurrentPage(1);
+                            }}
                             className="h-9 rounded-md border border-[#d9b7a6] dark:border-[#5a3329] bg-white dark:bg-[#341810] px-3 text-sm text-slate-700 dark:text-slate-200"
                         >
                             <option value={10}>10</option>
@@ -165,9 +224,11 @@ export default function AdminProductsPage() {
                                         <td className="px-6 py-4">
                                             <Link href={`/catalog/${product.id}`} target="_blank">
                                                 <div className="w-12 h-12 rounded-lg bg-slate-100 dark:bg-[#341810] overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
-                                                    <img
+                                                    <Image
                                                         src={product.image_url || "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?q=80&w=600"}
                                                         alt={product.name}
+                                                        width={48}
+                                                        height={48}
                                                         className="w-full h-full object-cover"
                                                     />
                                                 </div>
@@ -217,6 +278,7 @@ export default function AdminProductsPage() {
                                                             setSalePrice(product.price?.toString() || "");
                                                             setSaleDate(new Date().toISOString().split("T")[0]);
                                                             setSaleNotes("");
+                                                            setSaleError("");
                                                             setSaleModalOpen(true);
                                                         }}
                                                         className="p-2 text-slate-400 hover:text-emerald-500 transition-colors"
@@ -226,37 +288,18 @@ export default function AdminProductsPage() {
                                                     </button>
                                                 )}
                                                 <button
-                                                    onClick={async () => {
-                                                        if (confirm("Duplicar este produto?")) {
-                                                            const { duplicateProduct } = await import("@/actions/sales");
-                                                            const res = await duplicateProduct(product.id);
-                                                            if (res.success) {
-                                                                alert("Produto duplicado! Recarregue a página para ver.");
-                                                                window.location.reload();
-                                                            } else {
-                                                                alert("Erro: " + res.error);
-                                                            }
-                                                        }
-                                                    }}
+                                                    onClick={() => setPendingAction({ type: "duplicate", product })}
                                                     className="p-2 text-slate-400 hover:text-blue-500 transition-colors"
                                                     title="Duplicar Produto"
+                                                    aria-label={`Duplicar ${product.name}`}
                                                 >
                                                     <Copy className="w-4 h-4" />
                                                 </button>
                                                 <button
-                                                    onClick={async () => {
-                                                        if (confirm("Tem certeza que deseja excluir este produto?")) {
-                                                            const { deleteProduct } = await import("@/actions/product");
-                                                            const res = await deleteProduct(product.id);
-                                                            if (res.success) {
-                                                                setProducts(products.filter(p => p.id !== product.id));
-                                                            } else {
-                                                                alert("Erro ao excluir: " + res.error);
-                                                            }
-                                                        }
-                                                    }}
+                                                    onClick={() => setPendingAction({ type: "delete", product })}
                                                     className="p-2 text-slate-400 hover:text-red-500 transition-colors"
                                                     title="Excluir"
+                                                    aria-label={`Excluir ${product.name}`}
                                                 >
                                                     <Trash2 className="w-4 h-4" />
                                                 </button>
@@ -279,7 +322,7 @@ export default function AdminProductsPage() {
                         <button
                             type="button"
                             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                            disabled={currentPage === 1}
+                            disabled={normalizedCurrentPage === 1}
                             className="h-9 w-9 inline-flex items-center justify-center rounded-md border border-[#d9b7a6] dark:border-[#5a3329] text-slate-600 dark:text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#f6ede5] dark:hover:bg-[#341810]"
                             aria-label="Página anterior"
                         >
@@ -291,7 +334,7 @@ export default function AdminProductsPage() {
                                 key={page}
                                 type="button"
                                 onClick={() => setCurrentPage(page)}
-                                className={`h-9 min-w-9 px-2 inline-flex items-center justify-center rounded-md border text-sm font-semibold transition-colors ${page === currentPage
+                                className={`h-9 min-w-9 px-2 inline-flex items-center justify-center rounded-md border text-sm font-semibold transition-colors ${page === normalizedCurrentPage
                                     ? "border-primary bg-primary text-white"
                                     : "border-[#d9b7a6] dark:border-[#5a3329] text-slate-700 dark:text-slate-200 hover:bg-[#f6ede5] dark:hover:bg-[#341810]"
                                     }`}
@@ -303,7 +346,7 @@ export default function AdminProductsPage() {
                         <button
                             type="button"
                             onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                            disabled={currentPage === totalPages}
+                            disabled={normalizedCurrentPage === totalPages}
                             className="h-9 w-9 inline-flex items-center justify-center rounded-md border border-[#d9b7a6] dark:border-[#5a3329] text-slate-600 dark:text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#f6ede5] dark:hover:bg-[#341810]"
                             aria-label="Próxima página"
                         >
@@ -316,9 +359,14 @@ export default function AdminProductsPage() {
             {/* Modal de Venda */}
             {saleModalOpen && selectedSaleProduct && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-                    <div className="bg-white dark:bg-[#2a120d] rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
+                    <div
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="sale-modal-title"
+                        className="bg-white dark:bg-[#2a120d] rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200"
+                    >
                         <div className="flex items-center justify-between p-6 border-b border-[#d9b7a6] dark:border-[#5a3329]">
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <h3 id="sale-modal-title" className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                                 <Receipt className="w-5 h-5 text-emerald-500" />
                                 Registrar Venda
                             </h3>
@@ -334,6 +382,11 @@ export default function AdminProductsPage() {
                                 <p className="text-sm text-slate-500 mb-1">Produto:</p>
                                 <p className="font-semibold text-slate-900 dark:text-white">{selectedSaleProduct.name}</p>
                             </div>
+                            {saleError && (
+                                <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-900/40 dark:bg-red-900/20 dark:text-red-300">
+                                    {saleError}
+                                </div>
+                            )}
                             <div>
                                 <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Preço de Venda (R$) <span className="text-red-500">*</span></label>
                                 <input
@@ -377,8 +430,9 @@ export default function AdminProductsPage() {
                             </button>
                             <button
                                 onClick={async () => {
+                                    setSaleError("");
                                     if (!salePrice || !saleDate) {
-                                        alert("Preço e Data são obrigatórios.");
+                                        setSaleError("Preço e data são obrigatórios.");
                                         return;
                                     }
                                     setIsSubmittingSale(true);
@@ -389,17 +443,17 @@ export default function AdminProductsPage() {
                                         fd.append("sale_date", saleDate);
                                         fd.append("notes", saleNotes);
 
-                                        const { registerSale } = await import("@/actions/sales");
                                         const res = await registerSale(fd);
 
                                         if (res.success) {
-                                            setProducts(products.map(p => p.id === selectedSaleProduct.id ? { ...p, is_available: false } : p));
+                                            setProducts((current) => current.map((p) => p.id === selectedSaleProduct.id ? { ...p, is_available: false } : p));
                                             setSaleModalOpen(false);
+                                            setFeedback({ type: "success", message: "Venda registrada com sucesso." });
                                         } else {
-                                            alert("Erro: " + res.error);
+                                            setSaleError(res.error || "Erro ao registrar venda.");
                                         }
                                     } catch {
-                                        alert("Erro inesperado ao registrar a venda.");
+                                        setSaleError("Erro inesperado ao registrar a venda.");
                                     }
                                     setIsSubmittingSale(false);
                                 }}
@@ -413,6 +467,21 @@ export default function AdminProductsPage() {
                     </div>
                 </div>
             )}
+
+            <ConfirmDialog
+                open={Boolean(pendingAction)}
+                title={pendingAction?.type === "delete" ? "Excluir produto" : "Duplicar produto"}
+                description={pendingAction?.type === "delete"
+                    ? `Tem certeza que deseja excluir "${pendingAction?.product.name}"? Esta ação não pode ser desfeita.`
+                    : `Deseja criar uma cópia de "${pendingAction?.product.name}" no catálogo?`
+                }
+                confirmLabel={pendingAction?.type === "delete" ? "Excluir" : "Duplicar"}
+                cancelLabel="Cancelar"
+                variant={pendingAction?.type === "delete" ? "danger" : "default"}
+                loading={isConfirmingAction}
+                onClose={() => setPendingAction(null)}
+                onConfirm={confirmPendingAction}
+            />
         </div>
     );
 }

@@ -70,6 +70,22 @@ export default async function CatalogPage({ searchParams }: PageProps) {
           </div>
         </div>
 
+        <div className="lg:hidden">
+          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none" aria-label="Filtros de categoria">
+            <Link href="/catalog" className={`whitespace-nowrap rounded-full border px-4 py-2 text-xs font-semibold transition-colors ${!cat && !promo ? "border-primary bg-primary text-white" : "border-[#d9b7a6] hover:bg-[#f6ede5] dark:border-[#5a3329] dark:hover:bg-[#341810]"}`}>Todos</Link>
+            <Link href="/catalog?promo=true" className={`whitespace-nowrap rounded-full border px-4 py-2 text-xs font-semibold transition-colors ${promo === 'true' ? "border-primary bg-primary text-white" : "border-[#d9b7a6] hover:bg-[#f6ede5] dark:border-[#5a3329] dark:hover:bg-[#341810]"}`}>Promoções</Link>
+            {uniqueCategories.map(c => (
+              <Link
+                key={`mobile-${c}`}
+                href={`/catalog?cat=${encodeURIComponent(c as string)}`}
+                className={`whitespace-nowrap rounded-full border px-4 py-2 text-xs font-semibold capitalize transition-colors ${cat === c ? "border-primary bg-primary text-white" : "border-[#d9b7a6] hover:bg-[#f6ede5] dark:border-[#5a3329] dark:hover:bg-[#341810]"}`}
+              >
+                {c}
+              </Link>
+            ))}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
           {/* Menu Lateral de Filtros (Visão Desktop) */}

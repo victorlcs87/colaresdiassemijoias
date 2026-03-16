@@ -156,5 +156,25 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** A duplicação pertence ao contexto de catálogo/produto e não ao contexto de vendas.
 - **Impacto:** Redução de acoplamento entre domínios e arquitetura mais coerente para futuras evoluções.
 
+### Decisão 029 - Substituição de confirmações nativas por diálogo acessível
+- **Decisão:** Substituir `window.alert`/`window.confirm` dos fluxos críticos administrativos por componente de diálogo com semântica de acessibilidade.
+- **Motivo:** Alertas nativos têm UX inconsistente, bloqueiam fluxo e dificultam navegação assistiva/teclado.
+- **Impacto:** Ações destrutivas (excluir, desfazer venda) passam por confirmação padronizada com foco controlado e melhor previsibilidade.
+
+### Decisão 030 - Feedback de ações em `aria-live`
+- **Decisão:** Padronizar feedback de sucesso/erro nas telas administrativas usando mensagens em tela com `aria-live`.
+- **Motivo:** Garantir retorno imediato sem modais bloqueantes e com leitura por tecnologias assistivas.
+- **Impacto:** Operações de produto/venda/exportação ficam mais claras para usuário e mais acessíveis.
+
+### Decisão 031 - Correção semântica de card de produto
+- **Decisão:** Remover nesting de botão dentro de link no `ProductCard`, separando link de detalhe e ação de carrinho.
+- **Motivo:** Interação aninhada é inválida em HTML e pode causar comportamento inconsistente em teclado/leitores de tela.
+- **Impacto:** Melhor robustez de navegação, eventos de clique mais previsíveis e menor risco de regressão de interação.
+
+### Decisão 032 - Base de acessibilidade global e refinos mobile
+- **Decisão:** Adicionar estilos globais de `:focus-visible`, suporte a `prefers-reduced-motion` e melhoria de filtros mobile no catálogo.
+- **Motivo:** Garantir consistência mínima de usabilidade acessível em toda a aplicação pública/admin.
+- **Impacto:** Navegação por teclado mais visível, menor desconforto para usuários sensíveis a animação e experiência mobile mais eficiente.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).

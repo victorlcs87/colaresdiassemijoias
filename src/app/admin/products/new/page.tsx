@@ -38,7 +38,7 @@ export default function AdminAddProductPage() {
                 setError(result.error);
                 setLoading(false);
             }
-        } catch (err) {
+        } catch {
             setError("Erro inesperado ao salvar o produto.");
             setLoading(false);
         }
