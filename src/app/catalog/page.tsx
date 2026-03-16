@@ -13,14 +13,40 @@ export const metadata: Metadata = {
 };
 
 interface PageProps {
-  searchParams: Promise<{ q?: string; cat?: string; promo?: string }>;
+  searchParams: Promise<{ q?: string; cat?: string; promo?: string; page?: string }>;
 }
 
 export default async function CatalogPage({ searchParams }: PageProps) {
-  const { q, cat, promo } = await searchParams;
+  const { q, cat, promo, page } = await searchParams;
   const supabase = await createClient();
-
+  const ITEMS_PER_PAGE = 9;
+  const currentPageRaw = Number(page ?? "1");
+  const currentPage = Number.isFinite(currentPageRaw) && currentPageRaw > 0 ? Math.floor(currentPageRaw) : 1;
   let query = supabase
+    .from("products")
+    .select("*", { count: "exact" })
+    .eq("is_available", true);
+
+  if (q) {
+    query = query.ilike("name", `%${q}%`);
+  }
+
+  if (cat) {
+    query = query.eq("category", cat);
+  }
+
+  if (promo === 'true') {
+    query = query.not("promotional_price", "is", null);
+  }
+
+  const { count } = await query;
+  const totalProducts = count ?? 0;
+  const totalPages = Math.max(1, Math.ceil(totalProducts / ITEMS_PER_PAGE));
+  const safeCurrentPage = totalProducts > 0 ? Math.min(currentPage, totalPages) : 1;
+  const from = (safeCurrentPage - 1) * ITEMS_PER_PAGE;
+  const to = from + ITEMS_PER_PAGE - 1;
+
+  query = supabase
     .from("products")
     .select("*")
     .eq("is_available", true);
@@ -37,7 +63,9 @@ export default async function CatalogPage({ searchParams }: PageProps) {
     query = query.not("promotional_price", "is", null);
   }
 
-  const { data: products } = await query.order("created_at", { ascending: false });
+  const { data: products } = await query
+    .order("created_at", { ascending: false })
+    .range(from, to);
 
   // Buscar todas as categorias ativas para preencher a sidebar
   const { data: allActiveProducts } = await supabase
@@ -46,6 +74,26 @@ export default async function CatalogPage({ searchParams }: PageProps) {
     .eq("is_available", true);
 
   const uniqueCategories = Array.from(new Set(allActiveProducts?.map(p => p.category).filter(Boolean))).sort();
+
+  const buildCatalogHref = ({
+    pageNumber,
+    category,
+    promotion,
+  }: {
+    pageNumber?: number;
+    category?: string;
+    promotion?: "true" | undefined;
+  }) => {
+    const params = new URLSearchParams();
+
+    if (q) params.set("q", q);
+    if (category) params.set("cat", category);
+    if (promotion) params.set("promo", promotion);
+    if (pageNumber && pageNumber > 1) params.set("page", String(pageNumber));
+
+    const queryString = params.toString();
+    return queryString ? `/catalog?${queryString}` : "/catalog";
+  };
 
   return (
     <div className="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display text-slate-900 dark:text-slate-100 antialiased">
@@ -62,7 +110,7 @@ export default async function CatalogPage({ searchParams }: PageProps) {
               {q ? `Busca: "${q}"` : cat ? `Categoria: ${cat}` : promo ? 'Promoções' : 'Catálogo'}
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-              {products?.length || 0} produtos encontrados
+              {totalProducts} produtos encontrados
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -73,11 +121,11 @@ export default async function CatalogPage({ searchParams }: PageProps) {
         <div className="lg:hidden">
           <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none" aria-label="Filtros de categoria">
             <Link href="/catalog" className={`whitespace-nowrap rounded-full border px-4 py-2 text-xs font-semibold transition-colors ${!cat && !promo ? "border-primary bg-primary text-white" : "border-[#d9b7a6] hover:bg-[#f6ede5] dark:border-[#5a3329] dark:hover:bg-[#341810]"}`}>Todos</Link>
-            <Link href="/catalog?promo=true" className={`whitespace-nowrap rounded-full border px-4 py-2 text-xs font-semibold transition-colors ${promo === 'true' ? "border-primary bg-primary text-white" : "border-[#d9b7a6] hover:bg-[#f6ede5] dark:border-[#5a3329] dark:hover:bg-[#341810]"}`}>Promoções</Link>
+            <Link href={buildCatalogHref({ promotion: "true" })} className={`whitespace-nowrap rounded-full border px-4 py-2 text-xs font-semibold transition-colors ${promo === 'true' ? "border-primary bg-primary text-white" : "border-[#d9b7a6] hover:bg-[#f6ede5] dark:border-[#5a3329] dark:hover:bg-[#341810]"}`}>Promoções</Link>
             {uniqueCategories.map(c => (
               <Link
                 key={`mobile-${c}`}
-                href={`/catalog?cat=${encodeURIComponent(c as string)}`}
+                href={buildCatalogHref({ category: c as string })}
                 className={`whitespace-nowrap rounded-full border px-4 py-2 text-xs font-semibold capitalize transition-colors ${cat === c ? "border-primary bg-primary text-white" : "border-[#d9b7a6] hover:bg-[#f6ede5] dark:border-[#5a3329] dark:hover:bg-[#341810]"}`}
               >
                 {c}
@@ -94,11 +142,11 @@ export default async function CatalogPage({ searchParams }: PageProps) {
               <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Categorias</h3>
               <div className="flex flex-col gap-2">
                 <Link href="/catalog" className={`text-sm py-2 px-3 rounded-lg transition-colors ${!cat && !promo ? 'bg-primary/20 text-primary font-bold' : 'hover:bg-[#f6ede5] dark:hover:bg-[#341810]'}`}>Todos os Produtos</Link>
-                <Link href="/catalog?promo=true" className={`text-sm py-2 px-3 rounded-lg transition-colors ${promo === 'true' ? 'bg-primary/20 text-primary font-bold' : 'hover:bg-[#f6ede5] dark:hover:bg-[#341810]'}`}>Promoções 🏷️</Link>
+                <Link href={buildCatalogHref({ promotion: "true" })} className={`text-sm py-2 px-3 rounded-lg transition-colors ${promo === 'true' ? 'bg-primary/20 text-primary font-bold' : 'hover:bg-[#f6ede5] dark:hover:bg-[#341810]'}`}>Promoções 🏷️</Link>
                 {uniqueCategories.map(c => (
                   <Link
                     key={c}
-                    href={`/catalog?cat=${encodeURIComponent(c as string)}`}
+                    href={buildCatalogHref({ category: c as string })}
                     className={`text-sm py-2 px-3 rounded-lg transition-colors capitalize ${cat === c ? 'bg-primary/20 text-primary font-bold' : 'hover:bg-[#f6ede5] dark:hover:bg-[#341810]'}`}
                   >
                     {c}
@@ -128,16 +176,45 @@ export default async function CatalogPage({ searchParams }: PageProps) {
             )}
 
             {/* Paginação (Simplificada/Exemplo) */}
-            {products && products.length > 0 && (
+            {products && products.length > 0 && totalPages > 1 && (
               <div className="mt-12 flex justify-center">
                 <nav className="flex items-center gap-2">
-                  <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 opacity-50" disabled>
+                  <Link
+                    href={buildCatalogHref({
+                      pageNumber: safeCurrentPage - 1,
+                      category: cat,
+                      promotion: promo === "true" ? "true" : undefined,
+                    })}
+                    aria-disabled={safeCurrentPage <= 1}
+                    className={`w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 ${safeCurrentPage <= 1 ? "pointer-events-none opacity-50" : "hover:bg-[#f6ede5] dark:hover:bg-[#341810]"}`}
+                  >
                     <ArrowLeft className="h-5 w-5" />
-                  </button>
-                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold">1</button>
-                  <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600">
+                  </Link>
+                  {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((pageNumber) => (
+                    <Link
+                      key={pageNumber}
+                      href={buildCatalogHref({
+                        pageNumber,
+                        category: cat,
+                        promotion: promo === "true" ? "true" : undefined,
+                      })}
+                      aria-current={safeCurrentPage === pageNumber ? "page" : undefined}
+                      className={`w-10 h-10 flex items-center justify-center rounded-lg font-bold ${safeCurrentPage === pageNumber ? "bg-primary text-white" : "border border-slate-200 dark:border-slate-700 text-slate-600 hover:bg-[#f6ede5] dark:hover:bg-[#341810]"}`}
+                    >
+                      {pageNumber}
+                    </Link>
+                  ))}
+                  <Link
+                    href={buildCatalogHref({
+                      pageNumber: safeCurrentPage + 1,
+                      category: cat,
+                      promotion: promo === "true" ? "true" : undefined,
+                    })}
+                    aria-disabled={safeCurrentPage >= totalPages}
+                    className={`w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 ${safeCurrentPage >= totalPages ? "pointer-events-none opacity-50" : "hover:bg-[#f6ede5] dark:hover:bg-[#341810]"}`}
+                  >
                     <ArrowRight className="h-5 w-5" />
-                  </button>
+                  </Link>
                 </nav>
               </div>
             )}

@@ -150,16 +150,10 @@ export default function ProductDetailClient({
                         <span className="font-semibold text-slate-800 dark:text-slate-200">{product.name}</span>
                     </div>
 
-                    <div className="flex items-start justify-between gap-3 mb-2">
+                    <div className="mb-2">
                         <h1 className="text-2xl md:text-3xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.15]">
                             {product.name}
                         </h1>
-                        <span
-                            aria-hidden="true"
-                            className="h-12 w-12 rounded-full border border-[#d9b7a6] dark:border-[#5a3329] flex items-center justify-center text-slate-300 dark:text-slate-500"
-                        >
-                            <span className="text-xl">♡</span>
-                        </span>
                     </div>
 
                     <div className="mb-6">
