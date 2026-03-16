@@ -94,3 +94,10 @@ Status atual: **Fase 10 - Paginação Admin Produtos**
 - [x] Implementar paginação completa por abas (Todos, Ativos, Rascunhos) com navegação por páginas.
 - [x] Implementar seletor de quantidade por página (10, 50, 100).
 - [x] Mostrar intervalo atual e total de registros exibidos.
+
+### Fase 11: Relatório de Vendas (Padrão Mensal + Exportação XLS)
+- [x] Definir período padrão com primeiro e último dia do mês corrente na tela de vendas.
+- [x] Aplicar filtro inicial automático do mês corrente ao carregar a página.
+- [x] Separar estado de filtros digitados vs filtros aplicados para consistência da exportação.
+- [x] Implementar botão de exportação XLSX respeitando os filtros aplicados.
+- [x] Criar endpoint protegido para geração do arquivo XLSX com abas `Resumo` e `Vendas`.

@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 import {
     Receipt,
     TrendingUp,
-    DollarSign,
     Calendar,
     Package,
     Loader2,
     ArrowUpRight,
     ArrowDownRight,
     RotateCcw,
+    FileSpreadsheet,
 } from "lucide-react";
 import { getSalesReport, undoSale } from "@/actions/sales";
 
@@ -38,23 +38,91 @@ function formatCurrency(value: number) {
     return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
 }
 
+function getCurrentMonthRange() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+
+    const formatISODate = (date: Date) => {
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, "0");
+        const d = String(date.getDate()).padStart(2, "0");
+        return `${y}-${m}-${d}`;
+    };
+
+    return {
+        startDate: formatISODate(firstDay),
+        endDate: formatISODate(lastDay),
+    };
+}
+
 export default function AdminSalesPage() {
     const [loading, setLoading] = useState(true);
     const [report, setReport] = useState<Report | null>(null);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
+    const [appliedStartDate, setAppliedStartDate] = useState("");
+    const [appliedEndDate, setAppliedEndDate] = useState("");
+    const [exporting, setExporting] = useState(false);
 
-    async function loadReport() {
+    async function loadReport(start?: string, end?: string) {
         setLoading(true);
-        const data = await getSalesReport(startDate || undefined, endDate || undefined);
+        const startFilter = start ?? appliedStartDate;
+        const endFilter = end ?? appliedEndDate;
+        const data = await getSalesReport(startFilter || undefined, endFilter || undefined);
         setReport(data);
         setLoading(false);
     }
 
     useEffect(() => {
-        loadReport();
+        const { startDate: start, endDate: end } = getCurrentMonthRange();
+        setStartDate(start);
+        setEndDate(end);
+        setAppliedStartDate(start);
+        setAppliedEndDate(end);
+        loadReport(start, end);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const handleApplyFilters = async () => {
+        setAppliedStartDate(startDate);
+        setAppliedEndDate(endDate);
+        await loadReport(startDate, endDate);
+    };
+
+    const handleExportXls = async () => {
+        try {
+            setExporting(true);
+            const params = new URLSearchParams();
+            if (appliedStartDate) params.set("startDate", appliedStartDate);
+            if (appliedEndDate) params.set("endDate", appliedEndDate);
+
+            const response = await fetch(`/api/admin/sales/export?${params.toString()}`);
+            if (!response.ok) {
+                throw new Error("Não foi possível gerar o relatório XLS.");
+            }
+
+            const blob = await response.blob();
+            const contentDisposition = response.headers.get("content-disposition") || "";
+            const fileNameMatch = contentDisposition.match(/filename\*=UTF-8''([^;]+)|filename="?([^"]+)"?/i);
+            const extractedFileName = decodeURIComponent(fileNameMatch?.[1] || fileNameMatch?.[2] || "relatorio-vendas.xlsx");
+
+            const downloadUrl = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = downloadUrl;
+            link.download = extractedFileName;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            URL.revokeObjectURL(downloadUrl);
+        } catch {
+            alert("Erro ao exportar o relatório XLS.");
+        } finally {
+            setExporting(false);
+        }
+    };
 
     const handleUndoSale = async (saleId: string) => {
         if (!confirm("Tem certeza que deseja desfazer esta venda? O produto voltará a ficar disponível na loja.")) return;
@@ -101,12 +169,20 @@ export default function AdminSalesPage() {
                         />
                     </div>
                     <button
-                        onClick={loadReport}
+                        onClick={handleApplyFilters}
                         disabled={loading}
                         className="flex items-center gap-2 px-4 py-2 bg-primary text-white font-bold text-sm rounded-lg hover:brightness-110 transition-all shadow-sm disabled:opacity-50"
                     >
                         <Calendar className="w-4 h-4" />
                         Filtrar
+                    </button>
+                    <button
+                        onClick={handleExportXls}
+                        disabled={loading || exporting}
+                        className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-bold text-sm rounded-lg hover:brightness-110 transition-all shadow-sm disabled:opacity-50"
+                    >
+                        {exporting ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileSpreadsheet className="w-4 h-4" />}
+                        Exportar XLS
                     </button>
                 </div>
             </div>

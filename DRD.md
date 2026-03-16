@@ -66,5 +66,10 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** A tela estava limitada aos primeiros registros, impedindo navegação por todo o catálogo em abas como `Todos` e `Ativos`.
 - **Impacto:** Usuário admin consegue navegar por todo o conjunto de produtos com melhor controle de volume exibido e sem perda de contexto.
 
+### Decisão 011 - Relatório mensal padrão e exportação XLSX por filtros aplicados
+- **Decisão:** Pré-preencher `Data Início` e `Data Fim` com o mês corrente (1º e último dia), e exportar XLSX com base nos filtros efetivamente aplicados na tabela.
+- **Motivo:** Reduzir fricção operacional no fechamento mensal e garantir que o arquivo exportado represente exatamente os dados visualizados no painel.
+- **Impacto:** A tela de vendas abre com visão mensal pronta para uso, inclui botão de exportação e endpoint protegido gerando arquivo com abas `Resumo` e `Vendas`.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).
