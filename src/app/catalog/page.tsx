@@ -95,6 +95,21 @@ export default async function CatalogPage({ searchParams }: PageProps) {
     return queryString ? `/catalog?${queryString}` : "/catalog";
   };
 
+  const mobileCorePages = Array.from(
+    new Set([1, totalPages, safeCurrentPage - 1, safeCurrentPage, safeCurrentPage + 1]),
+  )
+    .filter((pageNumber) => pageNumber >= 1 && pageNumber <= totalPages)
+    .sort((a, b) => a - b);
+
+  const mobilePageItems: Array<number | "dots"> = [];
+  mobileCorePages.forEach((pageNumber, index) => {
+    const previous = mobileCorePages[index - 1];
+    if (previous && pageNumber - previous > 1) {
+      mobilePageItems.push("dots");
+    }
+    mobilePageItems.push(pageNumber);
+  });
+
   return (
     <div className="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display text-slate-900 dark:text-slate-100 antialiased">
       <Header />
@@ -178,7 +193,49 @@ export default async function CatalogPage({ searchParams }: PageProps) {
             {/* Paginação (Simplificada/Exemplo) */}
             {products && products.length > 0 && totalPages > 1 && (
               <div className="mt-12 flex justify-center">
-                <nav className="flex items-center gap-2">
+                <nav className="flex items-center gap-2 md:hidden">
+                  <Link
+                    href={buildCatalogHref({
+                      pageNumber: safeCurrentPage - 1,
+                      category: cat,
+                      promotion: promo === "true" ? "true" : undefined,
+                    })}
+                    aria-disabled={safeCurrentPage <= 1}
+                    className={`h-10 min-w-10 px-2 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 ${safeCurrentPage <= 1 ? "pointer-events-none opacity-50" : "hover:bg-[#f6ede5] dark:hover:bg-[#341810]"}`}
+                  >
+                    <ArrowLeft className="h-5 w-5" />
+                  </Link>
+                  {mobilePageItems.map((item, idx) =>
+                    item === "dots" ? (
+                      <span key={`dots-${idx}`} className="w-8 text-center text-slate-500">…</span>
+                    ) : (
+                      <Link
+                        key={item}
+                        href={buildCatalogHref({
+                          pageNumber: item,
+                          category: cat,
+                          promotion: promo === "true" ? "true" : undefined,
+                        })}
+                        aria-current={safeCurrentPage === item ? "page" : undefined}
+                        className={`h-10 min-w-10 px-2 flex items-center justify-center rounded-lg font-bold ${safeCurrentPage === item ? "bg-primary text-white" : "border border-slate-200 dark:border-slate-700 text-slate-600 hover:bg-[#f6ede5] dark:hover:bg-[#341810]"}`}
+                      >
+                        {item}
+                      </Link>
+                    ),
+                  )}
+                  <Link
+                    href={buildCatalogHref({
+                      pageNumber: safeCurrentPage + 1,
+                      category: cat,
+                      promotion: promo === "true" ? "true" : undefined,
+                    })}
+                    aria-disabled={safeCurrentPage >= totalPages}
+                    className={`h-10 min-w-10 px-2 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 ${safeCurrentPage >= totalPages ? "pointer-events-none opacity-50" : "hover:bg-[#f6ede5] dark:hover:bg-[#341810]"}`}
+                  >
+                    <ArrowRight className="h-5 w-5" />
+                  </Link>
+                </nav>
+                <nav className="hidden md:flex items-center gap-2">
                   <Link
                     href={buildCatalogHref({
                       pageNumber: safeCurrentPage - 1,
