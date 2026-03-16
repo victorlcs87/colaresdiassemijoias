@@ -115,3 +115,8 @@ Status atual: **Fase 10 - Paginação Admin Produtos**
 - [x] Aumentar área interna do botão `Comprar` no desktop para melhorar respiro visual entre ícone e texto.
 - [x] Garantir CTA do WhatsApp em linha única no desktop.
 - [x] Garantir título `Detalhes e Especificações` em linha única no desktop e flexibilizar quebra do conteúdo apenas quando necessário.
+
+### Fase 14: Correção de Quebras em Desktop Intermediário (Detalhe do Produto)
+- [x] Ajustar breakpoint da seção principal para manter layout em coluna até `lg`.
+- [x] Redistribuir proporção das colunas para `52%/48%` em telas largas.
+- [x] Restringir breadcrumb desktop para `lg+`, evitando compressão de conteúdo em larguras intermediárias.

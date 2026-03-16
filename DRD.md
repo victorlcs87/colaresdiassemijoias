@@ -81,5 +81,10 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** Na visualização desktop havia quebras excessivas de texto em breadcrumb, título do produto, CTA de WhatsApp e seção de detalhes, além de pouco espaçamento visual no botão de compra.
 - **Impacto:** Textos críticos passam a permanecer em uma linha no desktop quando houver espaço, com quebra apenas em casos necessários, e o botão `Comprar` ganha mais respiro interno para melhor legibilidade.
 
+### Decisão 014 - Breakpoint responsivo para evitar coluna comprimida no desktop menor
+- **Decisão:** Alterar a grade principal do detalhe do produto para permanecer em coluna até `lg`, ativando layout de duas colunas apenas em larguras maiores.
+- **Motivo:** Em resoluções intermediárias de web (próximas ao breakpoint `md`), a coluna direita ficava estreita e provocava quebra indesejada em título, CTA do WhatsApp e descrição.
+- **Impacto:** A leitura fica estável sem quebras artificiais em desktop menor/tablet horizontal, preservando o layout lado a lado apenas quando há espaço real.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).

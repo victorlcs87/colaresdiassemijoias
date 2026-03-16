@@ -94,10 +94,10 @@ export default function ProductDetailClient({
     return (
         <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-4 md:py-8">
             {/* Product Main Section */}
-            <div className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-14">
+            <div className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-10">
 
                 {/* Left: Image Gallery */}
-                <div className="flex flex-col-reverse md:flex-row gap-3 md:gap-4 w-full md:w-[55%]">
+                <div className="flex flex-col-reverse md:flex-row gap-3 md:gap-4 w-full lg:w-[52%]">
                     {/* Thumbnails */}
                     {images.length > 1 && (
                         <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-y-auto md:max-h-[600px] flex-shrink-0 scrollbar-thin">
@@ -136,9 +136,9 @@ export default function ProductDetailClient({
                 </div>
 
                 {/* Right: Product Info */}
-                <div className="w-full md:w-[45%] flex flex-col md:pt-1">
+                <div className="w-full lg:w-[48%] flex flex-col md:pt-1">
                     {/* Breadcrumb (desktop) */}
-                    <div className="hidden md:flex items-center gap-2 flex-wrap text-sm text-slate-500 dark:text-slate-400 mb-6">
+                    <div className="hidden lg:flex items-center gap-2 flex-wrap text-sm text-slate-500 dark:text-slate-400 mb-6">
                         <Link href="/" className="hover:text-primary transition-colors">Início</Link>
                         <span className="text-slate-300">&gt;</span>
                         <Link href="/catalog" className="hover:text-primary transition-colors">Catálogo</Link>
