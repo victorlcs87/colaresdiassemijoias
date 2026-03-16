@@ -45,22 +45,22 @@ export function MobileHeader() {
 
     return (
         <>
-            <header className="sticky top-0 z-40 flex md:hidden items-center justify-between border-b border-[#e7f3ed] dark:border-[#2a4538] bg-white/90 dark:bg-[#152a20]/90 px-4 py-3 backdrop-blur-md">
+            <header className="sticky top-0 z-40 flex md:hidden items-center justify-between border-b border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/90 dark:bg-[#2a120d]/90 px-4 py-3 backdrop-blur-md">
                 <div className="flex items-center gap-2">
                     <button
                         onClick={() => setMenuOpen(true)}
-                        className="flex items-center justify-center p-2 rounded-full hover:bg-slate-100 dark:hover:bg-[#2a4538] transition-colors"
+                        className="flex items-center justify-center p-2 rounded-full hover:bg-slate-100 dark:hover:bg-[#5a3329] transition-colors"
                     >
                         <Menu className="h-6 w-6 text-slate-900 dark:text-slate-100" />
                     </button>
                     <Link className="flex items-center gap-2" href="/">
-                        <Image src="/logo-transparent.png" alt="Lojinha da Lari Logo" width={110} height={35} className="object-contain" priority />
+                        <Image src="/brand/logo-colares-dias.png" alt="Logo Colares Dias Semijoias" width={60} height={58} className="object-contain" priority />
                     </Link>
                 </div>
                 <div className="flex gap-1 items-center">
                     <button
                         onClick={() => setSearchOpen(!searchOpen)}
-                        className="flex items-center justify-center p-2 rounded-full hover:bg-slate-100 dark:hover:bg-[#2a4538] transition-colors"
+                        className="flex items-center justify-center p-2 rounded-full hover:bg-slate-100 dark:hover:bg-[#5a3329] transition-colors"
                     >
                         <Search className="h-5 w-5 text-slate-900 dark:text-slate-100" />
                     </button>
@@ -71,13 +71,13 @@ export function MobileHeader() {
 
             {/* Search Bar slide-down */}
             {searchOpen && (
-                <div className="md:hidden sticky top-[57px] z-30 bg-white dark:bg-[#152a20] border-b border-[#e7f3ed] dark:border-[#2a4538] px-4 py-3 animate-in slide-in-from-top duration-200">
+                <div className="md:hidden sticky top-[73px] z-30 bg-[#f6ede5] dark:bg-[#2a120d] border-b border-[#d9b7a6] dark:border-[#5a3329] px-4 py-3 animate-in slide-in-from-top duration-200">
                     <form onSubmit={handleSearch} className="relative">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                         <input
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className="w-full rounded-full bg-[#f8fcfa] dark:bg-[#1b2f24] py-2.5 pl-10 pr-4 text-sm border-none focus:ring-2 focus:ring-primary placeholder-slate-400 dark:text-white"
+                            className="w-full rounded-full bg-white dark:bg-[#3a1c15] py-2.5 pl-10 pr-4 text-sm border-none focus:ring-2 focus:ring-primary placeholder-slate-400 dark:text-white"
                             placeholder="Buscar produtos..."
                             type="text"
                             autoFocus
@@ -96,14 +96,14 @@ export function MobileHeader() {
                     />
 
                     {/* Drawer */}
-                    <div className="absolute top-0 left-0 h-full w-[280px] bg-white dark:bg-[#152a20] shadow-2xl animate-in slide-in-from-left duration-300 flex flex-col">
-                        <div className="flex items-center justify-between p-5 border-b border-[#e7f3ed] dark:border-[#2a4538]">
+                    <div className="absolute top-0 left-0 h-full w-[280px] bg-[#f6ede5] dark:bg-[#2a120d] shadow-2xl animate-in slide-in-from-left duration-300 flex flex-col">
+                        <div className="flex items-center justify-between p-5 border-b border-[#d9b7a6] dark:border-[#5a3329]">
                             <Link href="/" className="flex items-center gap-2" onClick={() => setMenuOpen(false)}>
-                                <Image src="/logo-transparent.png" alt="Lojinha da Lari Logo" width={100} height={32} className="object-contain" />
+                                <Image src="/brand/logo-colares-dias.png" alt="Logo Colares Dias Semijoias" width={56} height={54} className="object-contain" />
                             </Link>
                             <button
                                 onClick={() => setMenuOpen(false)}
-                                className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-[#2a4538]"
+                                className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-[#5a3329]"
                             >
                                 <X className="h-5 w-5 text-slate-500" />
                             </button>
@@ -121,17 +121,17 @@ export function MobileHeader() {
                                     key={item.href}
                                     href={item.href}
                                     onClick={() => setMenuOpen(false)}
-                                    className="block px-4 py-3 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-[#f0f9f5] dark:hover:bg-[#1b2f24] hover:text-primary transition-colors"
+                                    className="block px-4 py-3 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-[#f0ddcf] dark:hover:bg-[#341810] hover:text-primary transition-colors"
                                 >
                                     {item.label}
                                 </Link>
                             ))}
 
-                            <div className="mt-6 pt-4 border-t border-[#e7f3ed] dark:border-[#2a4538]">
+                            <div className="mt-6 pt-4 border-t border-[#d9b7a6] dark:border-[#5a3329]">
                                 <Link
                                     href={isAuthenticated ? "/admin/dashboard" : "/admin"}
                                     onClick={() => setMenuOpen(false)}
-                                    className="flex items-center justify-between px-4 py-3 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 hover:bg-[#f0f9f5] hover:text-primary transition-colors"
+                                    className="flex items-center justify-between px-4 py-3 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-400 bg-white/70 dark:bg-[#3a1c15]/70 hover:bg-[#f0ddcf] hover:text-primary transition-colors"
                                 >
                                     {isAuthenticated ? "Painel Admin" : "Acesso Admin"}
                                 </Link>

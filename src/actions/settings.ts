@@ -16,7 +16,7 @@ export async function getStoreSettings() {
     }
 
     // Converter array de [{key, value}] para objeto { key: value }
-    return data.reduce((acc: any, item) => {
+    return data.reduce<Record<string, string>>((acc, item) => {
         acc[item.key] = item.value;
         return acc;
     }, {});

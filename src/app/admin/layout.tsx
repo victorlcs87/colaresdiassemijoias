@@ -12,7 +12,7 @@ export default async function AdminLayout({
 
     if (!session) {
         return (
-            <div className="flex flex-1 w-full bg-[#f8fcfa] dark:bg-[#11231a]">
+            <div className="flex flex-1 w-full bg-[#f6ede5] dark:bg-[#24100b]">
                 <main className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
                     {children}
                 </main>
@@ -20,7 +20,7 @@ export default async function AdminLayout({
         );
     }
     return (
-        <div className="flex flex-1 w-full bg-[#f8fcfa] dark:bg-[#11231a]">
+        <div className="flex flex-1 w-full bg-[#f6ede5] dark:bg-[#24100b]">
             {/* Sidebar Fixa */}
             <AdminSidebar />
 

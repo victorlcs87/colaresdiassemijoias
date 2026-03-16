@@ -10,11 +10,11 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                primary: "#13ec80",
+                primary: "#6b2b17",
                 whatsapp: "#25D366",
                 "whatsapp-dark": "#128C7E",
-                "background-light": "#f6f8f7",
-                "background-dark": "#102219",
+                "background-light": "#d7b4a3",
+                "background-dark": "#24100b",
             },
             fontFamily: {
                 display: ["Plus Jakarta Sans", "sans-serif"],

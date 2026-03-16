@@ -77,7 +77,7 @@ export default function AdminSettingsPage() {
                 <button
                     onClick={handleSave}
                     disabled={loading}
-                    className="inline-flex items-center justify-center gap-2 bg-primary text-slate-900 font-bold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity shadow-sm disabled:opacity-50"
+                    className="inline-flex items-center justify-center gap-2 bg-primary text-white font-bold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity shadow-sm disabled:opacity-50"
                 >
                     {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                     <span>{loading ? "Salvando..." : "Salvar Alterações"}</span>
@@ -100,8 +100,8 @@ export default function AdminSettingsPage() {
                                 key={section.id}
                                 onClick={() => setActiveSection(section.id)}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg font-bold transition-all ${activeSection === section.id
-                                    ? "bg-primary text-slate-900 shadow-sm"
-                                    : "text-slate-500 hover:bg-[#f0f9f5] dark:hover:bg-[#1b2f24] hover:text-primary"
+                                    ? "bg-primary text-white shadow-sm"
+                                    : "text-slate-500 hover:bg-[#f0ddcf] dark:hover:bg-[#341810] hover:text-primary"
                                     }`}
                             >
                                 <Icon className="w-5 h-5" />
@@ -114,7 +114,7 @@ export default function AdminSettingsPage() {
                 {/* Content Area */}
                 <div className="space-y-6">
                     {activeSection === "general" && (
-                        <div className="bg-white dark:bg-[#152a20] border border-[#e7f3ed] dark:border-[#2a4538] rounded-xl p-6 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-300">
+                        <div className="bg-white dark:bg-[#2a120d] border border-[#d9b7a6] dark:border-[#5a3329] rounded-xl p-6 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-300">
                             <h3 className="text-lg font-bold mb-6 flex items-center gap-2 text-slate-900 dark:text-white">
                                 <Globe className="text-primary w-5 h-5" />
                                 Informações da Loja
@@ -129,7 +129,7 @@ export default function AdminSettingsPage() {
                                                 type="text"
                                                 value={formData.store_name || ""}
                                                 onChange={(e) => handleInputChange("store_name", e.target.value)}
-                                                className="w-full pl-10 pr-4 py-2 bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
+                                                className="w-full pl-10 pr-4 py-2 bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
                                             />
                                         </div>
                                     </div>
@@ -141,7 +141,7 @@ export default function AdminSettingsPage() {
                                                 type="email"
                                                 value={formData.contact_email || ""}
                                                 onChange={(e) => handleInputChange("contact_email", e.target.value)}
-                                                className="w-full pl-10 pr-4 py-2 bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
+                                                className="w-full pl-10 pr-4 py-2 bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
                                             />
                                         </div>
                                     </div>
@@ -154,16 +154,26 @@ export default function AdminSettingsPage() {
                                             type="text"
                                             value={formData.whatsapp_number || ""}
                                             onChange={(e) => handleInputChange("whatsapp_number", e.target.value)}
-                                            className="w-full pl-10 pr-4 py-2 bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
+                                            className="w-full pl-10 pr-4 py-2 bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
                                         />
                                     </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Descrição da Loja</label>
+                                    <textarea
+                                        value={formData.store_description || ""}
+                                        onChange={(e) => handleInputChange("store_description", e.target.value)}
+                                        rows={3}
+                                        className="w-full px-4 py-2 bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
+                                        placeholder="Ex: Catálogo virtual de acessórios e semijoias com curadoria exclusiva."
+                                    />
                                 </div>
                             </div>
                         </div>
                     )}
 
                     {activeSection === "social" && (
-                        <div className="bg-white dark:bg-[#152a20] border border-[#e7f3ed] dark:border-[#2a4538] rounded-xl p-6 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-300">
+                        <div className="bg-white dark:bg-[#2a120d] border border-[#d9b7a6] dark:border-[#5a3329] rounded-xl p-6 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-300">
                             <h3 className="text-lg font-bold mb-6 flex items-center gap-2 text-slate-900 dark:text-white">
                                 <Share2 className="text-primary w-5 h-5" />
                                 Canais Sociais
@@ -178,7 +188,7 @@ export default function AdminSettingsPage() {
                                             value={formData.instagram_user || ""}
                                             onChange={(e) => handleInputChange("instagram_user", e.target.value)}
                                             placeholder="@seuusuario"
-                                            className="w-full pl-10 pr-4 py-2 bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
+                                            className="w-full pl-10 pr-4 py-2 bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
                                         />
                                     </div>
                                 </div>
@@ -191,7 +201,7 @@ export default function AdminSettingsPage() {
                                             value={formData.tiktok_user || ""}
                                             onChange={(e) => handleInputChange("tiktok_user", e.target.value)}
                                             placeholder="@seuusuario"
-                                            className="w-full pl-10 pr-4 py-2 bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
+                                            className="w-full pl-10 pr-4 py-2 bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
                                         />
                                     </div>
                                 </div>
@@ -200,7 +210,7 @@ export default function AdminSettingsPage() {
                     )}
 
                     {activeSection === "appearance" && (
-                        <div className="bg-white dark:bg-[#152a20] border border-[#e7f3ed] dark:border-[#2a4538] rounded-xl p-6 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-300">
+                        <div className="bg-white dark:bg-[#2a120d] border border-[#d9b7a6] dark:border-[#5a3329] rounded-xl p-6 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-300">
                             <h3 className="text-lg font-bold mb-6 flex items-center gap-2 text-slate-900 dark:text-white">
                                 <Palette className="text-primary w-5 h-5" />
                                 Personalização
@@ -213,7 +223,7 @@ export default function AdminSettingsPage() {
                                             onClick={() => handleInputChange("theme_mode", "light")}
                                             className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-3 ${formData.theme_mode === "light"
                                                 ? "border-primary bg-primary/5"
-                                                : "border-transparent bg-[#f8fcfa] hover:border-slate-200"
+                                                : "border-transparent bg-[#f6ede5] hover:border-slate-200"
                                                 }`}
                                         >
                                             <div className="w-full aspect-video bg-white rounded border border-slate-100 shadow-sm" />
@@ -223,7 +233,7 @@ export default function AdminSettingsPage() {
                                             onClick={() => handleInputChange("theme_mode", "dark")}
                                             className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-3 ${formData.theme_mode === "dark"
                                                 ? "border-primary bg-primary/5"
-                                                : "border-transparent bg-[#f8fcfa] dark:bg-[#1b2f24] hover:border-slate-800"
+                                                : "border-transparent bg-[#f6ede5] dark:bg-[#341810] hover:border-slate-800"
                                                 }`}
                                         >
                                             <div className="w-full aspect-video bg-slate-900 rounded border border-slate-800 shadow-sm" />
@@ -236,7 +246,7 @@ export default function AdminSettingsPage() {
                     )}
 
                     {activeSection === "security" && (
-                        <div className="bg-white dark:bg-[#152a20] border border-[#e7f3ed] dark:border-[#2a4538] rounded-xl p-6 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-300">
+                        <div className="bg-white dark:bg-[#2a120d] border border-[#d9b7a6] dark:border-[#5a3329] rounded-xl p-6 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-300">
                             <h3 className="text-lg font-bold mb-6 flex items-center gap-2 text-slate-900 dark:text-white">
                                 <ShieldCheck className="text-primary w-5 h-5" />
                                 Segurança da Conta
@@ -248,7 +258,7 @@ export default function AdminSettingsPage() {
                                         type="password"
                                         value={formData.new_password || ""}
                                         onChange={(e) => handleInputChange("new_password", e.target.value)}
-                                        className="w-full px-4 py-2 bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
+                                        className="w-full px-4 py-2 bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
                                         placeholder="Digite a nova senha"
                                     />
                                 </div>
@@ -258,7 +268,7 @@ export default function AdminSettingsPage() {
                                         type="password"
                                         value={formData.confirm_password || ""}
                                         onChange={(e) => handleInputChange("confirm_password", e.target.value)}
-                                        className="w-full px-4 py-2 bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
+                                        className="w-full px-4 py-2 bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50 dark:text-white"
                                         placeholder="Confirme a nova senha"
                                     />
                                 </div>
@@ -289,8 +299,9 @@ export default function AdminSettingsPage() {
                                                 handleInputChange("new_password", "");
                                                 handleInputChange("confirm_password", "");
                                             }
-                                        } catch (e: any) {
-                                            setMessage({ type: "error", text: "Erro inesperado: " + e.message });
+                                        } catch (error) {
+                                            const message = error instanceof Error ? error.message : "Falha desconhecida";
+                                            setMessage({ type: "error", text: "Erro inesperado: " + message });
                                         }
                                         setLoading(false);
                                         setTimeout(() => setMessage(null), 3000);

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://lojinhadalari.com.br';
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://colaresdiassemijoias.com.br';
 
     return {
         rules: {

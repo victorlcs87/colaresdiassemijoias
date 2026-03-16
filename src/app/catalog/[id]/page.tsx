@@ -5,6 +5,7 @@ import ProductDetailClient from "./ProductDetailClient";
 import { Product } from "@/lib/types";
 import { getStoreSettings } from "@/actions/settings";
 import type { Metadata } from "next";
+import { getStoreName, getStoreWhatsapp } from "@/lib/storeSettings";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     .single();
 
   const settings = await getStoreSettings();
-  const storeName = settings.storeName || "Lojinha da Lari";
+  const storeName = getStoreName(settings);
 
   if (!productData) {
     return {
@@ -82,12 +83,14 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
     currency: "BRL",
   }).format(product.price);
 
-  const phoneNumber = "5511999999999";
-  const wpMessage = encodeURIComponent(`Olá, Lari! Tenho interesse no produto: ${product.name} - ${formattedPrice}`);
+  const settings = await getStoreSettings();
+  const whatsappRaw = getStoreWhatsapp(settings);
+  const phoneNumber = whatsappRaw.replace(/\D/g, "");
+  const wpMessage = encodeURIComponent(`Olá! Tenho interesse no produto: ${product.name} - ${formattedPrice}`);
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${wpMessage}`;
 
   return (
-    <div className="bg-[#f8fcfa] dark:bg-background-dark min-h-screen flex flex-col font-display text-slate-900 dark:text-slate-100 antialiased pb-24 md:pb-0">
+    <div className="bg-[#f6ede5] dark:bg-background-dark min-h-screen flex flex-col font-display text-slate-900 dark:text-slate-100 antialiased pb-24 md:pb-0">
       <Header />
       <ProductDetailClient
         product={product}

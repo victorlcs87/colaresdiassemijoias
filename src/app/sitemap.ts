@@ -6,7 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const { data: products } = await supabase.from('products').select('id, updated_at');
 
     // Utiliza a variável de ambiente para a URL base ou a URL de produção padrão
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://lojinhadalari.com.br';
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://colaresdiassemijoias.com.br';
 
     const productUrls = (products || []).map((product) => ({
         url: `${baseUrl}/catalog/${product.id}`,

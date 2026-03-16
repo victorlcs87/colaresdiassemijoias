@@ -64,12 +64,12 @@ export default function AdminLogin() {
           Administração
         </h2>
         <p className="mt-2 text-center text-sm text-slate-600 dark:text-slate-400">
-          Lojinha da Lari - Área Restrita
+          Colares Dias Semijoias - Área Restrita
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white dark:bg-surface-dark py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-[#e7f3ed] dark:border-surface-dark/50">
+        <div className="bg-white dark:bg-[#2a120d] py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-[#d9b7a6] dark:border-[#5a3329]">
           <form className="space-y-6" onSubmit={handleLogin}>
             {error && (
               <div className="rounded-md bg-red-50 dark:bg-red-900/20 p-4">
@@ -125,7 +125,7 @@ export default function AdminLogin() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center items-center gap-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-background-dark bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-70 disabled:cursor-not-allowed transition-colors"
+                className="w-full flex justify-center items-center gap-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-70 disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? (
                   <>

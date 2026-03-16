@@ -54,7 +54,7 @@ export default function AdminProductsPage() {
                 </div>
                 <Link
                     href="/admin/products/new"
-                    className="inline-flex items-center justify-center gap-2 bg-primary text-slate-900 font-bold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity shadow-sm"
+                    className="inline-flex items-center justify-center gap-2 bg-primary text-white font-bold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity shadow-sm"
                 >
                     <Plus className="w-5 h-5" />
                     <span>Novo Produto</span>
@@ -62,7 +62,7 @@ export default function AdminProductsPage() {
             </div>
 
             {/* Tabs */}
-            <div className="mb-6 border-b border-[#e7f3ed] dark:border-[#2a4538]">
+            <div className="mb-6 border-b border-[#d9b7a6] dark:border-[#5a3329]">
                 <div className="flex gap-8">
                     <button
                         onClick={() => setActiveTab("all")}
@@ -95,11 +95,11 @@ export default function AdminProductsPage() {
             </div>
 
             {/* Table Container */}
-            <div className="bg-white dark:bg-[#152a20] border border-[#e7f3ed] dark:border-[#2a4538] rounded-xl overflow-hidden shadow-sm">
+            <div className="bg-white dark:bg-[#2a120d] border border-[#d9b7a6] dark:border-[#5a3329] rounded-xl overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
                         <thead>
-                            <tr className="bg-[#f8fcfa] dark:bg-[#1b2f24]/50 border-b border-[#e7f3ed] dark:border-[#2a4538]">
+                            <tr className="bg-[#f6ede5] dark:bg-[#341810]/50 border-b border-[#d9b7a6] dark:border-[#5a3329]">
                                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Imagem</th>
                                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Nome do Produto</th>
                                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Preço</th>
@@ -107,7 +107,7 @@ export default function AdminProductsPage() {
                                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Ações</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-[#e7f3ed] dark:divide-[#2a4538]">
+                        <tbody className="divide-y divide-[#d9b7a6] dark:divide-[#5a3329]">
                             {loading ? (
                                 <tr>
                                     <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
@@ -123,10 +123,10 @@ export default function AdminProductsPage() {
                                 </tr>
                             ) : (
                                 filteredProducts.slice(0, 5).map((product) => (
-                                    <tr key={product.id} className="hover:bg-[#f8fcfa]/50 dark:hover:bg-[#1b2f24]/30 transition-colors group">
+                                    <tr key={product.id} className="hover:bg-[#f6ede5]/50 dark:hover:bg-[#341810]/30 transition-colors group">
                                         <td className="px-6 py-4">
                                             <Link href={`/catalog/${product.id}`} target="_blank">
-                                                <div className="w-12 h-12 rounded-lg bg-slate-100 dark:bg-[#1b2f24] overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
+                                                <div className="w-12 h-12 rounded-lg bg-slate-100 dark:bg-[#341810] overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
                                                     <img
                                                         src={product.image_url || "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?q=80&w=600"}
                                                         alt={product.name}
@@ -235,8 +235,8 @@ export default function AdminProductsPage() {
             {/* Modal de Venda */}
             {saleModalOpen && selectedSaleProduct && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-                    <div className="bg-white dark:bg-[#152a20] rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
-                        <div className="flex items-center justify-between p-6 border-b border-[#e7f3ed] dark:border-[#2a4538]">
+                    <div className="bg-white dark:bg-[#2a120d] rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
+                        <div className="flex items-center justify-between p-6 border-b border-[#d9b7a6] dark:border-[#5a3329]">
                             <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                                 <Receipt className="w-5 h-5 text-emerald-500" />
                                 Registrar Venda
@@ -261,7 +261,7 @@ export default function AdminProductsPage() {
                                     value={salePrice}
                                     onChange={(e) => setSalePrice(e.target.value)}
                                     required
-                                    className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border border-slate-200 dark:border-[#2a4538] rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white"
+                                    className="w-full bg-[#f6ede5] dark:bg-[#341810] border border-slate-200 dark:border-[#5a3329] rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white"
                                     placeholder="0.00"
                                 />
                             </div>
@@ -272,7 +272,7 @@ export default function AdminProductsPage() {
                                     value={saleDate}
                                     onChange={(e) => setSaleDate(e.target.value)}
                                     required
-                                    className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border border-slate-200 dark:border-[#2a4538] rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white"
+                                    className="w-full bg-[#f6ede5] dark:bg-[#341810] border border-slate-200 dark:border-[#5a3329] rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white"
                                 />
                             </div>
                             <div>
@@ -281,12 +281,12 @@ export default function AdminProductsPage() {
                                     value={saleNotes}
                                     onChange={(e) => setSaleNotes(e.target.value)}
                                     rows={2}
-                                    className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border border-slate-200 dark:border-[#2a4538] rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white resize-none"
+                                    className="w-full bg-[#f6ede5] dark:bg-[#341810] border border-slate-200 dark:border-[#5a3329] rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white resize-none"
                                     placeholder="Detalhes opcionais sobre a venda..."
                                 />
                             </div>
                         </div>
-                        <div className="p-6 border-t border-[#e7f3ed] dark:border-[#2a4538] flex gap-3 justify-end bg-slate-50 dark:bg-[#1e362a]/30">
+                        <div className="p-6 border-t border-[#d9b7a6] dark:border-[#5a3329] flex gap-3 justify-end bg-slate-50 dark:bg-[#3a1c15]/30">
                             <button
                                 type="button"
                                 onClick={() => setSaleModalOpen(false)}

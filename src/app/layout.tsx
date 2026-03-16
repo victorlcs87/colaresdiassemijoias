@@ -6,6 +6,7 @@ import { MobileNav } from "@/components/MobileNav";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
+import { getStoreDescription, getStoreName } from "@/lib/storeSettings";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -15,7 +16,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 import { getStoreSettings } from "@/actions/settings";
 
 export const viewport = {
-  themeColor: '#ffffff',
+  themeColor: '#6b2b17',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -23,8 +24,8 @@ export const viewport = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getStoreSettings();
-  const storeName = settings.storeName || "Lojinha da Lari";
-  const storeDescription = settings.storeDescription || "Catálogo virtual de produtos exclusivos selecionados a dedo pela Lari.";
+  const storeName = getStoreName(settings);
+  const storeDescription = getStoreDescription(settings);
 
   return {
     title: {
@@ -54,7 +55,7 @@ export async function generateMetadata(): Promise<Metadata> {
         },
       ],
     },
-    keywords: ["loja online", "roupas", "moda feminina", "acessórios", "catálogo virtual"],
+    keywords: ["semijoias", "acessórios", "colares", "brincos", "pulseiras", "catálogo virtual"],
     openGraph: {
       title: storeName,
       description: storeDescription,
@@ -73,6 +74,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${plusJakartaSans.variable} antialiased min-h-screen flex flex-col pb-20 md:pb-0`}
       >
         <ThemeProvider

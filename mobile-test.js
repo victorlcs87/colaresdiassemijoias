@@ -7,7 +7,8 @@ const TARGET_URL = 'http://localhost:3000';
     // iPhone 14 viewport
     const context = await browser.newContext({
         viewport: { width: 390, height: 844 },
-        userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15'
+        userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15',
+        reducedMotion: 'reduce',
     });
 
     const page = await context.newPage();
@@ -76,10 +77,13 @@ const TARGET_URL = 'http://localhost:3000';
 
         // 7. Menu Drawer
         console.log('\n7. Testing Menu Drawer...');
-        // Close cart first if open
-        const closeBtn = page.locator('button:has(.lucide-x)').first();
-        if (await closeBtn.isVisible()) await closeBtn.click();
-        await page.waitForTimeout(300);
+        // Fecha o carrinho clicando no overlay para evitar flakiness do botão X em animações
+        const cartDrawerTitle = page.locator('h3:has-text("Seu Carrinho")').first();
+        if (await cartDrawerTitle.isVisible({ timeout: 1500 })) {
+            await page.mouse.click(10, 10);
+            await page.waitForSelector('.cart-drawer-portal div.translate-x-full', { timeout: 5000 });
+        }
+        await page.waitForTimeout(500);
 
         await page.click('header button:has(.lucide-menu)');
         await page.waitForSelector('text=Catálogo', { timeout: 5000 });

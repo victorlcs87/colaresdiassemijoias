@@ -1,24 +1,24 @@
 {
-    "name": "Lojinha da Lari",
-    "short_name": "Loja Lari",
+    "name": "Colares Dias Semijoias",
+    "short_name": "Colares Dias",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#12b886",
+    "background_color": "#d7b4a3",
+    "theme_color": "#6b2b17",
     "orientation": "portrait",
     "icons": [
         {
-            "src": "/icon-192x192.png",
+            "src": "/icon-192-v2.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/icon-512x512.png",
+            "src": "/icon-512-v2.png",
             "sizes": "512x512",
             "type": "image/png"
         },
         {
-            "src": "/apple-icon.png",
+            "src": "/apple-icon-v2.png",
             "sizes": "180x180",
             "type": "image/png"
         }

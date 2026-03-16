@@ -25,14 +25,14 @@ export default function AdminDashboardContent({ username, stats }: AdminDashboar
                         Bem-vinda ao Painel, {username}! 🌸
                     </h2>
                     <p className="mt-2 text-slate-600 dark:text-slate-400">
-                        Gerencie seus produtos, visualize estatísticas e administre sua lojinha.
+                        Gerencie seus produtos, visualize estatísticas e administre sua loja.
                     </p>
                 </div>
 
                 {/* Cards de estatísticas */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     {/* Total de Produtos */}
-                    <div className="bg-white dark:bg-surface-dark rounded-lg shadow p-6 border border-[#e7f3ed] dark:border-surface-dark/50 flex flex-col">
+                    <div className="bg-white dark:bg-[#2a120d] rounded-lg shadow p-6 border border-[#d9b7a6] dark:border-[#5a3329] flex flex-col">
                         <div className="flex items-center gap-3 mb-2">
                             <div className="p-2 bg-primary/10 rounded-md">
                                 <Package className="h-5 w-5 text-primary" />
@@ -43,7 +43,7 @@ export default function AdminDashboardContent({ username, stats }: AdminDashboar
                     </div>
 
                     {/* Produtos Ativos */}
-                    <div className="bg-white dark:bg-surface-dark rounded-lg shadow p-6 border border-[#e7f3ed] dark:border-surface-dark/50 flex flex-col">
+                    <div className="bg-white dark:bg-[#2a120d] rounded-lg shadow p-6 border border-[#d9b7a6] dark:border-[#5a3329] flex flex-col">
                         <div className="flex items-center gap-3 mb-2">
                             <div className="p-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-md">
                                 <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
@@ -54,7 +54,7 @@ export default function AdminDashboardContent({ username, stats }: AdminDashboar
                     </div>
 
                     {/* Produtos Inativos */}
-                    <div className="bg-white dark:bg-surface-dark rounded-lg shadow p-6 border border-[#e7f3ed] dark:border-surface-dark/50 flex flex-col">
+                    <div className="bg-white dark:bg-[#2a120d] rounded-lg shadow p-6 border border-[#d9b7a6] dark:border-[#5a3329] flex flex-col">
                         <div className="flex items-center gap-3 mb-2">
                             <div className="p-2 bg-slate-100 dark:bg-slate-800 rounded-md">
                                 <LayoutDashboard className="h-5 w-5 text-slate-500" />
@@ -65,7 +65,7 @@ export default function AdminDashboardContent({ username, stats }: AdminDashboar
                     </div>
 
                     {/* Preço Médio */}
-                    <div className="bg-white dark:bg-surface-dark rounded-lg shadow p-6 border border-[#e7f3ed] dark:border-surface-dark/50 flex flex-col">
+                    <div className="bg-white dark:bg-[#2a120d] rounded-lg shadow p-6 border border-[#d9b7a6] dark:border-[#5a3329] flex flex-col">
                         <div className="flex items-center gap-3 mb-2">
                             <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-md">
                                 <DollarSign className="h-5 w-5 text-blue-600 dark:text-blue-400" />
@@ -82,7 +82,7 @@ export default function AdminDashboardContent({ username, stats }: AdminDashboar
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <Link
                         href="/admin/products"
-                        className="bg-white dark:bg-surface-dark rounded-lg shadow p-6 border border-[#e7f3ed] dark:border-surface-dark/50 hover:shadow-md transition-shadow group flex flex-col justify-between h-full"
+                        className="bg-white dark:bg-[#2a120d] rounded-lg shadow p-6 border border-[#d9b7a6] dark:border-[#5a3329] hover:shadow-md transition-shadow group flex flex-col justify-between h-full"
                     >
                         <div className="flex items-center gap-4">
                             <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">

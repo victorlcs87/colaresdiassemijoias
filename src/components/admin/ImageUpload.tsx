@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Upload, X, Loader2, Image as ImageIcon } from "lucide-react";
+import { Upload, X, Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 interface ImageUploadProps {
@@ -30,7 +30,7 @@ export function ImageUpload({ defaultValue, onUploadSuccess }: ImageUploadProps)
             const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
             const filePath = `${fileName}`;
 
-            const { error: uploadError, data } = await supabase.storage
+            const { error: uploadError } = await supabase.storage
                 .from('product-images')
                 .upload(filePath, file);
 
@@ -44,8 +44,8 @@ export function ImageUpload({ defaultValue, onUploadSuccess }: ImageUploadProps)
 
             setPreview(publicUrl);
             onUploadSuccess(publicUrl);
-        } catch (err: any) {
-            setError(err.message || 'Erro ao fazer upload');
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : "Erro ao fazer upload");
             console.error(err);
         } finally {
             setUploading(false);
@@ -72,7 +72,7 @@ export function ImageUpload({ defaultValue, onUploadSuccess }: ImageUploadProps)
                         </button>
                     </div>
                 ) : (
-                    <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-slate-200 dark:border-[#2a4538] rounded-xl cursor-pointer bg-[#f8fcfa] dark:bg-[#1b2f24] hover:bg-slate-50 dark:hover:bg-[#1b2f24]/80 transition-all group">
+                    <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-slate-200 dark:border-[#5a3329] rounded-xl cursor-pointer bg-[#f6ede5] dark:bg-[#341810] hover:bg-slate-50 dark:hover:bg-[#341810]/80 transition-all group">
                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
                             {uploading ? (
                                 <Loader2 className="w-10 h-10 text-primary animate-spin mb-3" />

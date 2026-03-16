@@ -20,18 +20,18 @@ export function AdminHeader() {
     };
     return (
         <>
-            <header className="h-16 flex items-center justify-between px-4 md:px-8 bg-white dark:bg-[#152a20] border-b border-[#e7f3ed] dark:border-[#2a4538] shrink-0 sticky top-0 z-10">
+            <header className="h-16 flex items-center justify-between px-4 md:px-8 bg-[#f6ede5] dark:bg-[#2a120d] border-b border-[#d9b7a6] dark:border-[#5a3329] shrink-0 sticky top-0 z-10">
                 <div className="flex items-center gap-3 flex-1 max-w-[200px] sm:max-w-md">
                     <button
                         onClick={() => setMenuOpen(true)}
-                        className="md:hidden p-2 -ml-2 rounded-lg hover:bg-slate-100 dark:hover:bg-[#1b2f24] text-slate-600 dark:text-slate-400"
+                        className="md:hidden p-2 -ml-2 rounded-lg hover:bg-slate-100 dark:hover:bg-[#341810] text-slate-600 dark:text-slate-400"
                     >
                         <Menu className="w-6 h-6" />
                     </button>
                     <div className="w-full relative hidden sm:block">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
                         <input
-                            className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg pl-10 pr-4 py-2 focus:ring-2 focus:ring-primary/50 text-sm placeholder-slate-400 dark:text-white"
+                            className="w-full bg-white dark:bg-[#341810] border-none rounded-lg pl-10 pr-4 py-2 focus:ring-2 focus:ring-primary/50 text-sm placeholder-slate-400 dark:text-white"
                             placeholder="Buscar..."
                             type="text"
                         />
@@ -40,20 +40,20 @@ export function AdminHeader() {
                 <div className="flex items-center gap-4">
                     <button
                         onClick={() => alert("Não há notificações no momento.")}
-                        className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-[#1b2f24] relative text-slate-600 dark:text-slate-400 transition-colors"
+                        className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-[#341810] relative text-slate-600 dark:text-slate-400 transition-colors"
                     >
                         <Bell className="w-5 h-5" />
                     </button>
-                    <div className="h-8 w-px bg-slate-200 dark:bg-[#2a4538] mx-2"></div>
+                    <div className="h-8 w-px bg-slate-200 dark:bg-[#5a3329] mx-2"></div>
                     <div className="flex items-center gap-3">
                         <div className="text-right hidden sm:block">
-                            <p className="text-xs font-semibold text-slate-900 dark:text-white">Larissa Colares</p>
+                            <p className="text-xs font-semibold text-slate-900 dark:text-white">Admin Colares Dias</p>
                             <p className="text-[10px] text-slate-500">Administradora</p>
                         </div>
-                        <div className="w-10 h-10 rounded-full border border-slate-200 dark:border-[#2a4538] overflow-hidden bg-slate-100 dark:bg-[#1b2f24]">
+                        <div className="w-10 h-10 rounded-full border border-slate-200 dark:border-[#5a3329] overflow-hidden bg-slate-100 dark:bg-[#341810]">
                             {/* Placeholder for admin avatar */}
                             <img
-                                src="https://ui-avatars.com/api/?name=Larissa+Colares&background=13ec80&color=0d1b14"
+                                src="https://ui-avatars.com/api/?name=Colares+Dias&background=6b2b17&color=ffffff"
                                 alt="Admin profile"
                                 className="w-full h-full object-cover"
                             />
@@ -70,14 +70,14 @@ export function AdminHeader() {
                             className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200"
                             onClick={() => setMenuOpen(false)}
                         />
-                        <div className="relative w-[280px] h-full bg-white dark:bg-[#152a20] shadow-2xl flex flex-col animate-in slide-in-from-left duration-300">
-                            <div className="p-4 flex items-center justify-between border-b border-[#e7f3ed] dark:border-[#2a4538]">
+                        <div className="relative w-[280px] h-full bg-[#f6ede5] dark:bg-[#2a120d] shadow-2xl flex flex-col animate-in slide-in-from-left duration-300">
+                            <div className="p-4 flex items-center justify-between border-b border-[#d9b7a6] dark:border-[#5a3329]">
                                 <Link href="/" onClick={() => setMenuOpen(false)} className="flex items-center gap-2">
-                                    <Image src="/logo-transparent.png" alt="Lojinha da Lari Logo" width={100} height={32} className="object-contain" />
+                                    <Image src="/brand/logo-colares-dias.png" alt="Logo Colares Dias Semijoias" width={56} height={54} className="object-contain" />
                                 </Link>
                                 <button
                                     onClick={() => setMenuOpen(false)}
-                                    className="p-2 justify-end rounded-full hover:bg-slate-100 dark:hover:bg-[#2a4538]"
+                                    className="p-2 justify-end rounded-full hover:bg-slate-100 dark:hover:bg-[#5a3329]"
                                 >
                                     <X className="h-5 w-5 text-slate-500" />
                                 </button>
@@ -88,8 +88,8 @@ export function AdminHeader() {
                                     href="/admin/products"
                                     onClick={() => setMenuOpen(false)}
                                     className={`flex items-center gap-3 px-4 py-3 rounded-lg font-semibold transition-colors ${isActive("/admin/products")
-                                        ? "bg-[#f0f9f5] dark:bg-[#1e362a] text-primary"
-                                        : "text-slate-600 dark:text-slate-400 hover:bg-[#f8fcfa] dark:hover:bg-[#1b2f24] hover:text-slate-900 dark:hover:text-white"
+                                        ? "bg-[#f0ddcf] dark:bg-[#3a1c15] text-primary"
+                                        : "text-slate-600 dark:text-slate-400 hover:bg-[#f6ede5] dark:hover:bg-[#341810] hover:text-slate-900 dark:hover:text-white"
                                         }`}
                                 >
                                     <Package className="w-5 h-5" />
@@ -99,8 +99,8 @@ export function AdminHeader() {
                                     href="/admin/products/new"
                                     onClick={() => setMenuOpen(false)}
                                     className={`flex items-center gap-3 px-4 py-3 rounded-lg font-semibold transition-colors ${isActive("/admin/products/new")
-                                        ? "bg-[#f0f9f5] dark:bg-[#1e362a] text-primary"
-                                        : "text-slate-600 dark:text-slate-400 hover:bg-[#f8fcfa] dark:hover:bg-[#1b2f24] hover:text-slate-900 dark:hover:text-white"
+                                        ? "bg-[#f0ddcf] dark:bg-[#3a1c15] text-primary"
+                                        : "text-slate-600 dark:text-slate-400 hover:bg-[#f6ede5] dark:hover:bg-[#341810] hover:text-slate-900 dark:hover:text-white"
                                         }`}
                                 >
                                     <PlusCircle className="w-5 h-5" />
@@ -110,8 +110,8 @@ export function AdminHeader() {
                                     href="/admin/sales"
                                     onClick={() => setMenuOpen(false)}
                                     className={`flex items-center gap-3 px-4 py-3 rounded-lg font-semibold transition-colors ${isActive("/admin/sales")
-                                        ? "bg-[#f0f9f5] dark:bg-[#1e362a] text-primary"
-                                        : "text-slate-600 dark:text-slate-400 hover:bg-[#f8fcfa] dark:hover:bg-[#1b2f24] hover:text-slate-900 dark:hover:text-white"
+                                        ? "bg-[#f0ddcf] dark:bg-[#3a1c15] text-primary"
+                                        : "text-slate-600 dark:text-slate-400 hover:bg-[#f6ede5] dark:hover:bg-[#341810] hover:text-slate-900 dark:hover:text-white"
                                         }`}
                                 >
                                     <Receipt className="w-5 h-5" />
@@ -121,15 +121,15 @@ export function AdminHeader() {
                                     href="/admin/settings"
                                     onClick={() => setMenuOpen(false)}
                                     className={`flex items-center gap-3 px-4 py-3 rounded-lg font-semibold transition-colors ${isActive("/admin/settings")
-                                        ? "bg-[#f0f9f5] dark:bg-[#1e362a] text-primary"
-                                        : "text-slate-600 dark:text-slate-400 hover:bg-[#f8fcfa] dark:hover:bg-[#1b2f24] hover:text-slate-900 dark:hover:text-white"
+                                        ? "bg-[#f0ddcf] dark:bg-[#3a1c15] text-primary"
+                                        : "text-slate-600 dark:text-slate-400 hover:bg-[#f6ede5] dark:hover:bg-[#341810] hover:text-slate-900 dark:hover:text-white"
                                         }`}
                                 >
                                     <Settings className="w-5 h-5" />
                                     <span>Configurações</span>
                                 </Link>
                             </nav>
-                            <div className="p-4 border-t border-[#e7f3ed] dark:border-[#2a4538]">
+                            <div className="p-4 border-t border-[#d9b7a6] dark:border-[#5a3329]">
                                 <button
                                     onClick={() => {
                                         setMenuOpen(false);

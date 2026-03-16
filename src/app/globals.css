@@ -3,12 +3,12 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-primary: #13ec80;
-  --color-primary-dark: #0cc46a;
+  --color-primary: #6b2b17;
+  --color-primary-dark: #4a1d0f;
   --color-whatsapp: #25D366;
   --color-whatsapp-dark: #128C7E;
-  --color-background-light: #f6f8f7;
-  --color-background-dark: #102219;
+  --color-background-light: #d7b4a3;
+  --color-background-dark: #24100b;
   
   --font-display: var(--font-plus-jakarta);
 

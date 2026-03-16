@@ -1,6 +1,6 @@
-# Plano de Implementação: Lojinha da Lari
+# Plano de Implementação: Colares Dias Semijoias
 
-Status atual: **Fase 6 - QA e Finalização**
+Status atual: **Fase 9 - Estabilização Técnica e Deploy**
 
 ## Histórico de Tarefas (Progresso Incremental)
 
@@ -71,3 +71,20 @@ Status atual: **Fase 6 - QA e Finalização**
 - [x] Adicionar campo ao formulário de edição em `src/app/admin/products/edit/[id]/page.tsx`.
 - [x] Melhorar UI do `ProductCard.tsx` para apresentar a condição.
 - [x] Mostrar a condição no `ProductDetailClient.tsx` (informação visível para o comprador).
+
+### Fase 8: Migração para Colares Dias Semijoias
+- [x] Rebranding completo de textos e identidade visual para Colares Dias Semijoias.
+- [x] Atualizar paleta global (tokens, Tailwind e componentes) com base no novo catálogo.
+- [x] Gerar ativo temporário de logo em `public/brand/logo-colares-dias.png` e aplicar no site.
+- [x] Atualizar ícones PWA/SEO (`favicon`, `icon`, `apple`, `opengraph`) com a nova identidade.
+- [x] Extrair 87 imagens do PDF e publicar em `public/catalogo/produtos`.
+- [x] Criar seed de catálogo em `supabase/seed_colares_catalog.sql`.
+- [x] Criar bootstrap do novo banco em `supabase/bootstrap_colares_dias.sql`.
+- [x] Padronizar leitura de settings (`snake_case` com fallback legado).
+- [x] Executar validação final de lint/build após instalação das dependências locais.
+
+### Fase 9: Estabilização Técnica e Deploy
+- [x] Corrigir mismatch de hidratação no `CartDrawer` removendo branch SSR/Client que gerava árvore diferente.
+- [x] Estabilizar `mobile-test.js` no cenário de fechamento do carrinho antes de abrir menu drawer.
+- [x] Executar nova rodada de testes locais (`lint`, `build`, smoke e mobile suite).
+- [x] Gerar guia completo de configuração Supabase + Vercel em `PASSO_A_PASSO_SUPABASE_VERCEL.md`.

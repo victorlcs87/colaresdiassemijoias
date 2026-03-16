@@ -18,13 +18,9 @@ export default async function Home() {
 
     const dynamicCategories = [];
     const categoryMap = new Map<string, string>();
-    let hasPromotions = false;
 
     if (allProducts) {
         for (const p of allProducts) {
-            if (p.promotional_price) {
-                hasPromotions = true;
-            }
             if (p.category && !categoryMap.has(p.category)) {
                 let img = null;
                 if (p.image_gallery && p.image_gallery.length > 0) {
@@ -50,7 +46,7 @@ export default async function Home() {
         href: "/catalog?promo=true",
         label: "Até 50% OFF",
         title: "Promoção",
-        image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&auto=format&fit=crop"
+        image: "https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=800&auto=format&fit=crop"
     };
 
     // Limits to 3 dynamic categories max (4 with promo)

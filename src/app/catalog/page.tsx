@@ -3,13 +3,13 @@ import { Header } from "@/components/Header";
 import Link from "next/link";
 
 import { HeroBanner } from "@/components/HeroBanner";
-import { SlidersHorizontal, Search, ArrowLeft, ArrowRight } from "lucide-react";
+import { Search, ArrowLeft, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Catálogo",
-  description: "Explore nosso catálogo completo de roupas, acessórios e promoções exclusivas selecionadas pela Lari.",
+  description: "Explore o catálogo completo de acessórios e semijoias da Colares Dias.",
 };
 
 interface PageProps {
@@ -74,16 +74,16 @@ export default async function CatalogPage({ searchParams }: PageProps) {
 
           {/* Menu Lateral de Filtros (Visão Desktop) */}
           <aside className="hidden lg:block lg:col-span-3 space-y-8">
-            <div className="bg-white dark:bg-[#152a20] p-6 rounded-2xl border border-[#e7f3ed] dark:border-[#2a4538]">
+            <div className="bg-white dark:bg-[#2a120d] p-6 rounded-2xl border border-[#d9b7a6] dark:border-[#5a3329]">
               <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Categorias</h3>
               <div className="flex flex-col gap-2">
-                <Link href="/catalog" className={`text-sm py-2 px-3 rounded-lg transition-colors ${!cat && !promo ? 'bg-primary/20 text-primary font-bold' : 'hover:bg-[#f8fcfa] dark:hover:bg-[#1b2f24]'}`}>Todos os Produtos</Link>
-                <Link href="/catalog?promo=true" className={`text-sm py-2 px-3 rounded-lg transition-colors ${promo === 'true' ? 'bg-primary/20 text-primary font-bold' : 'hover:bg-[#f8fcfa] dark:hover:bg-[#1b2f24]'}`}>Promoções 🏷️</Link>
+                <Link href="/catalog" className={`text-sm py-2 px-3 rounded-lg transition-colors ${!cat && !promo ? 'bg-primary/20 text-primary font-bold' : 'hover:bg-[#f6ede5] dark:hover:bg-[#341810]'}`}>Todos os Produtos</Link>
+                <Link href="/catalog?promo=true" className={`text-sm py-2 px-3 rounded-lg transition-colors ${promo === 'true' ? 'bg-primary/20 text-primary font-bold' : 'hover:bg-[#f6ede5] dark:hover:bg-[#341810]'}`}>Promoções 🏷️</Link>
                 {uniqueCategories.map(c => (
                   <Link
                     key={c}
                     href={`/catalog?cat=${encodeURIComponent(c as string)}`}
-                    className={`text-sm py-2 px-3 rounded-lg transition-colors capitalize ${cat === c ? 'bg-primary/20 text-primary font-bold' : 'hover:bg-[#f8fcfa] dark:hover:bg-[#1b2f24]'}`}
+                    className={`text-sm py-2 px-3 rounded-lg transition-colors capitalize ${cat === c ? 'bg-primary/20 text-primary font-bold' : 'hover:bg-[#f6ede5] dark:hover:bg-[#341810]'}`}
                   >
                     {c}
                   </Link>
@@ -95,13 +95,13 @@ export default async function CatalogPage({ searchParams }: PageProps) {
           {/* Grid de Produtos */}
           <div className="lg:col-span-9">
             {(!products || products.length === 0) ? (
-              <div className="text-center py-20 bg-white dark:bg-[#1e362a] rounded-2xl border border-gray-100 dark:border-[#2a4538] shadow-sm">
+              <div className="text-center py-20 bg-white dark:bg-[#3a1c15] rounded-2xl border border-gray-100 dark:border-[#5a3329] shadow-sm">
                 <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Search className="w-8 h-8 text-slate-300" />
                 </div>
                 <h3 className="mt-2 text-xl font-bold text-gray-900 dark:text-white">Nenhum produto encontrado</h3>
                 <p className="mt-1 text-sm text-gray-500">Tente buscar por outro termo ou limpe os filtros.</p>
-                <Link href="/catalog" className="inline-block mt-6 px-6 py-2 bg-primary text-slate-900 font-bold rounded-full">Ver tudo</Link>
+                <Link href="/catalog" className="inline-block mt-6 px-6 py-2 bg-primary text-white font-bold rounded-full">Ver tudo</Link>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -118,7 +118,7 @@ export default async function CatalogPage({ searchParams }: PageProps) {
                   <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 opacity-50" disabled>
                     <ArrowLeft className="h-5 w-5" />
                   </button>
-                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-slate-900 font-bold">1</button>
+                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold">1</button>
                   <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600">
                     <ArrowRight className="h-5 w-5" />
                   </button>
@@ -130,9 +130,9 @@ export default async function CatalogPage({ searchParams }: PageProps) {
         </div>
       </main>
 
-      <footer className="bg-white dark:bg-[#152a20] border-t border-[#e7f3ed] dark:border-[#2a4538] py-8 mt-auto">
+      <footer className="bg-[#f6ede5] dark:bg-[#2a120d] border-t border-[#d9b7a6] dark:border-[#5a3329] py-8 mt-auto">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
-          <p>© {new Date().getFullYear()} Lojinha da Lari. Todos os direitos reservados.</p>
+          <p>© {new Date().getFullYear()} Colares Dias Semijoias. Todos os direitos reservados.</p>
           <div className="flex gap-6">
             <Link className="hover:text-slate-900 dark:hover:text-white" href="/about">Página Institucional</Link>
           </div>

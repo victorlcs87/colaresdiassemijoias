@@ -51,8 +51,8 @@ export function MultipleImageUpload({ defaultValue = [], onUploadSuccess }: Mult
             const updatedPreviews = [...previews, ...newUrls];
             setPreviews(updatedPreviews);
             onUploadSuccess(updatedPreviews);
-        } catch (err: any) {
-            setError(err.message || 'Erro ao fazer upload');
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : "Erro ao fazer upload");
             console.error(err);
         } finally {
             setUploading(false);
@@ -84,7 +84,7 @@ export function MultipleImageUpload({ defaultValue = [], onUploadSuccess }: Mult
                     </div>
                 ))}
 
-                <label className="flex flex-col items-center justify-center w-32 h-32 border-2 border-dashed border-slate-200 dark:border-[#2a4538] rounded-xl cursor-pointer bg-[#f8fcfa] dark:bg-[#1b2f24] hover:bg-slate-50 dark:hover:bg-[#1b2f24]/80 transition-all group">
+                <label className="flex flex-col items-center justify-center w-32 h-32 border-2 border-dashed border-slate-200 dark:border-[#5a3329] rounded-xl cursor-pointer bg-[#f6ede5] dark:bg-[#341810] hover:bg-slate-50 dark:hover:bg-[#341810]/80 transition-all group">
                     <div className="flex flex-col items-center justify-center text-center p-2">
                         {uploading ? (
                             <Loader2 className="w-6 h-6 text-primary animate-spin mb-1" />

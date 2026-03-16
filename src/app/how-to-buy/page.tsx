@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Como Comprar",
-    description: "Aprenda como comprar na Lojinha da Lari em 4 passos simples via WhatsApp. Pix, cartão e entrega rápida.",
+    description: "Aprenda como comprar na Colares Dias Semijoias em 4 passos simples via WhatsApp. Pix, cartão e entrega rápida.",
 };
 
 export default function HowToBuyPage() {
@@ -47,7 +47,7 @@ export default function HowToBuyPage() {
             icon: <MessageCircle className="size-4" />,
             step: "Passo 2",
             title: "Conecte-se no WhatsApp",
-            description: "Mande um 'Oi' para nosso número. A Lari ou nossa equipe vão te responder rapidinho."
+            description: "Mande um 'Oi' para nosso número. Nossa equipe responde rapidamente para te orientar."
         },
         {
             icon: <CreditCard className="size-4" />,
@@ -71,7 +71,7 @@ export default function HowToBuyPage() {
                 {/* Hero */}
                 <div className="w-full bg-gradient-to-b from-primary/5 to-transparent py-12 md:py-20 px-4">
                     <div className="max-w-[960px] mx-auto text-center space-y-6">
-                        <div className="inline-flex items-center justify-center p-2 bg-white dark:bg-[#152a20] rounded-full shadow-sm mb-4">
+                        <div className="inline-flex items-center justify-center p-2 bg-white dark:bg-[#2a120d] rounded-full shadow-sm mb-4">
                             <Search className="size-4 text-primary mr-2" />
                             <span className="text-sm font-medium text-slate-500 dark:text-slate-400 pr-2">Guia de Compras Simples</span>
                         </div>
@@ -94,7 +94,7 @@ export default function HowToBuyPage() {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {steps.map((item, i) => (
-                            <div key={i} className="group flex flex-col gap-4 p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] bg-white dark:bg-[#152a20] hover:shadow-lg hover:border-primary/30 transition-all duration-300">
+                            <div key={i} className="group flex flex-col gap-4 p-6 rounded-xl border border-[#d9b7a6] dark:border-[#5a3329] bg-white dark:bg-[#2a120d] hover:shadow-lg hover:border-primary/30 transition-all duration-300">
                                 <div className="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                                     {item.icon}
                                 </div>
@@ -109,7 +109,7 @@ export default function HowToBuyPage() {
                 </div>
 
                 {/* Timeline Vertical */}
-                <div className="w-full bg-white dark:bg-[#152a20] py-16 border-y border-[#e7f3ed] dark:border-[#2a4538]">
+                <div className="w-full bg-white dark:bg-[#2a120d] py-16 border-y border-[#d9b7a6] dark:border-[#5a3329]">
                     <div className="max-w-[720px] mx-auto px-4">
                         <div className="text-center mb-12">
                             <h2 className="text-2xl font-bold mb-2">Passo a Passo Detalhado</h2>
@@ -117,19 +117,19 @@ export default function HowToBuyPage() {
                         </div>
                         <div className="relative">
                             {/* Linha Vertical */}
-                            <div className="absolute left-[19px] top-4 bottom-4 w-[2px] bg-[#e7f3ed] dark:bg-[#2a4538] z-0"></div>
+                            <div className="absolute left-[19px] top-4 bottom-4 w-[2px] bg-[#d9b7a6] dark:bg-[#5a3329] z-0"></div>
 
                             {timeline.map((item, i) => (
                                 <div key={i} className={`relative z-10 grid grid-cols-[40px_1fr] gap-6 ${i < timeline.length - 1 ? 'mb-10' : ''}`}>
                                     <div className="flex flex-col items-center">
-                                        <div className={`size-10 rounded-full border-2 border-primary flex items-center justify-center shadow-sm ${i === timeline.length - 1 ? 'bg-primary text-white' : 'bg-white dark:bg-[#152a20] text-primary'}`}>
+                                        <div className={`size-10 rounded-full border-2 border-primary flex items-center justify-center shadow-sm ${i === timeline.length - 1 ? 'bg-primary text-white' : 'bg-white dark:bg-[#2a120d] text-primary'}`}>
                                             {item.icon}
                                         </div>
                                     </div>
                                     <div className="pt-1">
                                         <div className="flex items-center gap-3 mb-1">
                                             <h3 className="text-lg font-bold">{item.title}</h3>
-                                            <span className="bg-[#e7f3ed] dark:bg-[#2a4538] text-slate-500 dark:text-slate-400 text-xs px-2 py-1 rounded-full font-medium">{item.step}</span>
+                                            <span className="bg-[#d9b7a6] dark:bg-[#5a3329] text-slate-500 dark:text-slate-400 text-xs px-2 py-1 rounded-full font-medium">{item.step}</span>
                                         </div>
                                         <p className="text-slate-500 dark:text-slate-400 text-sm mb-3">{item.description}</p>
                                     </div>
@@ -156,10 +156,10 @@ export default function HowToBuyPage() {
                             <ArrowRight className="size-4" />
                         </Link>
                         <a
-                            href="https://wa.me/5511999999999"
+                            href="https://wa.me/5561982865191"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-white dark:bg-[#152a20] border border-[#e7f3ed] dark:border-[#2a4538] hover:bg-gray-50 dark:hover:bg-[#2a4538] px-8 py-3 rounded-xl font-bold text-base transition-all flex items-center justify-center gap-2 min-w-[200px]"
+                            className="bg-white dark:bg-[#2a120d] border border-[#d9b7a6] dark:border-[#5a3329] hover:bg-gray-50 dark:hover:bg-[#5a3329] px-8 py-3 rounded-xl font-bold text-base transition-all flex items-center justify-center gap-2 min-w-[200px]"
                         >
                             <span>Falar com Suporte</span>
                         </a>

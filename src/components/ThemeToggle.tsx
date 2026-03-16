@@ -15,7 +15,7 @@ export function ThemeToggle() {
 
     if (!mounted) {
         return (
-            <button className="flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-[#1e362a] shadow-sm">
+            <button className="flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-[#3a1c15] shadow-sm">
                 <span className="sr-only">Carregando tema</span>
             </button>
         );
@@ -24,7 +24,7 @@ export function ThemeToggle() {
     return (
         <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="relative flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-[#1e362a] hover:bg-slate-100 dark:hover:bg-[#2a4538] transition-colors shadow-sm text-slate-900 dark:text-slate-100"
+            className="relative flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-[#3a1c15] hover:bg-slate-100 dark:hover:bg-[#5a3329] transition-colors shadow-sm text-slate-900 dark:text-slate-100"
             aria-label="Alternar tema"
         >
             <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />

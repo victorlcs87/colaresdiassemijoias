@@ -131,7 +131,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                         <div className="flex gap-3">
                             <Link
                                 href="/admin/products"
-                                className="px-4 py-2 text-sm font-semibold border border-slate-200 dark:border-[#2a4538] text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-[#1b2f24] transition-colors"
+                                className="px-4 py-2 text-sm font-semibold border border-slate-200 dark:border-[#5a3329] text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-[#341810] transition-colors"
                             >
                                 Cancelar
                             </Link>
@@ -150,7 +150,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                     Registrar Venda
                                 </button>
                             )}
-                            <button disabled={loading} type="submit" className="flex items-center gap-2 px-4 py-2 bg-primary text-slate-900 font-bold text-sm rounded-lg hover:brightness-110 transition-all shadow-sm disabled:opacity-50">
+                            <button disabled={loading} type="submit" className="flex items-center gap-2 px-4 py-2 bg-primary text-white font-bold text-sm rounded-lg hover:brightness-110 transition-all shadow-sm disabled:opacity-50">
                                 <Save className="w-4 h-4" />
                                 {loading ? "Salvando..." : "Salvar Alterações"}
                             </button>
@@ -161,7 +161,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-12">
                         <div className="lg:col-span-2 space-y-6">
-                            <div className="bg-white dark:bg-[#152a20] p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] shadow-sm">
+                            <div className="bg-white dark:bg-[#2a120d] p-6 rounded-xl border border-[#d9b7a6] dark:border-[#5a3329] shadow-sm">
                                 <h3 className="text-lg font-bold mb-6 flex items-center gap-2 text-slate-900 dark:text-white">
                                     <Info className="text-primary w-5 h-5" />
                                     Informações Básicas
@@ -174,7 +174,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                             name="name"
                                             defaultValue={product?.name}
                                             required
-                                            className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
+                                            className="w-full bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
                                         />
                                     </div>
                                     <div>
@@ -183,13 +183,13 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                             name="description"
                                             defaultValue={product?.description || ""}
                                             rows={4}
-                                            className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400 resize-y"
+                                            className="w-full bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400 resize-y"
                                         />
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="bg-white dark:bg-[#152a20] p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] shadow-sm">
+                            <div className="bg-white dark:bg-[#2a120d] p-6 rounded-xl border border-[#d9b7a6] dark:border-[#5a3329] shadow-sm">
                                 <h3 className="text-lg font-bold mb-6 flex items-center gap-2 text-slate-900 dark:text-white">
                                     <DollarSign className="text-primary w-5 h-5" />
                                     Preços e Estoque
@@ -205,7 +205,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                                 defaultValue={product?.price}
                                                 required
                                                 step="0.01"
-                                                className="w-full pl-10 bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
+                                                className="w-full pl-10 bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
                                                 placeholder="0.00"
                                             />
                                         </div>
@@ -218,7 +218,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                             defaultValue={product?.stock_quantity ?? 1}
                                             required
                                             min="0"
-                                            className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
+                                            className="w-full bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
                                             placeholder="Ex: 10"
                                         />
                                     </div>
@@ -231,7 +231,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                                 name="cost_price"
                                                 defaultValue={product?.cost_price ?? ""}
                                                 step="0.01"
-                                                className="w-full pl-10 bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
+                                                className="w-full pl-10 bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
                                                 placeholder="0.00"
                                             />
                                         </div>
@@ -246,7 +246,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                                 name="promotional_price"
                                                 defaultValue={product?.promotional_price ?? ""}
                                                 step="0.01"
-                                                className="w-full pl-10 bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
+                                                className="w-full pl-10 bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
                                                 placeholder="0.00"
                                             />
                                         </div>
@@ -255,7 +255,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                 </div>
                             </div>
 
-                            <div className="bg-white dark:bg-[#152a20] p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] shadow-sm">
+                            <div className="bg-white dark:bg-[#2a120d] p-6 rounded-xl border border-[#d9b7a6] dark:border-[#5a3329] shadow-sm">
                                 <h3 className="text-lg font-bold mb-6 flex items-center gap-2 text-slate-900 dark:text-white">
                                     <ImageIcon className="text-primary w-5 h-5" />
                                     Imagem do Produto
@@ -269,9 +269,9 @@ export default function AdminEditProductPage({ params }: PageProps) {
                         </div>
 
                         <div className="lg:col-span-1 space-y-6">
-                            <div className="bg-white dark:bg-[#152a20] p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] shadow-sm">
+                            <div className="bg-white dark:bg-[#2a120d] p-6 rounded-xl border border-[#d9b7a6] dark:border-[#5a3329] shadow-sm">
                                 <h3 className="text-base font-bold mb-4 text-slate-900 dark:text-white">Status do Produto</h3>
-                                <div className="flex items-center justify-between p-3 bg-[#f8fcfa] dark:bg-[#1b2f24] rounded-lg border border-[#e7f3ed] dark:border-[#2a4538]">
+                                <div className="flex items-center justify-between p-3 bg-[#f6ede5] dark:bg-[#341810] rounded-lg border border-[#d9b7a6] dark:border-[#5a3329]">
                                     <div className="flex items-center gap-3">
                                         <div className={`w-3 h-3 rounded-full ${statusActive ? 'bg-primary animate-pulse' : 'bg-slate-400'}`}></div>
                                         <span className="text-sm font-semibold text-slate-900 dark:text-white">
@@ -290,7 +290,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
 
                             {/* Categoria e Condição */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="bg-white dark:bg-[#152a20] p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] shadow-sm">
+                                <div className="bg-white dark:bg-[#2a120d] p-6 rounded-xl border border-[#d9b7a6] dark:border-[#5a3329] shadow-sm">
                                     <h3 className="text-base font-bold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
                                         <Tag className="w-4 h-4 text-primary" />
                                         Categoria
@@ -299,12 +299,12 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                         type="text"
                                         value={category}
                                         onChange={(e) => setCategory(e.target.value)}
-                                        className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
+                                        className="w-full bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
                                         placeholder="Ex: Vestidos, Acessórios, Bebidas..."
                                     />
                                 </div>
 
-                                <div className="bg-white dark:bg-[#152a20] p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] shadow-sm">
+                                <div className="bg-white dark:bg-[#2a120d] p-6 rounded-xl border border-[#d9b7a6] dark:border-[#5a3329] shadow-sm">
                                     <h3 className="text-base font-bold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
                                         <Tag className="w-4 h-4 text-primary" />
                                         Condição
@@ -313,7 +313,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                         name="condition"
                                         value={condition}
                                         onChange={(e) => setCondition(e.target.value as "novo" | "seminovo")}
-                                        className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white"
+                                        className="w-full bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white"
                                     >
                                         <option value="novo">Novo</option>
                                         <option value="seminovo">Seminovo</option>
@@ -322,7 +322,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                             </div>
 
                             {/* Cor do Produto */}
-                            <div className="bg-white dark:bg-[#152a20] p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] shadow-sm">
+                            <div className="bg-white dark:bg-[#2a120d] p-6 rounded-xl border border-[#d9b7a6] dark:border-[#5a3329] shadow-sm">
                                 <h3 className="text-base font-bold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
                                     <Palette className="w-4 h-4 text-primary" />
                                     Cor do Produto
@@ -332,14 +332,14 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                     name="color"
                                     value={color}
                                     onChange={(e) => setColor(e.target.value)}
-                                    className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
+                                    className="w-full bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
                                     placeholder="Ex: Vermelho, Azul Marinho, Rosa..."
                                 />
                                 <p className="text-xs text-slate-400 mt-2">Produtos com o mesmo nome e cores diferentes serão exibidos como variações.</p>
                             </div>
 
                             {/* Tamanhos / Variações */}
-                            <div className="bg-white dark:bg-[#152a20] p-6 rounded-xl border border-[#e7f3ed] dark:border-[#2a4538] shadow-sm">
+                            <div className="bg-white dark:bg-[#2a120d] p-6 rounded-xl border border-[#d9b7a6] dark:border-[#5a3329] shadow-sm">
                                 <div className="flex items-center justify-between mb-4">
                                     <h3 className="text-base font-bold flex items-center gap-2 text-slate-900 dark:text-white">
                                         <Ruler className="w-4 h-4 text-primary" />
@@ -362,7 +362,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                                 type="text"
                                                 value={sizeLabel}
                                                 onChange={(e) => setSizeLabel(e.target.value)}
-                                                className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
+                                                className="w-full bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
                                                 placeholder="Ex: Tamanho, Volume, Cor..."
                                             />
                                         </div>
@@ -392,7 +392,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                                             }
                                                         }
                                                     }}
-                                                    className="flex-1 bg-[#f8fcfa] dark:bg-[#1b2f24] border-none rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
+                                                    className="flex-1 bg-[#f6ede5] dark:bg-[#341810] border-none rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder-slate-400"
                                                     placeholder="Digite e aperte Enter"
                                                 />
                                                 <button
@@ -420,8 +420,8 @@ export default function AdminEditProductPage({ params }: PageProps) {
             {/* Modal de Venda Inline */}
             {saleModalOpen && product && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-                    <div className="bg-white dark:bg-[#152a20] rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
-                        <div className="flex items-center justify-between p-6 border-b border-[#e7f3ed] dark:border-[#2a4538]">
+                    <div className="bg-white dark:bg-[#2a120d] rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
+                        <div className="flex items-center justify-between p-6 border-b border-[#d9b7a6] dark:border-[#5a3329]">
                             <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                                 <Receipt className="w-5 h-5 text-emerald-500" />
                                 Registrar Venda
@@ -447,7 +447,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                     value={salePrice}
                                     onChange={(e) => setSalePrice(e.target.value)}
                                     required
-                                    className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border border-slate-200 dark:border-[#2a4538] rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white"
+                                    className="w-full bg-[#f6ede5] dark:bg-[#341810] border border-slate-200 dark:border-[#5a3329] rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white"
                                     placeholder="0.00"
                                 />
                             </div>
@@ -458,7 +458,7 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                     value={saleDate}
                                     onChange={(e) => setSaleDate(e.target.value)}
                                     required
-                                    className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border border-slate-200 dark:border-[#2a4538] rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white"
+                                    className="w-full bg-[#f6ede5] dark:bg-[#341810] border border-slate-200 dark:border-[#5a3329] rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white"
                                 />
                             </div>
                             <div>
@@ -467,12 +467,12 @@ export default function AdminEditProductPage({ params }: PageProps) {
                                     value={saleNotes}
                                     onChange={(e) => setSaleNotes(e.target.value)}
                                     rows={2}
-                                    className="w-full bg-[#f8fcfa] dark:bg-[#1b2f24] border border-slate-200 dark:border-[#2a4538] rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white resize-none"
+                                    className="w-full bg-[#f6ede5] dark:bg-[#341810] border border-slate-200 dark:border-[#5a3329] rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white resize-none"
                                     placeholder="Detalhes opcionais sobre a venda..."
                                 />
                             </div>
                         </div>
-                        <div className="p-6 border-t border-[#e7f3ed] dark:border-[#2a4538] flex gap-3 justify-end bg-slate-50 dark:bg-[#1e362a]/30">
+                        <div className="p-6 border-t border-[#d9b7a6] dark:border-[#5a3329] flex gap-3 justify-end bg-slate-50 dark:bg-[#3a1c15]/30">
                             <button
                                 type="button"
                                 onClick={() => setSaleModalOpen(false)}

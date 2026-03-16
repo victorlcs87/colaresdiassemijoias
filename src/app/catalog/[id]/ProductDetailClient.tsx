@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Product } from "@/lib/types";
 import { useCartStore } from "@/store/cartStore";
 import { MessageCircle, Heart, ShoppingCart, Minus, Plus } from "lucide-react";
@@ -84,7 +85,7 @@ export default function ProductDetailClient({
         addItem(product, quantity);
     };
 
-    const defaultImage = "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?q=80&w=600&auto=format&fit=crop";
+    const defaultImage = "https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=600&auto=format&fit=crop";
 
     return (
         <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-4 md:py-8">
@@ -118,7 +119,7 @@ export default function ProductDetailClient({
                     )}
 
                     {/* Main Image */}
-                    <div className="relative w-full aspect-[3/4] md:aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#152a20]">
+                    <div className="relative w-full aspect-[3/4] md:aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
                         <Image
                             src={images[activeImage] || defaultImage}
                             alt={product.name}
@@ -134,13 +135,13 @@ export default function ProductDetailClient({
                 <div className="w-full md:w-[45%] flex flex-col">
                     {/* Breadcrumb (desktop) */}
                     <div className="hidden md:flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-4">
-                        <a href="/" className="hover:text-primary transition-colors">Início</a>
+                        <Link href="/" className="hover:text-primary transition-colors">Início</Link>
                         <span className="text-slate-300">&gt;</span>
-                        <a href="/catalog" className="hover:text-primary transition-colors">Catálogo</a>
+                        <Link href="/catalog" className="hover:text-primary transition-colors">Catálogo</Link>
                         {product.category && (
                             <>
                                 <span className="text-slate-300">&gt;</span>
-                                <a href={`/catalog?cat=${encodeURIComponent(product.category)}`} className="hover:text-primary transition-colors">{product.category}</a>
+                                <Link href={`/catalog?cat=${encodeURIComponent(product.category)}`} className="hover:text-primary transition-colors">{product.category}</Link>
                             </>
                         )}
                         <span className="text-slate-300">&gt;</span>
@@ -157,7 +158,7 @@ export default function ProductDetailClient({
                                 </span>
                             )}
                         </h1>
-                        <button className="flex-shrink-0 ml-4 h-10 w-10 rounded-full border border-slate-200 dark:border-[#2a4538] flex items-center justify-center hover:text-primary hover:border-primary transition-colors">
+                        <button className="flex-shrink-0 ml-4 h-10 w-10 rounded-full border border-slate-200 dark:border-[#5a3329] flex items-center justify-center hover:text-primary hover:border-primary transition-colors">
                             <Heart className="h-5 w-5" />
                         </button>
                     </div>
@@ -166,13 +167,13 @@ export default function ProductDetailClient({
                     <div className="flex items-baseline gap-3 mb-4 flex-wrap">
                         {formattedPromotionalPrice ? (
                             <>
-                                <span className="text-3xl md:text-4xl font-black text-[#ff4757]">
+                                <span className="text-3xl md:text-4xl font-black text-[#8b2e1f]">
                                     {formattedPromotionalPrice}
                                 </span>
                                 <span className="text-xl font-medium text-slate-400 line-through">
                                     {formattedPrice}
                                 </span>
-                                <span className="px-2 py-1 bg-[#ff4757]/10 text-[#ff4757] text-xs font-bold rounded uppercase tracking-wider">
+                                <span className="px-2 py-1 bg-[#8b2e1f]/10 text-[#8b2e1f] text-xs font-bold rounded uppercase tracking-wider">
                                     Oferta
                                 </span>
                             </>
@@ -185,7 +186,7 @@ export default function ProductDetailClient({
 
                     {/* Color Display (always visible if product has color) */}
                     {product.color && (
-                        <div className="mb-4 pt-4 border-t border-slate-100 dark:border-[#2a4538]">
+                        <div className="mb-4 pt-4 border-t border-slate-100 dark:border-[#5a3329]">
                             <div className="flex items-center gap-2 mb-3">
                                 <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Cor:</span>
                                 <span
@@ -204,13 +205,13 @@ export default function ProductDetailClient({
                                         {relatedProducts.map(p => {
                                             const img = p.image_gallery && p.image_gallery.length > 0 ? p.image_gallery[0] : (p.image_url || defaultImage);
                                             return (
-                                                <a
+                                                <Link
                                                     key={p.id}
                                                     href={`/catalog/${p.id}`}
                                                     title={p.color || "Padrão"}
                                                     className="flex flex-col items-center gap-1 group"
                                                 >
-                                                    <div className="relative w-10 h-14 rounded overflow-hidden border border-slate-200 dark:border-[#2a4538] group-hover:border-primary opacity-80 group-hover:opacity-100 transition-all">
+                                                    <div className="relative w-10 h-14 rounded overflow-hidden border border-slate-200 dark:border-[#5a3329] group-hover:border-primary opacity-80 group-hover:opacity-100 transition-all">
                                                         <Image src={img} alt={p.color || p.name} fill className="object-cover" sizes="40px" />
                                                     </div>
                                                     {p.color && (
@@ -219,7 +220,7 @@ export default function ProductDetailClient({
                                                             style={{ backgroundColor: colorNameToHex(p.color) }}
                                                         />
                                                     )}
-                                                </a>
+                                                </Link>
                                             );
                                         })}
                                     </div>
@@ -241,7 +242,7 @@ export default function ProductDetailClient({
                                         onClick={() => setSelectedSize(opt === selectedSize ? null : opt)}
                                         className={`min-w-[48px] h-11 px-4 rounded-xl border-2 flex items-center justify-center font-bold text-sm transition-all ${selectedSize === opt
                                             ? "border-primary bg-primary/10 text-primary"
-                                            : "border-slate-200 dark:border-[#2a4538] text-slate-700 dark:text-slate-300 hover:border-primary hover:text-primary"
+                                            : "border-slate-200 dark:border-[#5a3329] text-slate-700 dark:text-slate-300 hover:border-primary hover:text-primary"
                                             }`}
                                     >
                                         {opt}
@@ -256,11 +257,11 @@ export default function ProductDetailClient({
                         {product.is_available && (
                             <>
                                 {/* Quantity stringent selector */}
-                                <div className="flex items-center justify-between border-2 border-slate-200 dark:border-[#2a4538] rounded-xl h-12 w-full sm:w-32 px-2 bg-[#f8fcfa] dark:bg-[#1b2f24]">
+                                <div className="flex items-center justify-between border-2 border-slate-200 dark:border-[#5a3329] rounded-xl h-12 w-full sm:w-32 px-2 bg-[#f6ede5] dark:bg-[#341810]">
                                     <button
                                         onClick={decreaseQuantity}
                                         disabled={quantity <= 1}
-                                        className="h-8 w-8 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-[#2a4538] text-slate-600 dark:text-slate-300 disabled:opacity-50 transition-colors"
+                                        className="h-8 w-8 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-[#5a3329] text-slate-600 dark:text-slate-300 disabled:opacity-50 transition-colors"
                                     >
                                         <Minus className="h-4 w-4" />
                                     </button>
@@ -268,7 +269,7 @@ export default function ProductDetailClient({
                                     <button
                                         onClick={increaseQuantity}
                                         disabled={quantity >= maxQuantity}
-                                        className="h-8 w-8 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-[#2a4538] text-slate-600 dark:text-slate-300 disabled:opacity-50 transition-colors"
+                                        className="h-8 w-8 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-[#5a3329] text-slate-600 dark:text-slate-300 disabled:opacity-50 transition-colors"
                                     >
                                         <Plus className="h-4 w-4" />
                                     </button>
@@ -291,14 +292,14 @@ export default function ProductDetailClient({
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 border-2 border-[#e7f3ed] dark:border-[#2a4538] bg-[#f8fcfa]/50 dark:bg-[#152a20] hover:bg-[#e7f3ed] dark:hover:bg-[#1b2f24] text-slate-700 dark:text-slate-300 font-bold text-sm py-3 rounded-xl transition-all"
+                        className="w-full flex items-center justify-center gap-2 border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/50 dark:bg-[#2a120d] hover:bg-[#d9b7a6] dark:hover:bg-[#341810] text-slate-700 dark:text-slate-300 font-bold text-sm py-3 rounded-xl transition-all"
                     >
                         <MessageCircle className="h-5 w-5 text-whatsapp" />
                         Prefere um toque humano? Compre pelo WhatsApp
                     </a>
 
                     {/* Single Description Paragraph Details */}
-                    <div className="mt-10 pt-8 border-t border-slate-100 dark:border-[#2a4538]">
+                    <div className="mt-10 pt-8 border-t border-slate-100 dark:border-[#5a3329]">
                         <h3 className="font-bold text-sm text-slate-900 dark:text-white mb-4 uppercase tracking-wider">Detalhes e Especificações</h3>
                         <div className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
                             {product.description || "Nenhuma descrição detalhada disponível."}
@@ -320,8 +321,8 @@ export default function ProductDetailClient({
                                 : p.image_url || defaultImage;
                             const price = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(p.price);
                             return (
-                                <a key={p.id} href={`/catalog/${p.id}`} className="group flex flex-col rounded-xl overflow-hidden bg-white dark:bg-[#1e362a] ring-1 ring-slate-100 dark:ring-[#2a4538] hover:shadow-md transition-shadow">
-                                    <div className="relative aspect-[3/4] overflow-hidden bg-slate-100 dark:bg-[#152a20]">
+                                <Link href={`/catalog/${p.id}`} key={p.id} className="group flex flex-col rounded-xl overflow-hidden bg-white dark:bg-[#3a1c15] ring-1 ring-slate-100 dark:ring-[#5a3329] hover:shadow-md transition-shadow">
+                                    <div className="relative aspect-[3/4] overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
                                         <Image
                                             src={img}
                                             alt={p.name}
@@ -335,7 +336,7 @@ export default function ProductDetailClient({
                                         {p.category && <p className="text-xs text-slate-400">{p.category}</p>}
                                         <p className="font-bold text-sm text-slate-900 dark:text-white mt-1">{price}</p>
                                     </div>
-                                </a>
+                                </Link>
                             );
                         })}
                     </div>
