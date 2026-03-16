@@ -296,16 +296,18 @@ export default function ProductDetailClient({
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/50 dark:bg-[#2a120d] hover:bg-[#d9b7a6] dark:hover:bg-[#341810] text-slate-700 dark:text-slate-300 font-bold text-sm sm:text-xs md:text-sm py-3 md:py-4 px-4 rounded-xl transition-all"
+                        className="inline-flex min-w-max items-center justify-center gap-2 whitespace-nowrap border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/50 dark:bg-[#2a120d] hover:bg-[#d9b7a6] dark:hover:bg-[#341810] text-slate-700 dark:text-slate-300 font-bold text-sm py-3 px-4 rounded-xl transition-all"
                     >
                         <MessageCircle className="h-5 w-5 text-whatsapp flex-shrink-0" />
-                        <span className="text-center sm:whitespace-nowrap">Prefere um toque humano? Compre pelo WhatsApp</span>
+                        <span className="whitespace-nowrap">
+                            Prefere um toque humano? Compre pelo WhatsApp
+                        </span>
                     </a>
 
                     {/* Single Description Paragraph Details */}
                     <div className="mt-10 md:mt-12 pt-8 md:pt-10 border-t border-slate-100 dark:border-[#5a3329]">
                         <h3 className="font-bold text-sm text-slate-900 dark:text-white mb-4 uppercase tracking-wider md:whitespace-nowrap">Detalhes e Especificações</h3>
-                        <div className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-normal">
+                        <div className="text-sm text-slate-600 dark:text-slate-500 leading-relaxed whitespace-normal">
                             {normalizedDescription}
                         </div>
                     </div>
