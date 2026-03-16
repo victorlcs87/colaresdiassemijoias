@@ -126,3 +126,9 @@ Status atual: **Fase 10 - Paginação Admin Produtos**
 - [x] Ajustar proporção das colunas em `md` para `50%/50%` com `min-w-0` na coluna de informações.
 - [x] Ajustar aspecto da imagem principal para `aspect-square` em `md` e manter `4/5` em `lg+`.
 - [x] Reduzir escala tipográfica em `md` para diminuir quebras no título e preço.
+
+### Fase 16: Padrão de Referência com Informações ao Lado
+- [x] Antecipar layout de duas colunas para `sm` no detalhe do produto.
+- [x] Manter padrão visual da imagem de referência com proporção principal consistente em larguras intermediárias.
+- [x] Ocultar breadcrumb abaixo de `lg` para reduzir ruído visual e liberar espaço útil da coluna de informações.
+- [x] Ajustar escala de tipografia/CTA em `sm` para reduzir quebra e manter legibilidade no layout lado a lado.

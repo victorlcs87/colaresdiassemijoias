@@ -94,18 +94,18 @@ export default function ProductDetailClient({
     return (
         <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-4 md:py-8">
             {/* Product Main Section */}
-            <div className="flex flex-col md:flex-row gap-6 md:gap-6 lg:gap-10">
+            <div className="flex flex-col sm:flex-row gap-6 sm:gap-5 md:gap-6 lg:gap-10">
 
                 {/* Left: Image Gallery */}
-                <div className="flex flex-col-reverse md:flex-row gap-3 md:gap-4 w-full md:w-[50%] lg:w-[52%]">
+                <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-3 md:gap-4 w-full sm:w-[52%] lg:w-[52%]">
                     {/* Thumbnails */}
                     {images.length > 1 && (
-                        <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-y-auto md:max-h-[600px] flex-shrink-0 scrollbar-thin">
+                        <div className="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto sm:max-h-[600px] flex-shrink-0 scrollbar-thin">
                             {images.map((img, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => setActiveImage(idx)}
-                                    className={`relative w-16 h-20 md:w-20 md:h-24 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all ${activeImage === idx
+                                    className={`relative w-16 h-20 sm:w-16 sm:h-20 md:w-20 md:h-24 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all ${activeImage === idx
                                         ? "border-primary shadow-md"
                                         : "border-transparent opacity-60 hover:opacity-100"
                                         }`}
@@ -123,7 +123,7 @@ export default function ProductDetailClient({
                     )}
 
                     {/* Main Image */}
-                    <div className="relative w-full aspect-[3/4] md:aspect-square lg:aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
+                    <div className="relative w-full aspect-[3/4] sm:aspect-square lg:aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
                         <Image
                             src={images[activeImage] || defaultImage}
                             alt={product.name}
@@ -136,9 +136,9 @@ export default function ProductDetailClient({
                 </div>
 
                 {/* Right: Product Info */}
-                <div className="w-full md:w-[50%] lg:w-[48%] flex flex-col md:pt-1 min-w-0">
+                <div className="w-full sm:w-[48%] lg:w-[48%] flex flex-col sm:pt-1 min-w-0">
                     {/* Breadcrumb (desktop) */}
-                    <div className="hidden md:flex items-center gap-2 flex-wrap text-sm text-slate-500 dark:text-slate-400 mb-6">
+                    <div className="hidden lg:flex items-center gap-2 flex-wrap text-sm text-slate-500 dark:text-slate-400 mb-6">
                         <Link href="/" className="hover:text-primary transition-colors">Início</Link>
                         <span className="text-slate-300">&gt;</span>
                         <Link href="/catalog" className="hover:text-primary transition-colors">Catálogo</Link>
@@ -154,7 +154,7 @@ export default function ProductDetailClient({
 
                     {/* Name + Favorite */}
                     <div className="flex justify-between items-start mb-3 md:mb-4">
-                        <h1 className="text-2xl md:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center flex-wrap gap-3 min-w-0">
+                        <h1 className="text-2xl sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center flex-wrap gap-3 min-w-0">
                             <span className="break-words">{product.name}</span>
                             {product.condition === 'seminovo' && (
                                 <span className="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 font-bold text-xs uppercase tracking-wider border border-amber-200 dark:border-amber-800 mt-1">
@@ -171,7 +171,7 @@ export default function ProductDetailClient({
                     <div className="flex items-baseline gap-3 mb-5 md:mb-7 flex-wrap">
                         {formattedPromotionalPrice ? (
                             <>
-                            <span className="text-3xl md:text-3xl lg:text-4xl font-black text-[#8b2e1f]">
+                                <span className="text-3xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-[#8b2e1f]">
                                     {formattedPromotionalPrice}
                                 </span>
                                 <span className="text-xl font-medium text-slate-400 line-through">
@@ -182,7 +182,7 @@ export default function ProductDetailClient({
                                 </span>
                             </>
                         ) : (
-                            <span className="text-3xl md:text-3xl lg:text-4xl font-black text-primary">
+                            <span className="text-3xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-primary">
                                 {formattedPrice}
                             </span>
                         )}
@@ -296,10 +296,10 @@ export default function ProductDetailClient({
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/50 dark:bg-[#2a120d] hover:bg-[#d9b7a6] dark:hover:bg-[#341810] text-slate-700 dark:text-slate-300 font-bold text-sm py-3 md:py-4 px-4 rounded-xl transition-all"
+                        className="w-full flex items-center justify-center gap-2 border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/50 dark:bg-[#2a120d] hover:bg-[#d9b7a6] dark:hover:bg-[#341810] text-slate-700 dark:text-slate-300 font-bold text-sm sm:text-xs md:text-sm py-3 md:py-4 px-4 rounded-xl transition-all"
                     >
                         <MessageCircle className="h-5 w-5 text-whatsapp flex-shrink-0" />
-                        <span className="text-center">Prefere um toque humano? Compre pelo WhatsApp</span>
+                        <span className="text-center sm:whitespace-nowrap">Prefere um toque humano? Compre pelo WhatsApp</span>
                     </a>
 
                     {/* Single Description Paragraph Details */}

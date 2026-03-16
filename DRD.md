@@ -91,5 +91,10 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** Foi solicitado manter o comportamento lado a lado mesmo fora da tela cheia, sem perda de legibilidade e sem aparência comprimida na coluna de informações.
 - **Impacto:** A página mantém duas colunas em mais cenários desktop, com proporções e tipografia ajustadas para reduzir quebras e aproximar o visual entre estados de janela.
 
+### Decisão 016 - Padrão visual mobile-like com informações ao lado
+- **Decisão:** Antecipar o layout lado a lado para `sm` e manter o padrão visual da referência (imagem destacada e bloco de informações compacto), com breadcrumb exibido apenas em telas grandes.
+- **Motivo:** Garantir que, mesmo com navegador não maximizado, o conteúdo não desça para baixo da imagem e preserve a estética desejada.
+- **Impacto:** Em larguras desktop intermediárias o detalhe do produto permanece em duas colunas, mantendo aparência próxima da referência e melhor previsibilidade visual.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).
