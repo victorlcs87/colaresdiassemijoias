@@ -144,8 +144,3 @@ Status atual: **Fase 17 - Ajuste Visual da Página de Produto (Referência)**
 - [x] Corrigir visibilidade da imagem principal no desktop ajustando modo de encaixe e contraste de fundo.
 - [x] Reduzir significativamente a tipografia de título, preço, variações e descrição em mobile e desktop.
 - [x] Validar build/lint após ajuste de escala tipográfica e renderização da imagem.
-
-### Fase 19: Ajuste de Robustez da Imagem no Desktop
-- [x] Definir altura mínima explícita no container da imagem principal para evitar colapso visual em desktop.
-- [x] Ajustar renderização para `object-contain` com padding e sombra para melhorar legibilidade do produto em fundos claros.
-- [x] Validar build/lint após ajuste estrutural de mídia.
