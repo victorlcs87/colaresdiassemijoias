@@ -45,8 +45,21 @@
 }
 
 @layer base {
+  html {
+    background-color: var(--color-background-light);
+    overscroll-behavior-y: none;
+  }
+
+  html.dark {
+    background-color: var(--color-background-dark);
+  }
+
   body {
     font-family: var(--font-plus-jakarta), sans-serif;
+    background-color: inherit;
+    min-height: 100dvh;
+    overscroll-behavior-y: none;
+    overflow-x: hidden;
   }
 
   :focus-visible {
