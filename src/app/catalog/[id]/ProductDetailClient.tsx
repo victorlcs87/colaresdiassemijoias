@@ -97,7 +97,7 @@ export default function ProductDetailClient({
             <div className="flex flex-col sm:flex-row gap-6 sm:gap-5 md:gap-6 lg:gap-10">
 
                 {/* Left: Image Gallery */}
-                <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-3 md:gap-4 w-full sm:w-[52%] lg:w-[52%]">
+                <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-3 md:gap-4 w-full sm:w-[60%] lg:w-[60%]">
                     {/* Thumbnails */}
                     {images.length > 1 && (
                         <div className="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto sm:max-h-[600px] flex-shrink-0 scrollbar-thin">
@@ -136,7 +136,7 @@ export default function ProductDetailClient({
                 </div>
 
                 {/* Right: Product Info */}
-                <div className="w-full sm:w-[48%] lg:w-[48%] flex flex-col sm:pt-1 min-w-0">
+                <div className="w-full sm:w-[60%] lg:w-[60%] flex flex-col sm:pt-1 min-w-0">
                     {/* Breadcrumb (desktop) */}
                     <div className="hidden lg:flex items-center gap-2 flex-wrap text-sm text-slate-500 dark:text-slate-400 mb-6">
                         <Link href="/" className="hover:text-primary transition-colors">Início</Link>
