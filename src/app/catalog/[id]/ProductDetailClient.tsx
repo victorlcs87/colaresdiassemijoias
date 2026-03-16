@@ -134,39 +134,74 @@ export default function ProductDetailClient({
                         />
                     </div>
                 </div>
-
                 {/* Right: Product Info */}
-                <div className="w-full sm:w-[60%] lg:w-[60%] flex flex-col sm:pt-1 min-w-0">
+                <div className="w-full lg:w-[60%] flex-1 min-w-0 flex flex-col sm:pt-1">
                     {/* Breadcrumb (desktop) */}
-                    <div className="hidden lg:flex items-center gap-2 flex-wrap text-sm text-slate-500 dark:text-slate-400 mb-6">
-                        <Link href="/" className="hover:text-primary transition-colors">Início</Link>
-                        <span className="text-slate-300">&gt;</span>
-                        <Link href="/catalog" className="hover:text-primary transition-colors">Catálogo</Link>
-                        {product.category && (
-                            <>
-                                <span className="text-slate-300">&gt;</span>
-                                <Link href={`/catalog?cat=${encodeURIComponent(product.category)}`} className="hover:text-primary transition-colors whitespace-nowrap">{product.category}</Link>
-                            </>
-                        )}
-                        <span className="text-slate-300">&gt;</span>
-                        <span className="text-slate-700 dark:text-slate-300 font-medium break-words">{product.name}</span>
-                    </div>
+                    <div className="hidden lg:block mb-6">
+                        <div className="relative min-w-0">
+                            {/* Fade left */}
+                            <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-6 bg-gradient-to-r from-[#f5efe9] to-transparent dark:from-[#1a0d09]" />
 
-                    {/* Name + Favorite */}
-                    <div className="flex justify-between items-start mb-3 md:mb-4">
-                        <h1 className="text-2xl sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center flex-wrap gap-3 min-w-0">
-                            <span className="break-words">{product.name}</span>
-                            {product.condition === 'seminovo' && (
-                                <span className="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 font-bold text-xs uppercase tracking-wider border border-amber-200 dark:border-amber-800 mt-1">
-                                    Seminovo
+                            {/* Fade right */}
+                            <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-6 bg-gradient-to-l from-[#f5efe9] to-transparent dark:from-[#1a0d09]" />
+
+                            <div className="flex items-center gap-2 overflow-x-auto whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 scrollbar-none pr-6 pl-6">
+                                <Link
+                                    href="/"
+                                    className="shrink-0 hover:text-primary transition-colors"
+                                >
+                                    Início
+                                </Link>
+
+                                <span className="shrink-0 text-slate-300">&gt;</span>
+
+                                <Link
+                                    href="/catalog"
+                                    className="shrink-0 hover:text-primary transition-colors"
+                                >
+                                    Catálogo
+                                </Link>
+
+                                {product.category && (
+                                    <>
+                                        <span className="shrink-0 text-slate-300">&gt;</span>
+                                        <Link
+                                            href={`/catalog?cat=${encodeURIComponent(product.category)}`}
+                                            className="shrink-0 hover:text-primary transition-colors"
+                                        >
+                                            {product.category}
+                                        </Link>
+                                    </>
+                                )}
+
+                                <span className="shrink-0 text-slate-300">&gt;</span>
+
+                                <span className="shrink-0 font-medium text-slate-700 dark:text-slate-300">
+                                    {product.name}
                                 </span>
-                            )}
+                            </div>
+                        </div>
+                    </div>
+                    {/* Name + Favorite */}
+                    <div className="flex justify-between items-start gap-3 mb-3 md:mb-4 min-w-0">
+                        <h1 className="flex-1 min-w-0 text-2xl sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+                            <div className="flex items-center gap-3 min-w-0 flex-nowrap">
+                                <span className="block min-w-0 truncate whitespace-nowrap">
+                                    {product.name}
+                                </span>
+
+                                {product.condition === 'seminovo' && (
+                                    <span className="flex-shrink-0 px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 font-bold text-xs uppercase tracking-wider border border-amber-200 dark:border-amber-800">
+                                        Seminovo
+                                    </span>
+                                )}
+                            </div>
                         </h1>
-                        <button className="flex-shrink-0 ml-4 h-10 w-10 rounded-full border border-slate-200 dark:border-[#5a3329] flex items-center justify-center hover:text-primary hover:border-primary transition-colors">
+
+                        <button className="flex-shrink-0 h-10 w-10 rounded-full border border-slate-200 dark:border-[#5a3329] flex items-center justify-center hover:text-primary hover:border-primary transition-colors">
                             <Heart className="h-5 w-5" />
                         </button>
                     </div>
-
                     {/* Price */}
                     <div className="flex items-baseline gap-3 mb-5 md:mb-7 flex-wrap">
                         {formattedPromotionalPrice ? (
