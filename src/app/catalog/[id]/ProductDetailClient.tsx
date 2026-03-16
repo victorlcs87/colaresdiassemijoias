@@ -134,14 +134,14 @@ export default function ProductDetailClient({
                 {/* Right: Product Info */}
                 <div className="w-full md:w-[45%] flex flex-col md:pt-1">
                     {/* Breadcrumb (desktop) */}
-                    <div className="hidden md:flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-6">
+                    <div className="hidden md:flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-6 whitespace-nowrap overflow-hidden">
                         <Link href="/" className="hover:text-primary transition-colors">Início</Link>
                         <span className="text-slate-300">&gt;</span>
                         <Link href="/catalog" className="hover:text-primary transition-colors">Catálogo</Link>
                         {product.category && (
                             <>
                                 <span className="text-slate-300">&gt;</span>
-                                <Link href={`/catalog?cat=${encodeURIComponent(product.category)}`} className="hover:text-primary transition-colors">{product.category}</Link>
+                                <Link href={`/catalog?cat=${encodeURIComponent(product.category)}`} className="hover:text-primary transition-colors whitespace-nowrap">{product.category}</Link>
                             </>
                         )}
                         <span className="text-slate-300">&gt;</span>
@@ -150,8 +150,8 @@ export default function ProductDetailClient({
 
                     {/* Name + Favorite */}
                     <div className="flex justify-between items-start mb-3 md:mb-4">
-                        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center flex-wrap gap-3">
-                            {product.name}
+                        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center flex-wrap md:flex-nowrap gap-3 min-w-0">
+                            <span className="md:whitespace-nowrap md:truncate">{product.name}</span>
                             {product.condition === 'seminovo' && (
                                 <span className="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 font-bold text-xs uppercase tracking-wider border border-amber-200 dark:border-amber-800 mt-1">
                                     Seminovo
@@ -278,7 +278,7 @@ export default function ProductDetailClient({
                                 {/* Add to Cart Action */}
                                 <button
                                     onClick={handleAddToCart}
-                                    className="flex-1 h-12 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm flex items-center justify-center gap-2 hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-all shadow-lg"
+                                    className="flex-1 h-12 md:h-14 px-4 md:px-6 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm flex items-center justify-center gap-2.5 hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-all shadow-lg"
                                 >
                                     <ShoppingCart className="h-5 w-5" />
                                     Comprar ({formattedPrice})
@@ -292,7 +292,7 @@ export default function ProductDetailClient({
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/50 dark:bg-[#2a120d] hover:bg-[#d9b7a6] dark:hover:bg-[#341810] text-slate-700 dark:text-slate-300 font-bold text-sm py-3 md:py-4 rounded-xl transition-all"
+                        className="w-full flex items-center justify-center gap-2 border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/50 dark:bg-[#2a120d] hover:bg-[#d9b7a6] dark:hover:bg-[#341810] text-slate-700 dark:text-slate-300 font-bold text-sm py-3 md:py-4 rounded-xl transition-all md:whitespace-nowrap"
                     >
                         <MessageCircle className="h-5 w-5 text-whatsapp" />
                         Prefere um toque humano? Compre pelo WhatsApp
@@ -300,8 +300,8 @@ export default function ProductDetailClient({
 
                     {/* Single Description Paragraph Details */}
                     <div className="mt-10 md:mt-12 pt-8 md:pt-10 border-t border-slate-100 dark:border-[#5a3329]">
-                        <h3 className="font-bold text-sm text-slate-900 dark:text-white mb-4 uppercase tracking-wider">Detalhes e Especificações</h3>
-                        <div className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
+                        <h3 className="font-bold text-sm text-slate-900 dark:text-white mb-4 uppercase tracking-wider md:whitespace-nowrap">Detalhes e Especificações</h3>
+                        <div className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line md:whitespace-normal">
                             {product.description || "Nenhuma descrição detalhada disponível."}
                         </div>
                     </div>

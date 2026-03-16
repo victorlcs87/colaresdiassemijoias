@@ -108,3 +108,10 @@ Status atual: **Fase 10 - Paginação Admin Produtos**
 - [x] Criar aba `Vendas Detalhadas` com cabeçalho estilizado, auto-filtro, zebra rows e formatação monetária/data.
 - [x] Criar aba `Análise por Produto` com agregação de quantidade, receita, custo, lucro e margem.
 - [x] Aplicar identidade visual da marca e inclusão do logo no relatório (quando disponível no ambiente).
+
+### Fase 13: Refinos de Layout Desktop na Página de Produto
+- [x] Manter breadcrumb de categoria em linha única na versão web (quando houver espaço).
+- [x] Ajustar título do produto para priorizar linha única no desktop, quebrando apenas quando necessário.
+- [x] Aumentar área interna do botão `Comprar` no desktop para melhorar respiro visual entre ícone e texto.
+- [x] Garantir CTA do WhatsApp em linha única no desktop.
+- [x] Garantir título `Detalhes e Especificações` em linha única no desktop e flexibilizar quebra do conteúdo apenas quando necessário.

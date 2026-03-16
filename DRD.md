@@ -76,5 +76,10 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** A exportação anterior estava funcional, porém simples demais para uso gerencial e apresentação empresarial.
 - **Impacto:** Relatório exportado passa a ter leitura executiva, melhor visual, formatação financeira/data, agrupamentos e análise de performance por produto.
 
+### Decisão 013 - Ajustes de legibilidade em desktop na página de produto
+- **Decisão:** Aplicar melhorias de layout apenas na versão web da página de detalhes (`ProductDetailClient`), mantendo o mobile inalterado.
+- **Motivo:** Na visualização desktop havia quebras excessivas de texto em breadcrumb, título do produto, CTA de WhatsApp e seção de detalhes, além de pouco espaçamento visual no botão de compra.
+- **Impacto:** Textos críticos passam a permanecer em uma linha no desktop quando houver espaço, com quebra apenas em casos necessários, e o botão `Comprar` ganha mais respiro interno para melhor legibilidade.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).
