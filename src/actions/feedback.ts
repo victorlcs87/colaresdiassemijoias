@@ -71,10 +71,31 @@ export async function rejectFeedback(id: string): Promise<ActionResult> {
     return result;
 }
 
+export async function deleteFeedback(id: string): Promise<ActionResult> {
+    const auth = await resolveAdminContext();
+    if (!auth.success || !auth.data) {
+        return fail(auth.code, auth.message);
+    }
+
+    const result = await feedbackService.delete(auth.data.supabase, id);
+
+    if (result.success) {
+        revalidatePath("/");
+        revalidatePath("/catalog");
+        revalidatePath("/admin/feedback");
+    }
+
+    return result;
+}
+
 export async function approveFeedbackAction(id: string): Promise<void> {
     await approveFeedback(id);
 }
 
 export async function rejectFeedbackAction(id: string): Promise<void> {
     await rejectFeedback(id);
+}
+
+export async function deleteFeedbackAction(id: string): Promise<void> {
+    await deleteFeedback(id);
 }

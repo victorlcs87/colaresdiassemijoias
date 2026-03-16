@@ -1,16 +1,19 @@
-import { CheckCircle2, Clock3, Star, XCircle } from "lucide-react";
-import { approveFeedbackAction, listFeedbackForAdmin, rejectFeedbackAction } from "@/actions/feedback";
+import { CheckCircle2, Clock3, Star, Trash2, XCircle } from "lucide-react";
+import { approveFeedbackAction, deleteFeedbackAction, listFeedbackForAdmin, rejectFeedbackAction } from "@/actions/feedback";
 import type { Feedback } from "@/lib/types";
 
 function FeedbackCard({
     feedback,
     showActions = false,
+    showDelete = false,
 }: {
     feedback: Feedback;
     showActions?: boolean;
+    showDelete?: boolean;
 }) {
     const approveAction = approveFeedbackAction.bind(null, feedback.id);
     const rejectAction = rejectFeedbackAction.bind(null, feedback.id);
+    const deleteAction = deleteFeedbackAction.bind(null, feedback.id);
 
     return (
         <article className="rounded-xl border border-[#d9b7a6] dark:border-[#5a3329] bg-white dark:bg-[#2a120d] p-5">
@@ -50,6 +53,20 @@ function FeedbackCard({
                         >
                             <XCircle className="h-4 w-4" />
                             Rejeitar
+                        </button>
+                    </form>
+                </div>
+            )}
+
+            {showDelete && (
+                <div className="mt-4">
+                    <form action={deleteAction}>
+                        <button
+                            type="submit"
+                            className="inline-flex items-center gap-1.5 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-xs font-bold text-red-700 hover:bg-red-100 dark:border-red-900/60 dark:bg-red-900/20 dark:text-red-300 dark:hover:bg-red-900/30"
+                        >
+                            <Trash2 className="h-4 w-4" />
+                            Excluir
                         </button>
                     </form>
                 </div>
@@ -119,7 +136,7 @@ export default async function AdminFeedbackPage() {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {approvedFeedbacks.map((feedback) => (
-                            <FeedbackCard key={feedback.id} feedback={feedback} />
+                            <FeedbackCard key={feedback.id} feedback={feedback} showDelete />
                         ))}
                     </div>
                 )}

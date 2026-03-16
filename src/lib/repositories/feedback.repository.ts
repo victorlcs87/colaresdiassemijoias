@@ -46,6 +46,10 @@ export class FeedbackRepository {
             })
             .eq("id", id);
     }
+
+    async deleteById(client: SupabaseClient, id: string) {
+        return client.from("feedbacks").delete().eq("id", id);
+    }
 }
 
 export const feedbackRepository = new FeedbackRepository();

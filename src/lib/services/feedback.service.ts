@@ -87,6 +87,22 @@ export class FeedbackService {
 
         return ok("Status de feedback atualizado com sucesso.");
     }
+
+    async delete(
+        supabase: Parameters<typeof feedbackRepository.deleteById>[0],
+        id: string,
+    ): Promise<ActionResult> {
+        if (!id) {
+            return fail("VALIDATION_ERROR", "ID do feedback é obrigatório.");
+        }
+
+        const { error } = await feedbackRepository.deleteById(supabase, id);
+        if (error) {
+            return fail("FEEDBACK_DELETE_ERROR", `Erro ao excluir feedback: ${error.message}`);
+        }
+
+        return ok("Feedback excluído com sucesso.");
+    }
 }
 
 export const feedbackService = new FeedbackService();
