@@ -176,5 +176,20 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** Garantir consistência mínima de usabilidade acessível em toda a aplicação pública/admin.
 - **Impacto:** Navegação por teclado mais visível, menor desconforto para usuários sensíveis a animação e experiência mobile mais eficiente.
 
+### Decisão 033 - Correção de hidratação no `CartDrawer`
+- **Decisão:** Introduzir controle explícito de montagem client-side no `CartDrawer` antes de renderizar portal.
+- **Motivo:** Havia mismatch SSR/CSR em produção local que comprometia interações de carrinho durante testes DOM.
+- **Impacto:** Renderização inicial consistente entre servidor e cliente, com menor risco de eventos perdidos no carrinho.
+
+### Decisão 034 - Suíte DOM full-stack como gate obrigatório
+- **Decisão:** Criar suíte E2E DOM única (`scripts/dom-e2e-full.mjs`) cobrindo fluxos público e admin críticos.
+- **Motivo:** Garantir regressão zero nos fluxos principais após hardening + refatoração + UX.
+- **Impacto:** Validação repetível de home, catálogo, detalhe, carrinho, CTA WhatsApp, login admin, CRUD de produto, venda/desfazer e settings.
+
+### Decisão 035 - Aplicação de migration via Supabase Management API
+- **Decisão:** Aplicar migration pendente usando endpoint de query do Management API quando o Supabase CLI não estiver disponível no ambiente local.
+- **Motivo:** O ambiente não possuía `supabase` CLI instalado, mas havia `SUPABASE_ACCESS_TOKEN` válido.
+- **Impacto:** Migration `20260316132000_hardening_rls_admin.sql` aplicada com sucesso e versão registrada em `supabase_migrations.schema_migrations`.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).

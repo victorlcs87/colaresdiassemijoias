@@ -183,3 +183,12 @@ Status atual: **Fase 17 - Ajuste Visual da Página de Produto (Referência)**
 - [x] Melhorar UX mobile do catálogo com chips de filtro por categoria/promoções.
 - [x] Consolidar base global de foco visível e respeito a `prefers-reduced-motion`.
 - [x] Validar `lint` e `build` pós-refino de UX/UI.
+
+### Fase 24: Validação Final, Migrações e Não Regressão (Onda 4)
+- [x] Corrigir mismatch de hidratação no `CartDrawer` para estabilizar interações de carrinho.
+- [x] Criar suíte DOM E2E completa em `scripts/dom-e2e-full.mjs` (público + admin).
+- [x] Executar suíte DOM completa localmente com sucesso e correções iterativas de seletores/fluxos.
+- [x] Aplicar migration pendente no Supabase (`20260316132000_hardening_rls_admin.sql`) e registrar versão executada.
+- [x] Atualizar README operacional com comandos de validação, execução DOM e estratégia de rollback.
+- [x] Validar `lint` e suíte DOM pós-correções.
+- [ ] Mitigar ou documentar formalmente vulnerabilidade transiente de dependência (`minimatch` via transitive deps).

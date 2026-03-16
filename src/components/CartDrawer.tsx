@@ -3,13 +3,14 @@
 import { ShoppingCart, X, Plus, Minus, Trash2, MessageCircle, AlertCircle } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { createPortal } from "react-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { usePublicStoreSettings } from "@/hooks/usePublicStoreSettings";
 
 export function CartDrawer() {
     const { isOpen, openCart, closeCart, items, removeItem, updateQuantity, getTotalPrice, getTotalItems } = useCartStore();
     const { whatsappNumber } = usePublicStoreSettings();
+    const [isMounted, setIsMounted] = useState(false);
     const closeButtonRef = useRef<HTMLButtonElement>(null);
     const drawerRef = useRef<HTMLDivElement>(null);
 
@@ -43,6 +44,11 @@ export function CartDrawer() {
         const targetNumber = whatsappNumber.replace(/\D/g, "");
         window.open(`https://wa.me/${targetNumber}?text=${encodedMessage}`, "_blank", "noopener,noreferrer");
     };
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setIsMounted(true);
+    }, []);
 
     useEffect(() => {
         if (!isOpen) return;
@@ -106,7 +112,7 @@ export function CartDrawer() {
             </button>
 
             {/* Renderizar Overlay e Drawer via Portal para escapar de restrições de z-index dos Headers */}
-            {typeof document !== "undefined" && createPortal(
+            {isMounted && createPortal(
                 <div className="cart-drawer-portal">
                     {/* Overlay */}
                     {isOpen && (
