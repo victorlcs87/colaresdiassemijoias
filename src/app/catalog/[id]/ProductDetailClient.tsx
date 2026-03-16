@@ -352,43 +352,40 @@ export default function ProductDetailClient({
                     </div>
                 </div>
             </div>
+            {/* Related Products Section */}
+            {relatedProducts.length > 0 && (
+                <section className="mt-16 pb-8">
+                    <div className="flex items-center justify-between mb-6">
+                        <h2 className="text-xl font-bold text-slate-900 dark:text-white">Você Também Pode Gostar</h2>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {relatedProducts.map((p) => {
+                            const img = p.image_gallery && p.image_gallery.length > 0
+                                ? p.image_gallery[0]
+                                : p.image_url || defaultImage;
+                            const price = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(p.price);
+                            return (
+                                <Link href={`/catalog/${p.id}`} key={p.id} className="group flex flex-col rounded-xl overflow-hidden bg-white dark:bg-[#3a1c15] ring-1 ring-slate-100 dark:ring-[#5a3329] hover:shadow-md transition-shadow">
+                                    <div className="relative aspect-[3/4] overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
+                                        <Image
+                                            src={img}
+                                            alt={p.name}
+                                            fill
+                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                            sizes="(max-width: 768px) 50vw, 25vw"
+                                        />
+                                    </div>
+                                    <div className="p-3">
+                                        <h4 className="font-semibold text-sm text-slate-900 dark:text-white truncate">{p.name}</h4>
+                                        {p.category && <p className="text-xs text-slate-400">{p.category}</p>}
+                                        <p className="font-bold text-sm text-slate-900 dark:text-white mt-1">{price}</p>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    </div>
+                </section>
+            )}
         </div>
-            {/* Related Products Section */ }
-    {
-        relatedProducts.length > 0 && (
-            <section className="mt-16 pb-8">
-                <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-bold text-slate-900 dark:text-white">Você Também Pode Gostar</h2>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {relatedProducts.map((p) => {
-                        const img = p.image_gallery && p.image_gallery.length > 0
-                            ? p.image_gallery[0]
-                            : p.image_url || defaultImage;
-                        const price = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(p.price);
-                        return (
-                            <Link href={`/catalog/${p.id}`} key={p.id} className="group flex flex-col rounded-xl overflow-hidden bg-white dark:bg-[#3a1c15] ring-1 ring-slate-100 dark:ring-[#5a3329] hover:shadow-md transition-shadow">
-                                <div className="relative aspect-[3/4] overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
-                                    <Image
-                                        src={img}
-                                        alt={p.name}
-                                        fill
-                                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                        sizes="(max-width: 768px) 50vw, 25vw"
-                                    />
-                                </div>
-                                <div className="p-3">
-                                    <h4 className="font-semibold text-sm text-slate-900 dark:text-white truncate">{p.name}</h4>
-                                    {p.category && <p className="text-xs text-slate-400">{p.category}</p>}
-                                    <p className="font-bold text-sm text-slate-900 dark:text-white mt-1">{price}</p>
-                                </div>
-                            </Link>
-                        );
-                    })}
-                </div>
-            </section>
-        )
-    }
-        </div >
     );
 }
