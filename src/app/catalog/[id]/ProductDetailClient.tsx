@@ -90,7 +90,7 @@ export default function ProductDetailClient({
     return (
         <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-4 md:py-8">
             {/* Product Main Section */}
-            <div className="flex flex-col md:flex-row gap-6 lg:gap-12">
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-14">
 
                 {/* Left: Image Gallery */}
                 <div className="flex flex-col-reverse md:flex-row gap-3 md:gap-4 w-full md:w-[55%]">
@@ -132,9 +132,9 @@ export default function ProductDetailClient({
                 </div>
 
                 {/* Right: Product Info */}
-                <div className="w-full md:w-[45%] flex flex-col">
+                <div className="w-full md:w-[45%] flex flex-col md:pt-1">
                     {/* Breadcrumb (desktop) */}
-                    <div className="hidden md:flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-4">
+                    <div className="hidden md:flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-6">
                         <Link href="/" className="hover:text-primary transition-colors">Início</Link>
                         <span className="text-slate-300">&gt;</span>
                         <Link href="/catalog" className="hover:text-primary transition-colors">Catálogo</Link>
@@ -149,7 +149,7 @@ export default function ProductDetailClient({
                     </div>
 
                     {/* Name + Favorite */}
-                    <div className="flex justify-between items-start mb-2">
+                    <div className="flex justify-between items-start mb-3 md:mb-4">
                         <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center flex-wrap gap-3">
                             {product.name}
                             {product.condition === 'seminovo' && (
@@ -164,7 +164,7 @@ export default function ProductDetailClient({
                     </div>
 
                     {/* Price */}
-                    <div className="flex items-baseline gap-3 mb-4 flex-wrap">
+                    <div className="flex items-baseline gap-3 mb-5 md:mb-7 flex-wrap">
                         {formattedPromotionalPrice ? (
                             <>
                                 <span className="text-3xl md:text-4xl font-black text-[#8b2e1f]">
@@ -186,7 +186,7 @@ export default function ProductDetailClient({
 
                     {/* Color Display (always visible if product has color) */}
                     {product.color && (
-                        <div className="mb-4 pt-4 border-t border-slate-100 dark:border-[#5a3329]">
+                        <div className="mb-5 md:mb-7 pt-4 md:pt-5 border-t border-slate-100 dark:border-[#5a3329]">
                             <div className="flex items-center gap-2 mb-3">
                                 <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Cor:</span>
                                 <span
@@ -231,7 +231,7 @@ export default function ProductDetailClient({
 
                     {/* Sizes (Conditional) */}
                     {product.sizes && product.sizes.options && product.sizes.options.length > 0 && (
-                        <div className="mb-6">
+                        <div className="mb-7 md:mb-8">
                             <div className="flex justify-between items-center mb-3">
                                 <h3 className="font-bold text-sm text-slate-900 dark:text-white">{product.sizes.label}</h3>
                             </div>
@@ -253,11 +253,11 @@ export default function ProductDetailClient({
                     )}
 
                     {/* CTA section (Quantity selector + Add to cart) */}
-                    <div className="flex flex-col sm:flex-row gap-3 mb-6 mt-4">
+                    <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-7 md:mb-8 mt-5 md:mt-6">
                         {product.is_available && (
                             <>
                                 {/* Quantity stringent selector */}
-                                <div className="flex items-center justify-between border-2 border-slate-200 dark:border-[#5a3329] rounded-xl h-12 w-full sm:w-32 px-2 bg-[#f6ede5] dark:bg-[#341810]">
+                                <div className="flex items-center justify-between border-2 border-slate-200 dark:border-[#5a3329] rounded-xl h-12 md:h-14 w-full sm:w-32 md:w-36 px-2 md:px-3 bg-[#f6ede5] dark:bg-[#341810]">
                                     <button
                                         onClick={decreaseQuantity}
                                         disabled={quantity <= 1}
@@ -292,14 +292,14 @@ export default function ProductDetailClient({
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/50 dark:bg-[#2a120d] hover:bg-[#d9b7a6] dark:hover:bg-[#341810] text-slate-700 dark:text-slate-300 font-bold text-sm py-3 rounded-xl transition-all"
+                        className="w-full flex items-center justify-center gap-2 border-2 border-[#d9b7a6] dark:border-[#5a3329] bg-[#f6ede5]/50 dark:bg-[#2a120d] hover:bg-[#d9b7a6] dark:hover:bg-[#341810] text-slate-700 dark:text-slate-300 font-bold text-sm py-3 md:py-4 rounded-xl transition-all"
                     >
                         <MessageCircle className="h-5 w-5 text-whatsapp" />
                         Prefere um toque humano? Compre pelo WhatsApp
                     </a>
 
                     {/* Single Description Paragraph Details */}
-                    <div className="mt-10 pt-8 border-t border-slate-100 dark:border-[#5a3329]">
+                    <div className="mt-10 md:mt-12 pt-8 md:pt-10 border-t border-slate-100 dark:border-[#5a3329]">
                         <h3 className="font-bold text-sm text-slate-900 dark:text-white mb-4 uppercase tracking-wider">Detalhes e Especificações</h3>
                         <div className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
                             {product.description || "Nenhuma descrição detalhada disponível."}
