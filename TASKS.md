@@ -192,3 +192,11 @@ Status atual: **Fase 17 - Ajuste Visual da Página de Produto (Referência)**
 - [x] Atualizar README operacional com comandos de validação, execução DOM e estratégia de rollback.
 - [x] Validar `lint` e suíte DOM pós-correções.
 - [ ] Mitigar ou documentar formalmente vulnerabilidade transiente de dependência (`minimatch` via transitive deps).
+
+### Fase 25: Feedbacks com Moderação e Exibição Pública
+- [x] Criar tabela `feedbacks` com status de moderação (`pending`, `approved`, `rejected`) e políticas RLS.
+- [x] Implementar fluxo público de envio de feedback com validação server-side e status inicial pendente.
+- [x] Implementar painel administrativo de moderação de feedbacks (aprovar/rejeitar).
+- [x] Publicar apenas feedbacks aprovados na Home e na página de produto.
+- [x] Implementar rodízio de exibição limitando em até 3 comentários por vez.
+- [x] Atualizar bootstrap do Supabase para novos ambientes já incluírem o módulo de feedbacks.

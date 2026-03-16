@@ -210,8 +210,8 @@ export default function ProductDetailClient({
                         )}
 
                         {product.is_available && (
-                            <div className="flex flex-col md:flex-row gap-3">
-                                <div className="flex items-center justify-between border-2 border-[#d9b7a6] dark:border-[#5a3329] rounded-2xl h-14 w-full md:w-40 px-3 bg-[#f6ede5]/60 dark:bg-[#341810]">
+                            <div className="flex flex-row gap-3">
+                                <div className="flex items-center justify-between border-2 border-[#d9b7a6] dark:border-[#5a3329] rounded-2xl h-14 w-36 md:w-40 px-2.5 md:px-3 bg-[#f6ede5]/60 dark:bg-[#341810] shrink-0">
                                     <button
                                         onClick={decreaseQuantity}
                                         disabled={quantity <= 1}
@@ -234,7 +234,7 @@ export default function ProductDetailClient({
                                 <button
                                     onClick={handleAddToCart}
                                     aria-label={`Adicionar ${quantity} unidade(s) de ${product.name} ao carrinho`}
-                                    className="flex-1 h-14 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-base flex items-center justify-center gap-2 hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-colors"
+                                    className="flex-1 min-w-0 h-14 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-base flex items-center justify-center gap-2 hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-colors"
                                 >
                                     <ShoppingCart className="h-5 w-5" />
                                     Comprar ({formattedPrice})

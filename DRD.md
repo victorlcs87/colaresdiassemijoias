@@ -191,5 +191,10 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** O ambiente não possuía `supabase` CLI instalado, mas havia `SUPABASE_ACCESS_TOKEN` válido.
 - **Impacto:** Migration `20260316132000_hardening_rls_admin.sql` aplicada com sucesso e versão registrada em `supabase_migrations.schema_migrations`.
 
+### Decisão 036 - Feedback público com moderação obrigatória
+- **Decisão:** Implementar módulo de feedback com envio público para status `pending`, moderação exclusiva por admin (`approved`/`rejected`) e exibição pública apenas de aprovados.
+- **Motivo:** Permitir prova social real sem risco de publicação automática de conteúdo inadequado.
+- **Impacto:** Home e página de produto passam a consumir feedbacks aprovados via rodízio (máximo 3 cards), enquanto o admin ganha fluxo dedicado de moderação.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).

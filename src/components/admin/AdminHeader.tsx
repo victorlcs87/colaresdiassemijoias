@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Search, Bell, Menu, X, Package, PlusCircle, Settings, Receipt, LogOut } from "lucide-react";
+import { Search, Bell, Menu, X, Package, PlusCircle, Settings, Receipt, LogOut, MessageSquareQuote } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -130,6 +130,17 @@ export function AdminHeader() {
                                 >
                                     <Receipt className="w-5 h-5" />
                                     <span>Vendas</span>
+                                </Link>
+                                <Link
+                                    href="/admin/feedback"
+                                    onClick={() => setMenuOpen(false)}
+                                    className={`flex items-center gap-3 px-4 py-3 rounded-lg font-semibold transition-colors ${isActive("/admin/feedback")
+                                        ? "bg-[#f0ddcf] dark:bg-[#3a1c15] text-primary"
+                                        : "text-slate-600 dark:text-slate-400 hover:bg-[#f6ede5] dark:hover:bg-[#341810] hover:text-slate-900 dark:hover:text-white"
+                                        }`}
+                                >
+                                    <MessageSquareQuote className="w-5 h-5" />
+                                    <span>Feedbacks</span>
                                 </Link>
                                 <Link
                                     href="/admin/settings"

@@ -6,6 +6,7 @@ import { Product } from "@/lib/types";
 import { getStoreSettings } from "@/actions/settings";
 import type { Metadata } from "next";
 import { getStoreName, getStoreWhatsapp } from "@/lib/storeSettings";
+import { Testimonials } from "@/components/Testimonials";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
@@ -98,6 +99,9 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
         formattedPrice={formattedPrice}
         relatedProducts={relatedProducts}
       />
+      <div className="w-full max-w-[1460px] mx-auto px-4 md:px-6 lg:px-8 pb-8 md:pb-12">
+        <Testimonials withForm={false} />
+      </div>
     </div>
   );
 }

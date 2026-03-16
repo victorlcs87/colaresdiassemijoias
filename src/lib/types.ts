@@ -20,3 +20,17 @@ export interface Product {
     promotional_price?: number | null;
     condition?: 'novo' | 'seminovo';
 }
+
+export type FeedbackStatus = "pending" | "approved" | "rejected";
+
+export interface Feedback {
+    id: string;
+    created_at: string;
+    updated_at: string;
+    customer_name: string;
+    comment: string;
+    rating: number;
+    status: FeedbackStatus;
+    moderated_at?: string | null;
+    moderated_by?: string | null;
+}

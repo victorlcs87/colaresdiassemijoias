@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Package, PlusCircle, Settings, LogOut, Store, Receipt } from "lucide-react";
+import { Package, PlusCircle, Settings, LogOut, Store, Receipt, MessageSquareQuote } from "lucide-react";
 import { signOut } from "@/actions/auth";
 
 export function AdminSidebar() {
@@ -56,6 +56,17 @@ export function AdminSidebar() {
                 >
                     <Receipt className="w-5 h-5" />
                     <span>Vendas</span>
+                </Link>
+
+                <Link
+                    href="/admin/feedback"
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg font-semibold transition-colors ${isActive("/admin/feedback")
+                        ? "bg-[#f0ddcf] dark:bg-[#3a1c15] text-primary"
+                        : "text-slate-600 dark:text-slate-400 hover:bg-[#f6ede5] dark:hover:bg-[#341810] hover:text-slate-900 dark:hover:text-white"
+                        }`}
+                >
+                    <MessageSquareQuote className="w-5 h-5" />
+                    <span>Feedbacks</span>
                 </Link>
 
                 <Link
