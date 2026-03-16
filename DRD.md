@@ -86,5 +86,10 @@ Migrar integralmente o projeto para a marca **Colares Dias Semijoias**, incluind
 - **Motivo:** Em resoluções intermediárias de web (próximas ao breakpoint `md`), a coluna direita ficava estreita e provocava quebra indesejada em título, CTA do WhatsApp e descrição.
 - **Impacto:** A leitura fica estável sem quebras artificiais em desktop menor/tablet horizontal, preservando o layout lado a lado apenas quando há espaço real.
 
+### Decisão 015 - Consistência visual entre janela normal e tela cheia no detalhe do produto
+- **Decisão:** Reativar layout lado a lado a partir de `md`, mas com balanceamento de colunas e redução de escala tipográfica nessa faixa, além de imagem principal mais quadrada em `md`.
+- **Motivo:** Foi solicitado manter o comportamento lado a lado mesmo fora da tela cheia, sem perda de legibilidade e sem aparência comprimida na coluna de informações.
+- **Impacto:** A página mantém duas colunas em mais cenários desktop, com proporções e tipografia ajustadas para reduzir quebras e aproximar o visual entre estados de janela.
+
 ## 5. Pendências Abertas
 - Substituir logo temporário por ativo oficial em alta resolução (preferencialmente SVG/PNG transparente).

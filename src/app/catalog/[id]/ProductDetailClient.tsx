@@ -94,10 +94,10 @@ export default function ProductDetailClient({
     return (
         <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-4 md:py-8">
             {/* Product Main Section */}
-            <div className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-10">
+            <div className="flex flex-col md:flex-row gap-6 md:gap-6 lg:gap-10">
 
                 {/* Left: Image Gallery */}
-                <div className="flex flex-col-reverse md:flex-row gap-3 md:gap-4 w-full lg:w-[52%]">
+                <div className="flex flex-col-reverse md:flex-row gap-3 md:gap-4 w-full md:w-[50%] lg:w-[52%]">
                     {/* Thumbnails */}
                     {images.length > 1 && (
                         <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-y-auto md:max-h-[600px] flex-shrink-0 scrollbar-thin">
@@ -123,7 +123,7 @@ export default function ProductDetailClient({
                     )}
 
                     {/* Main Image */}
-                    <div className="relative w-full aspect-[3/4] md:aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
+                    <div className="relative w-full aspect-[3/4] md:aspect-square lg:aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#2a120d]">
                         <Image
                             src={images[activeImage] || defaultImage}
                             alt={product.name}
@@ -136,9 +136,9 @@ export default function ProductDetailClient({
                 </div>
 
                 {/* Right: Product Info */}
-                <div className="w-full lg:w-[48%] flex flex-col md:pt-1">
+                <div className="w-full md:w-[50%] lg:w-[48%] flex flex-col md:pt-1 min-w-0">
                     {/* Breadcrumb (desktop) */}
-                    <div className="hidden lg:flex items-center gap-2 flex-wrap text-sm text-slate-500 dark:text-slate-400 mb-6">
+                    <div className="hidden md:flex items-center gap-2 flex-wrap text-sm text-slate-500 dark:text-slate-400 mb-6">
                         <Link href="/" className="hover:text-primary transition-colors">Início</Link>
                         <span className="text-slate-300">&gt;</span>
                         <Link href="/catalog" className="hover:text-primary transition-colors">Catálogo</Link>
@@ -154,7 +154,7 @@ export default function ProductDetailClient({
 
                     {/* Name + Favorite */}
                     <div className="flex justify-between items-start mb-3 md:mb-4">
-                        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center flex-wrap gap-3 min-w-0">
+                        <h1 className="text-2xl md:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center flex-wrap gap-3 min-w-0">
                             <span className="break-words">{product.name}</span>
                             {product.condition === 'seminovo' && (
                                 <span className="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 font-bold text-xs uppercase tracking-wider border border-amber-200 dark:border-amber-800 mt-1">
@@ -171,7 +171,7 @@ export default function ProductDetailClient({
                     <div className="flex items-baseline gap-3 mb-5 md:mb-7 flex-wrap">
                         {formattedPromotionalPrice ? (
                             <>
-                                <span className="text-3xl md:text-4xl font-black text-[#8b2e1f]">
+                            <span className="text-3xl md:text-3xl lg:text-4xl font-black text-[#8b2e1f]">
                                     {formattedPromotionalPrice}
                                 </span>
                                 <span className="text-xl font-medium text-slate-400 line-through">
@@ -182,7 +182,7 @@ export default function ProductDetailClient({
                                 </span>
                             </>
                         ) : (
-                            <span className="text-3xl md:text-4xl font-black text-primary">
+                            <span className="text-3xl md:text-3xl lg:text-4xl font-black text-primary">
                                 {formattedPrice}
                             </span>
                         )}

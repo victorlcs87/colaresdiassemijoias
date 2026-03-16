@@ -120,3 +120,9 @@ Status atual: **Fase 10 - Paginação Admin Produtos**
 - [x] Ajustar breakpoint da seção principal para manter layout em coluna até `lg`.
 - [x] Redistribuir proporção das colunas para `52%/48%` em telas largas.
 - [x] Restringir breadcrumb desktop para `lg+`, evitando compressão de conteúdo em larguras intermediárias.
+
+### Fase 15: Uniformização entre Janela Normal e Tela Cheia (Detalhe do Produto)
+- [x] Reativar layout lado a lado a partir de `md` para comportamento consistente no desktop.
+- [x] Ajustar proporção das colunas em `md` para `50%/50%` com `min-w-0` na coluna de informações.
+- [x] Ajustar aspecto da imagem principal para `aspect-square` em `md` e manter `4/5` em `lg+`.
+- [x] Reduzir escala tipográfica em `md` para diminuir quebras no título e preço.
